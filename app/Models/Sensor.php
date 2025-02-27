@@ -25,11 +25,6 @@ class Sensor extends Model
     {
         return $this->belongsTo(Gateway::class);
     }
-
-    public function sensorRegister() 
-    {
-        return $this->belongsTo(SensorRegister::class);
-    }
     
     public function sensorLogs()
     {

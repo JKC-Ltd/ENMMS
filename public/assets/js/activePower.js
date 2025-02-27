@@ -4,7 +4,7 @@ window.onload = function () {
     let activePowerProfile = [];
     const currentProfile = ['voltage_ab', 'voltage_bc', 'voltage_ca', 'current_a', 'current_b', 'current_c'];
 
-    multiSeriesVoltageAndCurrent();
+    // multiSeriesVoltageAndCurrent();
 
     $('.nav-link').on('click', function () {
         let activePowerProfileDataId = $(this).data('id');
@@ -99,49 +99,49 @@ window.onload = function () {
 
     // Active Power Profile per Sensors
 
-    function multiSeriesVoltageAndCurrent() {
+    // function multiSeriesVoltageAndCurrent() {
 
-        let chart = new CanvasJS.Chart('multiSeriesVoltageAndCurrent', {
-            title: {
-                text: "House Median Price"
-            },
-            axisX: {
-                labelAngle: -90,
-                margin: 30,
-                labelFontSize: 12,
-                interval: 1,
-            },
-            toolTip: {
-                shared: true
-            },
-            legend: {
-                cursor: "pointer",
-                horizontalAlign: "center",
-                itemclick: toogleDataSeries2
-            },
-            data: [{
-                type: "line",
-                axisYType: "secondary",
-                name: "San Fransisco",
-                showInLegend: true,
-                markerSize: 0,
-                dataPoints: [
-                    { label: '2024-08-24', y: 850 },
-                    { label: '2024-08-25', y: 889 },
-                ]
-            },]
-        });
-        chart.render();
+    //     let chart = new CanvasJS.Chart('multiSeriesVoltageAndCurrent', {
+    //         title: {
+    //             text: "House Median Price"
+    //         },
+    //         axisX: {
+    //             labelAngle: -90,
+    //             margin: 30,
+    //             labelFontSize: 12,
+    //             interval: 1,
+    //         },
+    //         toolTip: {
+    //             shared: true
+    //         },
+    //         legend: {
+    //             cursor: "pointer",
+    //             horizontalAlign: "center",
+    //             itemclick: toogleDataSeries2
+    //         },
+    //         data: [{
+    //             type: "line",
+    //             axisYType: "secondary",
+    //             name: "San Fransisco",
+    //             showInLegend: true,
+    //             markerSize: 0,
+    //             dataPoints: [
+    //                 { label: '2024-08-24', y: 850 },
+    //                 { label: '2024-08-25', y: 889 },
+    //             ]
+    //         },]
+    //     });
+    //     chart.render();
 
-        function toogleDataSeries2(e) {
-            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-                e.dataSeries.visible = false;
-            } else {
-                e.dataSeries.visible = true;
-            }
-            chart.render();
-        }
+    //     function toogleDataSeries2(e) {
+    //         if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+    //             e.dataSeries.visible = false;
+    //         } else {
+    //             e.dataSeries.visible = true;
+    //         }
+    //         chart.render();
+    //     }
 
-    }
+    // }
 
 }

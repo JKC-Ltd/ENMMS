@@ -74,7 +74,7 @@
             </div>
         </div>
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-12">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
@@ -90,7 +90,7 @@
                 </div>
                 <!-- /.card -->
             </div>
-        </div>
+        </div> --}}
     </x-slot>
     <x-slot name="importedScripts">
         <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>

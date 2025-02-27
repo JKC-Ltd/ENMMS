@@ -23,12 +23,11 @@ class ActivePowerController extends Controller
 
     public function getActivePowerProfile(Request $request)
     {
-        $query = Sensor::with(['location', 'gateway', 'sensorRegister'])
+        $query = Sensor::with(['location', 'gateway'])
             ->select(
                 'sensors.*',
                 'locations.location_name as location_name',
                 'gateways.gateway_code',
-                'sensor_registers.sensor_reg_address',
                 'sensor_logs.energy',
                 'sensor_logs.voltage_ab',
                 'sensor_logs.voltage_bc',
@@ -46,9 +45,8 @@ class ActivePowerController extends Controller
             )
             ->leftJoin('locations', 'locations.id', '=', 'sensors.location_id')
             ->leftJoin('gateways', 'gateways.id', '=', 'sensors.gateway_id')
-            ->leftJoin('sensor_registers', 'sensor_registers.id', '=', 'sensors.sensor_register_id')
             ->leftJoin('sensor_logs', 'sensor_logs.sensor_id', '=', 'sensors.id')
-            // ->where('sensor_logs.datetime_created', '>=', Carbon::now()->subDays(15));
+            // ->where('sensor_logs.datetime_created', '>=', Carbon::now()->subDays(20));
             ->whereRaw('HOUR(sensor_logs.datetime_created) = 9');
 
         if ($request->sensor_id) {
