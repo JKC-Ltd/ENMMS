@@ -59,9 +59,8 @@ window.onload = function () {
                     }
                 });
 
-                console.log(sensorEnergyConsumptionPerMeter);
-
-                $('#totalEneryConsumption').text(totalEnergyConsumption.toFixed(0));
+                // Format totalEnergyConsumption with commas as thousands separators
+                $('#totalEneryConsumption').text(totalEnergyConsumption.toLocaleString());
                 energyConsumptionAllMeters('dailyEnergyConsumptionAllMeters');
                 energyConsumptionPerMeter();
                 energyConsumptionPerMeterPie();
