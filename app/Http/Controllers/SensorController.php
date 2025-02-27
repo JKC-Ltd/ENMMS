@@ -33,12 +33,12 @@ class SensorController extends Controller
     {
         $location = Location::all();
         $gateway = Gateway::all();
-        $sensorRegisters = SensorRegister::all();
+        $sensorModels = SensorModel::all();
 
         return view('pages.configurations.sensors.form')
             ->with('locations', $location)
             ->with('gateways', $gateway)
-            ->with('sensorRegisters', $sensorRegisters);
+            ->with('sensorModels', $sensorModels);
     }
 
     /**

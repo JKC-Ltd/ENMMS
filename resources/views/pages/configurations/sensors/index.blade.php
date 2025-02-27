@@ -43,9 +43,9 @@
                                         <td>{{ $sensor->slave_address }}</td>
                                         <td>{{ $sensor->location->location_name }}</td>
                                         <td>{{ $sensor->gateway->gateway_code }}</td>
-                                        <td>{{ $sensor->sensorRegister->sensorType->sensor_type_code }}</td>
+                                        <td>{{ $sensor->sensorModel->sensorType->sensor_type_code }}</td>
                                         </td>
-                                        <td>{{ $sensor->sensorRegister->sensorModel->sensor_model }}</td>
+                                        <td>{{ $sensor->sensorModel->sensor_model }} - {{ $sensor->sensorModel->sensor_brand }}</td>
                                         <td>{{ $sensor->description }}</td>
                                         <td>{{ $sensor->updated_at }}</td>
                                         <td>

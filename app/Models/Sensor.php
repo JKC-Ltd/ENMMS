@@ -13,7 +13,7 @@ class Sensor extends Model
         'description',
         'location_id',
         'gateway_id',
-        'sensor_register_id',
+        'sensor_model_id',
     ];
 
     public function location() 
@@ -29,6 +29,11 @@ class Sensor extends Model
     public function sensorLogs()
     {
         return $this->hasMany(SensorLog::class);
+    }
+
+    public function sensorModel()
+    {
+        return $this->belongsTo(SensorModel::class);
     }
 
 }

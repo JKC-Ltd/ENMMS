@@ -59,19 +59,19 @@
                                             <div class="error-message">{{ $message }}</div>
                                         @enderror
 
-                                        <label>Sensor Register</label>
+                                        <label>Sensor Model</label>
                                         <select
-                                            class="form-control select2bs4 @error('sensor_register_id ') input-error @enderror"
-                                            name="sensor_register_id" style="width: 100%;">
-                                            <option value="">SELECT SENSOR REGISTER</option>
-                                            @foreach ($sensorRegisters as $sensorRegister)
-                                                <option value="{{ $sensorRegister->id }}"
-                                                    {{ old('sensor_register_id', isset($sensor) && $sensor->sensor_register_id == $sensorRegister->id ? 'selected' : '') }}>
-                                                    {{ $sensorRegister->sensor_reg_address }}
+                                            class="form-control select2bs4 @error('sensor_model_id ') input-error @enderror"
+                                            name="sensor_model_id" style="width: 100%;">
+                                            <option value="">SELECT SENSOR MODEL -</option>
+                                            @foreach ($sensorModels as $sensorModel)
+                                                <option value="{{ $sensorModel->id }}"
+                                                    {{ old('sensor_model_id', isset($sensor) && $sensor->sensor_model_id == $sensorRegister->id ? 'selected' : '') }}>
+                                                    {{ $sensorModel->sensor_model }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('sensor_register_id')
+                                        @error('sensor_model_id')
                                             <div class="error-message">{{ $message }}</div>
                                         @enderror
 

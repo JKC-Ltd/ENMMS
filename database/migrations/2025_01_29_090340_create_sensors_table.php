@@ -17,6 +17,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->foreignId('location_id')->constrained();
             $table->foreignId('gateway_id')->constrained();
+            $table->foreignId('sensor_model_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
         });
