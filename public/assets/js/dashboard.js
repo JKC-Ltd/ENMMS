@@ -34,7 +34,7 @@ window.onload = function () {
         $.ajax({
             url: '/getEnergyConsumptionBasedOnDate',
             data: {
-                days: 20,
+                days: 30,
             },
             type: 'GET',
             success: function (data) {
