@@ -9,15 +9,6 @@ window.onload = function () {
     }];
 
     let energyConsumptionDayComparison = [{
-        type: "doughnut",
-        showInLegend: true,
-        toolTipContent: "{name}: <strong>{y}%</strong>",
-        indexLabel: "{name} - {y} kWh",
-        dataPoints: []
-    }]
-
-    let energyConsumptionDayComparison2 = [{
-        type: "column",
         showInLegend: false,
         toolTipContent: "{name}: <strong>{y}%</strong>",
         indexLabel: "{name} - {y} kWh",
@@ -86,17 +77,10 @@ window.onload = function () {
                         label: formattedDate + ' 9AM',
                         y: totalEnergyDifference,
                     });
-
-                    energyConsumptionDayComparison2[0].dataPoints.push({
-                        name: formattedDate + ' 9AM',
-                        label: formattedDate + ' 9AM',
-                        y: totalEnergyDifference,
-                    });
                 });
-
                 energyConsumptionPerMeter();
                 renderCostEstimatedChart();
-                renderchangeInCostChart();
+                renderChangeInCostChart();
             }
         });
     }
@@ -124,6 +108,8 @@ window.onload = function () {
     }
 
     function renderCostEstimatedChart() {
+        energyConsumptionDayComparison[0].type = "doughnut";
+        energyConsumptionDayComparison[0].showInLegend = true;
 
         var costEstimatedChart = new CanvasJS.Chart("costEstimated", {
             exportEnabled: true,
@@ -136,15 +122,16 @@ window.onload = function () {
             legend: {
                 cursor: "pointer",
                 itemclick: explodePie,
-                verticalAlign: "center",  // "top" , "bottom"
-                horizontalAlign: "right"  // "center" , "right"
+                verticalAlign: "center",
+                horizontalAlign: "right"
             },
             data: energyConsumptionDayComparison
         });
         costEstimatedChart.render();
     }
 
-    function renderchangeInCostChart() {
+    function renderChangeInCostChart() {
+        energyConsumptionDayComparison[0].type = "column";
 
         var changeInCostChart = new CanvasJS.Chart("changeInCost", {
             animationEnabled: true,
@@ -155,14 +142,19 @@ window.onload = function () {
                 margin: 30
             },
             legend: {
-                verticalAlign: "center",  // "top" , "bottom"
-                horizontalAlign: "right"  // "center" , "right"
+                verticalAlign: "center",
+                horizontalAlign: "right"
             },
-            data: energyConsumptionDayComparison2
+            data: energyConsumptionDayComparison
         });
         changeInCostChart.render();
     }
 
+    // Add event listeners for window resize
+    window.addEventListener('resize', function() {
+        renderCostEstimatedChart();
+        renderChangeInCostChart();
+    });
 
     function explodePie(e) {
         if (typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
@@ -214,7 +206,4 @@ window.onload = function () {
         }]
     });
     usageEstimateChart.render();
-
-
-
 }
