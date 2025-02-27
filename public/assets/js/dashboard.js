@@ -9,8 +9,16 @@ window.onload = function () {
     }];
 
     let energyConsumptionDayComparison = [{
-        type: "",
+        type: "doughnut",
         showInLegend: true,
+        toolTipContent: "{name}: <strong>{y}%</strong>",
+        indexLabel: "{name} - {y} kWh",
+        dataPoints: []
+    }]
+
+    let energyConsumptionDayComparison2 = [{
+        type: "column",
+        showInLegend: false,
         toolTipContent: "{name}: <strong>{y}%</strong>",
         indexLabel: "{name} - {y} kWh",
         dataPoints: []
@@ -78,6 +86,12 @@ window.onload = function () {
                         label: formattedDate + ' 9AM',
                         y: totalEnergyDifference,
                     });
+
+                    energyConsumptionDayComparison2[0].dataPoints.push({
+                        name: formattedDate + ' 9AM',
+                        label: formattedDate + ' 9AM',
+                        y: totalEnergyDifference,
+                    });
                 });
 
                 energyConsumptionPerMeter();
@@ -111,9 +125,6 @@ window.onload = function () {
 
     function renderCostEstimatedChart() {
 
-        energyConsumptionDayComparison[0].type = "doughnut";
-        energyConsumptionDayComparison[0].showInLegend = false;
-
         var costEstimatedChart = new CanvasJS.Chart("costEstimated", {
             exportEnabled: true,
             animationEnabled: true,
@@ -134,7 +145,6 @@ window.onload = function () {
     }
 
     function renderchangeInCostChart() {
-        energyConsumptionDayComparison[0].type = "column";
 
         var changeInCostChart = new CanvasJS.Chart("changeInCost", {
             animationEnabled: true,
@@ -148,10 +158,11 @@ window.onload = function () {
                 verticalAlign: "center",  // "top" , "bottom"
                 horizontalAlign: "right"  // "center" , "right"
             },
-            data: energyConsumptionDayComparison
+            data: energyConsumptionDayComparison2
         });
         changeInCostChart.render();
     }
+
 
     function explodePie(e) {
         if (typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
