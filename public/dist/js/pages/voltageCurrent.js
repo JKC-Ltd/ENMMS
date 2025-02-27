@@ -3,9 +3,9 @@ window.onload = function () {
 
     let voltageCurrentProfile = [];
 
-    const voltageValues = ['voltage_ab', 'voltage_bc', 'voltage_ca'];
-    const currentValues = ['current_a', 'current_b', 'current_c'];
-    // const currentProfile = ['voltage_ab', 'voltage_bc', 'voltage_ca', 'current_a', 'current_b', 'current_c'];
+    // const voltageValues = ['voltage_ab', 'voltage_bc', 'voltage_ca'];
+    // const currentValues = ['current_a', 'current_b', 'current_c'];
+    const currentProfile = ['voltage_ab', 'voltage_bc', 'voltage_ca', 'current_a', 'current_b', 'current_c'];
 
     // multiSeriesVoltageAndCurrent();
 
@@ -25,7 +25,7 @@ window.onload = function () {
             success: function (data) {
                 voltageCurrentProfile = [];
                 
-                voltageValues.forEach(data => {
+                currentProfile.forEach(data => {
                     voltageCurrentProfile.push({
                         type: "line",
                         name: `${data}`,
@@ -35,7 +35,7 @@ window.onload = function () {
                     });
                 });
 
-                voltageValues.forEach(currentProfileData => {
+                currentProfile.forEach(currentProfileData => {
                     data.forEach(item => {
                         let existingSensor = voltageCurrentProfile.find(sensor => sensor.name === currentProfileData)
                         const newDate = new Date(item.date_created);
@@ -58,6 +58,7 @@ window.onload = function () {
                     zoomEnabled: true,
                     title: {
                         text: `Voltage & Current Profile - ${data[0].gateway.customer_code} EMS: ${data[0].description}`,
+                        fontSize: 20,
                     },
                     axisX: {
                         labelAngle: -90,

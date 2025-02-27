@@ -60,7 +60,7 @@
                                                         <div class="bar12"></div>
                                                     </div>
                                                     <div id="activePowerProfile{{ $sensor->id }}"
-                                                        style="height: 370px; width: 100%;"></div>
+                                                        style="height: 520px; width: 100%;"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -95,6 +95,6 @@
     <x-slot name="importedScripts">
         <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
         <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
-        <script src="{{ asset('assets/js/activePower.js') }}"></script>
+        <script src="{{ asset('dist/js/pages/activePower.js') }}"></script>
     </x-slot>
 </x-app-layout>

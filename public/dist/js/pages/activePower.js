@@ -40,6 +40,7 @@ window.onload = function () {
                     zoomEnabled: true,
                     title: {
                         text: data[0].description,
+                        fontSize: 20,
                     },
                     axisX: {
                         labelAngle: -90,
