@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/getEnergyConsumptionBasedOnDate', [DashboardController::class, 'getEnergyConsumptionBasedOnDate']);
     Route::get('/getEnergyConsumptionBasedOnHours', [DashboardController::class, 'getEnergyConsumptionBasedOnHours']);
     Route::get('/getActivePowerProfile', [ActivePowerController::class, 'getActivePowerProfile']);
+    Route::get('/getVoltageCurrentProfile', [VoltageCurrentController::class, 'getVoltageCurrentProfile']);
 
     // Route::get('/locations', function () {
     //     return view('pages/configurations.locations.index');

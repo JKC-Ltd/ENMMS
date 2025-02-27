@@ -4,42 +4,67 @@
     </x-slot>
     <x-slot name="content">
 
-        {{-- <!-- Main row -->
-        <div class="row">
-            <section class="col-8 connectedSortable">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h6>Monthly Consumption</h6>
-                        <h1 style="font-size: 6rem; font-weight: 600;">210</h1>
-                        <i>kWh / month</i>
-                    </div>
-                </div>
-            </section>
-            <section class="col-4 connectedSortable">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h6>Total kWh Consumption - All Meters</h6>
-                        <h1 style="font-size: 6rem; font-weight: 600;">300</h1>
-                        <i>kWh</i>
-                    </div>
-                </div>
-            </section>
-        </div> --}}
-
-
-        {{-- <div class="row">
-            <section class="col-12 connectedSortable">
-                <div class="card">
-                    <div class="card-body">
-                        <div id="dailyEnergyConsumption" style="height: 520px; width: 100%;"></div>
-                    </div>
-                </div>
-            </section>
-        </div> --}}
-
         <div class="row">
             <div class="col-12">
-                <div class="card card-primary card-outline">
+                <div class="card card-primary card-tabs">
+                    <div class="card-header p-0 pt-1">
+                        <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
+                            @foreach ($sensors as $key => $sensor)
+                                <li class="nav-item">
+                                    <a class="nav-link" id="custom-tabs-{{ $sensor->id }}-overlay-tab"
+                                        data-toggle="pill" href="#custom-tabs-{{ $sensor->id }}-overlay"
+                                        role="tab" aria-controls="custom-tabs-{{ $sensor->id }}-overlay"
+                                        aria-selected="true" data-id="volrageCurrentProfile{{ $sensor->id }}"
+                                        data-key="{{ $sensor->id }}">{{ $sensor->description }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="custom-tabs-five-tabContent">
+                            @foreach ($sensors as $key => $sensor)
+                                <div class="tab-pane fade {{ $key === 0 ? 'active show' : '' }}"
+                                    id="custom-tabs-{{ $sensor->id }}-overlay" role="tabpanel"
+                                    aria-labelledby="custom-tabs-{{ $sensor->id }}-overlay-tab">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="sensorSelection">
+                                                <div class="alert alert-info alert-dismissible">
+                                                    <button type="button" class="close" data-dismiss="alert"
+                                                        aria-hidden="true">×</button>
+                                                    <h5><i class="icon fas fa-exclamation-triangle"></i>
+                                                        Note
+                                                    </h5>
+                                                    Please select Sensor
+                                                </div>
+                                            </div>
+
+                                            <div class="spinner" hidden>
+                                                <div class="bar1"></div>
+                                                <div class="bar2"></div>
+                                                <div class="bar3"></div>
+                                                <div class="bar4"></div>
+                                                <div class="bar5"></div>
+                                                <div class="bar6"></div>
+                                                <div class="bar7"></div>
+                                                <div class="bar8"></div>
+                                                <div class="bar9"></div>
+                                                <div class="bar10"></div>
+                                                <div class="bar11"></div>
+                                                <div class="bar12"></div>
+                                            </div>
+                                            <div id="volrageCurrentProfile{{ $sensor->id }}"
+                                                style="height: 520px; width: 100%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                {{-- <div class="card card-primary card-outline">
                     <div class="card-header">
                         <h3 class="card-title">
                             Active Power Profile
@@ -51,8 +76,7 @@
                                 <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist"
                                     aria-orientation="vertical">
                                     @foreach ($sensors as $key => $sensor)
-                                        <a class="nav-link "
-                                            id="vert-tabs-{{ $sensor->id }}-tab" data-toggle="pill"
+                                        <a class="nav-link " id="vert-tabs-{{ $sensor->id }}-tab" data-toggle="pill"
                                             href="#vert-tabs-{{ $sensor->id }}" role="tab"
                                             aria-controls="vert-tabs-{{ $sensor->id }}" aria-selected="true"
                                             data-id="activePowerProfile{{ $sensor->id }}"
@@ -63,10 +87,8 @@
                             <div class="col-9 col-sm-10">
                                 <div class="tab-content" id="vert-tabs-tabContent">
                                     @foreach ($sensors as $key => $sensor)
-                                        <div class="tab-pane text-left fade "
-                                            id="vert-tabs-{{ $sensor->id }}" role="tabpanel"
-                                            aria-labelledby="vert-tabs-{{ $sensor->id }}-tab">
-                                            {{-- {{ $sensor->description }} --}}
+                                        <div class="tab-pane text-left fade " id="vert-tabs-{{ $sensor->id }}"
+                                            role="tabpanel" aria-labelledby="vert-tabs-{{ $sensor->id }}-tab">
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div id="activePowerProfile{{ $sensor->id }}"
@@ -79,7 +101,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- /.card -->
             </div>
         </div>

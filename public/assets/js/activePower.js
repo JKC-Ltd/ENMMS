@@ -1,10 +1,4 @@
 window.onload = function () {
-    let chart = null;
-
-    let activePowerProfile = [];
-    const currentProfile = ['voltage_ab', 'voltage_bc', 'voltage_ca', 'current_a', 'current_b', 'current_c'];
-
-    // multiSeriesVoltageAndCurrent();
 
     $('.nav-link').on('click', function () {
         let activePowerProfileDataId = $(this).data('id');
@@ -20,80 +14,72 @@ window.onload = function () {
                 sensor_id: activePowerProfileDataKey
             },
             success: function (data) {
-                activePowerProfile = [];
-                currentProfile.forEach(data => {
-                    activePowerProfile.push({
-                        type: "line",
-                        name: `${data}`,
-                        showInLegend: true,
-                        markerSize: 2,
-                        dataPoints: []
-                    });
+
+                let activePowerProfile = [];
+
+                data.forEach(item => {
+                    let existingSensor = activePowerProfile.find(sensor => sensor.name === item.description);
+                    if (existingSensor) {
+                        existingSensor.dataPoints.push({ label: item.datetime_created, y: item.real_power });
+                    } else {
+                        activePowerProfile.push({
+                            type: "line",
+                            name: `${item.description}`,
+                            showInLegend: true,
+                            markerSize: 0,
+                            dataPoints: [{ label: item.datetime_created, y: item.real_power }]
+                        });
+                    }
                 });
 
-                currentProfile.forEach(currentProfileData => {
-                    data.forEach(item => {
-                        let existingSensor = activePowerProfile.find(sensor => sensor.name === currentProfileData)
-                        const newDate = new Date(item.date_created);
-                        const formattedDate = newDate.toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                        });
-                        existingSensor.dataPoints.push({
-                            label: formattedDate,
-                            y: item[currentProfileData]
-                        });
-
-                    });
-                });
+                console.log(activePowerProfile);
 
                 let activePowerProfileChart = {
                     animationEnabled: true,
                     theme: "light2",
                     zoomEnabled: true,
                     title: {
-                        text: `Voltage & Current Profile - ${data[0].gateway.customer_code} EMS: ${data[0].description}`,
+                        text: data[0].description,
                     },
                     axisX: {
                         labelAngle: -90,
                         margin: 30,
                         labelFontSize: 12,
                         interval: 1,
+                        // intervalType: "month",
                     },
                     toolTip: {
                         shared: true
                     },
                     legend: {
                         cursor: "pointer",
+                        verticalAlign: "top",
                         horizontalAlign: "center",
-                        itemclick: toogleDataSeries
+                        dockInsidePlotArea: true,
                     },
-                    data: activePowerProfile,
+                    data: activePowerProfile
                 };
 
-                voltageAndCurrentProfile(activePowerProfileDataId, activePowerProfileChart)
+                getActivePowerProfile(activePowerProfileDataId, activePowerProfileChart)
             }
         });
-    });
 
-    function toogleDataSeries(e) {
-        if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-            e.dataSeries.visible = false;
-        } else {
-            e.dataSeries.visible = true;
+        // function toogleDataSeries(e) {
+        //     if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+        //         e.dataSeries.visible = false;
+        //     } else {
+        //         e.dataSeries.visible = true;
+        //     }
+        //     chart.render();
+        // }
+
+        function getActivePowerProfile(activePowerProfileDataId, activePowerProfileChart) {
+            let chart = null;
+            setTimeout(function () {
+                chart = new CanvasJS.Chart(activePowerProfileDataId, activePowerProfileChart);
+                chart.render();
+            }, 800);
         }
-        chart.render();
-    }
 
-    function voltageAndCurrentProfile(activePowerProfileDataId, activePowerProfileChart) {
-
-        setTimeout(function () {
-            chart = new CanvasJS.Chart(activePowerProfileDataId, activePowerProfileChart);
-            chart.render();
-            $('.spinner').attr('hidden', true);
-        }, 800);
-
-    }
-
+    });
 }
