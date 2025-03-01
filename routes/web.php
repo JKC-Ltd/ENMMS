@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivePowerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LocationDashboardController;
 use App\Http\Controllers\EnergyConsumptionController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\GatewayController;
@@ -25,6 +26,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 Route::middleware('auth')->group(function () {
 
     Route::resource('energyConsumption', EnergyConsumptionController::class);
+    Route::resource('locationDashboard', LocationDashboardController::class);
     Route::resource('activePower', ActivePowerController::class);
     Route::resource('voltageCurrent', VoltageCurrentController::class);
     Route::resource('locations', LocationController::class);
