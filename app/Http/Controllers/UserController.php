@@ -8,6 +8,7 @@ use App\Models\UserType;
 use DB;
 use Response;
 use App\Services\SensorOfflineService;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -68,7 +69,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
        
-        $request->validate( self::formRule($request->id),self::errorMessage(), self::changeAttributes());
+        $request->validate( self::formRule($user->id),self::errorMessage(), self::changeAttributes());
 
         if (!$request->filled('password')) {
             $request->request->remove('password');
@@ -87,26 +88,25 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Request $request)
-    {
+    { 
         DB::enableQueryLog();
-
-        $id = $request->id;
-        $user = $user = User::findOrFail($id);
+        $id                    = $request->id;
+        $user                  = User::findOrFail($id);       
         $user->save();
         $user->delete();
-
-        (new SensorOfflineService())->store(DB::getQueryLog(), $user->gateway_id);
-
+        
+        (new SensorOfflineService())->delete(DB::getQueryLog(), $user->id);
+        
         return Response::json($user);
     }
 
     public function formRule($id =false){
         return [
-            'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'user_type_id' => 'required|exists:user_types,id',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'firstname' => ['required','string'],
+            'lastname' => ['required','string'],
+            'user_type_id' => ['required','exists:user_types,id'],
+            'email' => ['required','email',Rule::unique('users')->ignore( $id ? $id : "")],
+            'password' => ['required','string','min:8','confirmed'],
         ];
     }
 
@@ -118,9 +118,10 @@ class UserController extends Controller
             'user_type_id.exists' => 'User Type does not exist',
             'email.required' => 'Email is required',
             'email.email' => 'Email is invalid',
-            'email.unique' => 'Email already exists',
             'password.required' => 'Password is required',
             'password.min' => 'Password must be at least 8 characters',
+            'password.confirmed' => 'Password does not match',
+
         ];
     } 
 

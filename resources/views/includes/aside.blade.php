@@ -53,6 +53,7 @@
                         </p>
                     </a>
                 </li>
+                @if (Auth::user()->userType->name== 'Admin')
                 <li class="nav-header">CONFIGURATIONS</li>
                 <li class="nav-item">
                     <a href="{{ route('users.index')}}" class="nav-link {{ request()->is('users') ? 'active' : '' }}">
@@ -86,7 +87,8 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+              
+                <li class="nav-item {{ request()->routeIs('sensorTypes.index','sensorModels.index') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-cog"></i>
                         <p>
@@ -115,6 +117,9 @@
                         </li> --}}
                     </ul>
                 </li>
+                
+                @endif
+                
             </ul>
         </nav>
     </div>

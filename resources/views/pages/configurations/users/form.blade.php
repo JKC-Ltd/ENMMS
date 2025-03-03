@@ -21,7 +21,7 @@
                                         <label for="firstname">First Name</label>
                                         <input type="text" name="firstname"
                                             class="form-control @error('firstname') input-error @enderror"
-                                            id="firstname" placeholder="Slave Address"
+                                            id="firstname" placeholder="First Name"
                                             value="{{ isset($user) ? $user->firstname : old('firstname') }}">
                                         @error('firstname')
                                             <div class="error-message">{{ $message }}</div>
@@ -30,7 +30,7 @@
                                         <label for="lastname">Last Name</label>
                                         <input type="text" name="lastname"
                                             class="form-control @error('lastname') input-error @enderror" id="lastname"
-                                            placeholder="Slave Address"
+                                            placeholder="Last Name"
                                             value="{{ isset($user) ? $user->lastname : old('lastname') }}">
                                         @error('lastname')
                                             <div class="error-message">{{ $message }}</div>
@@ -43,7 +43,7 @@
                                             <option value="">SELECT USER TYPE</option>
                                             @foreach ($userTypes as $userType)
                                                 <option value="{{ $userType->id }}"
-                                                    {{ isset($user) && $user->user_type_id == $userType->id ? 'selected' : '' }}>
+                                                    {{ (isset($user) && $user->user_type_id == $userType->id) || old('user_type_id') == $userType->id ? 'selected' : '' }}>
                                                     {{ $userType->name }}
                                                 </option>
                                             @endforeach
@@ -55,18 +55,27 @@
                                         <label for="email">Email</label>
                                         <input type="text" name="email"
                                             class="form-control @error('email') input-error @enderror" id="email"
-                                            placeholder="Slave Address" value="{{ isset($user) ? $user->email : old('email') }}">
+                                            placeholder="Email" value="{{ isset($user) ? $user->email : old('email') }}">
                                         @error('email')
                                             <div class="error-message">{{ $message }}</div>
                                         @enderror
 
                                         <label for="password">Password</label>
-                                        <input type="text" name="password"
+                                        <input type="password" name="password" 
                                             class="form-control @error('password') input-error @enderror" id="password"
-                                            placeholder="Slave Address" value="">
+                                            placeholder="Password" value="">
                                         @error('password')
                                             <div class="error-message">{{ $message }}</div>
                                         @enderror
+
+                                        <label for="password_confirmation">Confirm Password</label>
+                                        <input type="password" name="password_confirmation" 
+                                            class="form-control @error('password') input-error @enderror" id="password_confirmation"
+                                            placeholder="Password" value="">
+                                        @error('password_confirmation')
+                                            <div class="error-message">{{ $message }}</div>
+                                        @enderror
+
                                     </div>
                                 </div>
                             </div>

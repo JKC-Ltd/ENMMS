@@ -76,12 +76,12 @@ class SensorController extends Controller
         $sensor = Sensor::find($id);
         $location = Location::all();
         $gateway = Gateway::all();
-        $SensorRegister = SensorRegister::all();
+        $sensorModels = SensorModel::all();
         return view('pages.configurations.sensors.form')
             ->with('sensor', $sensor)
             ->with('locations', $location)
             ->with('gateways', $gateway)
-            ->with('sensorRegisters', $SensorRegister);
+            ->with('sensorModels', $sensorModels);
 
     }
 
@@ -95,7 +95,12 @@ class SensorController extends Controller
         DB::enableQueryLog();
         $sensor->update($request->all());
 
-        (new SensorOfflineService())->update(DB::getQueryLog(), $sensor->gateway_id);
+       
+        $gateways = Gateway::all();
+
+        foreach ($gateways as $key => $gateway) {
+            (new SensorOfflineService())->store(DB::getQueryLog(), $gateway->id);
+        }
 
         return redirect()->route('sensors.index');
 
@@ -126,7 +131,10 @@ class SensorController extends Controller
             'description' => ['required', 'string', 'min:3', 'max:500'],
             'location_id' => 'required',
             'gateway_id' => 'required',
-            'sensor_register_id' => 'required',
+            'sensor_model_id' => 'required',
+            
+
+            
         ];
     }
 
@@ -137,7 +145,7 @@ class SensorController extends Controller
             'description.required' => 'Description is required',
             'location_id.required' => 'Location is required',
             'gateway_id.required' => 'Gateway is required',
-            'sensor_register_id.required' => 'Sensor Register is required',
+            'sensor_model_id.required' => 'Sensor Model is required',
         ];
     }
 
@@ -148,7 +156,7 @@ class SensorController extends Controller
             'description' => 'Description',
             'location_id' => 'Location',
             'gateway_id' => 'Gateway',
-            'sensor_register_id' => 'Sensor Register',
+            'sensor_model_id' => 'Sensor Model',
         ];
     }
 }
