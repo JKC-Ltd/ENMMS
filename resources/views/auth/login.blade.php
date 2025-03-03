@@ -34,7 +34,7 @@
                 </a>
             @endif
         </div>
-        <button type="submit" class="login-btn block mt-4 mx-auto px-5 text-white rounded">Log In</button>
+        <button type="submit" class="login-btn block w-100 mt-4 mx-auto px-5 text-white rounded">Log In</button>
         <!-- Remember Me -->
         {{-- <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">

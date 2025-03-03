@@ -6,50 +6,43 @@
         <div class="row">
             <div class="col-lg-4 col-12">
                 <!-- small box -->
-                <div class="small-box bg-info">
+                <div class="small-box bg-white" style="border-bottom: 8px solid #f39800;">
                     <div class="inner">
-                        <h3>{{ $gateways->count() }}</h3>
-
                         <p>Gateways</p>
+                        <h3>{{ $gateways->count() }}</h3>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-bag"></i>
+                        <i class="fa fa-hdd"></i>
                     </div>
-                    <a href="{{route('gateways.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-4 col-12">
                 <!-- small box -->
-                <div class="small-box bg-success">
+                <div class="small-box bg-white" style="border-bottom: 8px solid #f39800;">
                     <div class="inner">
-                        <h3>{{ $sensors->count() }}</h3>
-
                         <p>Sensors</p>
+                        <h3>{{ $sensors->count() }}</h3>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
+                        <i class="fa fa-tablet"></i>
                     </div>
-                    <a href="{{route('sensors.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-4 col-12">
                 <!-- small box -->
-                <div class="small-box bg-warning">
+                <div class="small-box bg-white" style="border-bottom: 8px solid #f39800;">
                     <div class="inner">
-                        <h3>{{ $users->count() }}</h3>
-
                         <p>Users</p>
+                        <h3>{{ $users->count() }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="{{route('users.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>
-
         <!-- Main row -->
         <div class="row">
             <div class="col-12 col-lg-4">

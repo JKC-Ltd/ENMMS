@@ -12,7 +12,7 @@
 
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
-                Hi, {{ Auth::user()->firstname; }}
+                Hi, {{ Auth::user()->firstname }}
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <li class="user-header">
