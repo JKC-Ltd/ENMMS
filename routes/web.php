@@ -17,7 +17,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
@@ -47,8 +47,9 @@ Route::middleware(['auth', 'admin:Admin'])->group(function () {
     Route::get('/getEnergyConsumptionBasedOnHours', [DashboardController::class, 'getEnergyConsumptionBasedOnHours']);
     Route::get('/getActivePowerProfile', [ActivePowerController::class, 'getActivePowerProfile']);
     Route::get('/getVoltageCurrentProfile', [VoltageCurrentController::class, 'getVoltageCurrentProfile']);
-
-
+    Route::get('/getLocationChart', [LocationController::class, 'getLocationChart']);
+    Route::get('/getSensorChart', [SensorController::class, 'getSensorChart']);
+    Route::get('/getSensor', [LocationDashboardController::class, 'getSensor']);
 
     // Route::get('/locations', function () {
     //     return view('pages/configurations.locations.index');

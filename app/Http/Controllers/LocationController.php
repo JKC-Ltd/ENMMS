@@ -28,7 +28,10 @@ class LocationController extends Controller
      */
     public function create()
     {
-        return view('pages.configurations.locations.form');
+        $listOfLocations = Location::all();
+
+        return view('pages.configurations.locations.form')
+            ->with('listOfLocations', $listOfLocations);
     }
 
     /**
@@ -83,7 +86,7 @@ class LocationController extends Controller
         $gateways = Gateway::all();
 
         foreach ($gateways as $key => $gateway) {
-            (new SensorOfflineService())->update(DB::getQueryLog(), $gateway->id, 'location_code');
+            (new SensorOfflineService())->update(DB::getQueryLog(), $gateway->id);
         }
 
         return redirect()->route('locations.index')->with('success', 'Location updated successfully.');
@@ -95,9 +98,9 @@ class LocationController extends Controller
     public function destroy(Request $request)
     {
         DB::enableQueryLog();
-        
-        $id                     = $request->id;
-        $location                = $location = Location::findOrFail($id);       
+
+        $id = $request->id;
+        $location = $location = Location::findOrFail($id);
         $location->save();
         $location->delete();
 
@@ -112,15 +115,15 @@ class LocationController extends Controller
     public function formRule($id = false)
     {
         return [
-            'location_code' => ['required','string','min:2','max:200',Rule::unique('locations')->ignore($id ? $id : "")],
-            'location_name' => ['required','string','min:2','max:200']
+            'location_code' => ['required', 'string', 'min:2', 'max:200', Rule::unique('locations')->ignore($id ? $id : "")],
+            'location_name' => ['required', 'string', 'min:2', 'max:200']
         ];
     }
     public function errorMessage()
     {
         return [
             'location_code.required' => 'Location code is required',
-            'location_code.unique' => 'Location code already exists',
+            // 'location_code.unique' => 'Location code already exists',
             'location_name.required' => 'Location name is required'
         ];
     }
@@ -130,5 +133,17 @@ class LocationController extends Controller
             'location_code' => 'Location Code',
             'location_name' => 'Location Name'
         ];
+    }
+
+    public function getLocationChart()
+    {
+        $locations = Location::select('id', 'pid', 'location_name as name')
+            ->get()
+            ->map(function ($location) {
+                $location->tags = ["Location"];
+                return $location;
+            });
+
+        return Response::json($locations);
     }
 }

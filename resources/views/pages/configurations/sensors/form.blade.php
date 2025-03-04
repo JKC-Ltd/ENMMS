@@ -34,7 +34,7 @@
                                             <option value="">SELECT LOCATION</option>
                                             @foreach ($locations as $location)
                                                 <option value="{{ $location->id }}"
-                                                    {{ old('location_id') == $location->id|| isset($sensor) && $sensor->location_id == $location->id ? 'selected' : '' }}>
+                                                    {{ old('location_id', isset($sensor) && $sensor->location_id == $location->id ? 'selected' : '') }}>
                                                     {{ $location->location_name }}
                                                 </option>
                                             @endforeach
@@ -50,7 +50,7 @@
                                             <option value="">SELECT GATEWAY</option>
                                             @foreach ($gateways as $gateway)
                                                 <option value="{{ $gateway->id }}"
-                                                    {{ old('gateway_id') == $gateway->id || isset($sensor) && $sensor->gateway_id == $gateway->id ? 'selected' : '' }}>
+                                                    {{ old('gateway_id', isset($sensor) && $sensor->gateway_id == $gateway->id ? 'selected' : '') }}>
                                                     {{ $gateway->gateway_code }}
                                                 </option>
                                             @endforeach
@@ -66,7 +66,7 @@
                                             <option value="">SELECT SENSOR MODEL -</option>
                                             @foreach ($sensorModels as $sensorModel)
                                                 <option value="{{ $sensorModel->id }}"
-                                                    {{ old('sensor_model_id')==$sensorModel->id  || isset($sensor) && $sensor->sensor_model_id == $sensorModel->id  ? 'selected' : '' }}>
+                                                    {{ old('sensor_model_id', isset($sensor) && $sensor->sensor_model_id == $sensorModel->id ? 'selected' : '') }}>
                                                     {{ $sensorModel->sensor_model }}
                                                 </option>
                                             @endforeach

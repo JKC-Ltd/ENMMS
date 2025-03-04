@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sensor;
 use Illuminate\Http\Request;
 
 class LocationDashboardController extends Controller
@@ -36,7 +37,10 @@ class LocationDashboardController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $sensor = Sensor::find($id);
+
+        return view('pages.sensor-details')
+            ->with('sensor', $sensor);
     }
 
     /**
@@ -61,5 +65,16 @@ class LocationDashboardController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getSensor(Request $request)
+    {
+        $sensors = Sensor::select('id')
+            ->where('description', $request->name)
+            ->where('slave_address', $request->slave_address)
+            ->where('gateway_id', $request->gateway_id)
+            ->first();
+
+        return response()->json($sensors);
     }
 }

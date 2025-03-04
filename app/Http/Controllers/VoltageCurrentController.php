@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sensor;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use Response;
@@ -44,7 +45,7 @@ class VoltageCurrentController extends Controller
             ->leftJoin('locations', 'locations.id', '=', 'sensors.location_id')
             ->leftJoin('gateways', 'gateways.id', '=', 'sensors.gateway_id')
             ->leftJoin('sensor_logs', 'sensor_logs.sensor_id', '=', 'sensors.id')
-            // ->where('sensor_logs.datetime_created', '>=', Carbon::now()->subDays(20));
+            // ->where('sensor_logs.datetime_created', '>=', Carbon::now()->subDays(30));
             ->whereRaw('HOUR(sensor_logs.datetime_created) = 9');
 
         if ($request->sensor_id) {

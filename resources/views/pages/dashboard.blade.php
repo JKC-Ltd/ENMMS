@@ -54,7 +54,7 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <div id="costEstimated" style="height: 370px; width: 100%;"></div>
+                        <div id="energyComparisonPerDayDoughnut" style="height: 370px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <div id="changeInCost" style="height: 370px; width: 100%;"></div>
+                        <div id="energyComparisonPerDayColumn" style="height: 370px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                     <div class="card-body">
                         <div class="row" style="height: 370px; width: 100%;">
                             @foreach ($sensors as $sensor)
-                                <div class="col-md-4">
+                                <div class="col">
                                     <div class="info-box bg-primary">
                                         <div class="info-box-content">
                                             <span class="info-box-text">{{ $sensor->description }}</span>

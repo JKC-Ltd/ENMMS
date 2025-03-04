@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->string('location_code')->unique();
+            $table->string('location_code');
             $table->string('location_name');
+            $table->string('pid')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

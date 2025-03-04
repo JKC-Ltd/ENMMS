@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Sensor;
 use App\Models\Location;
 use App\Models\Gateway;
-use App\Models\SensorRegister;
 use App\Models\SensorType;
 use App\Models\SensorModel;
 use App\Services\SensorOfflineService;
@@ -77,6 +76,7 @@ class SensorController extends Controller
         $location = Location::all();
         $gateway = Gateway::all();
         $sensorModels = SensorModel::all();
+
         return view('pages.configurations.sensors.form')
             ->with('sensor', $sensor)
             ->with('locations', $location)
@@ -132,9 +132,6 @@ class SensorController extends Controller
             'location_id' => 'required',
             'gateway_id' => 'required',
             'sensor_model_id' => 'required',
-            
-
-            
         ];
     }
 
@@ -158,5 +155,25 @@ class SensorController extends Controller
             'gateway_id' => 'Gateway',
             'sensor_model_id' => 'Sensor Model',
         ];
+    }
+
+    public function getSensorChart()
+    {
+        $sensors = Sensor::select(
+            'sensors.location_id as pid',
+            'sensors.description as name',
+            'gateways.gateway',
+            'gateways.customer_code',
+            'slave_address',
+            'gateway_id'
+        )
+            ->leftJoin('gateways', 'sensors.gateway_id', '=', 'gateways.id')
+            ->get()
+            ->map(function ($sensor) {
+                $sensor->tags = ["Sensor"];
+                return $sensor;
+            });
+
+        return Response::json($sensors);
     }
 }

@@ -87,25 +87,34 @@ class DashboardController extends Controller
                 'sensor_logs.energy',
                 'sensor_logs.datetime_created',
                 DB::raw("ROUND(sensor_logs.energy - LAG(sensor_logs.energy) OVER(
-                    PARTITION BY sensors.id 
-                    ORDER BY sensor_logs.datetime_created
-                ), 2) AS energy_difference"),
-                DB::raw('DATE(sensor_logs.datetime_created) AS date_created')
+                PARTITION BY sensors.id 
+                ORDER BY sensor_logs.datetime_created
+            ), 2) AS energy_difference"),
+                // Custom grouping key for 9 AM - 8:59 AM next day
+                DB::raw("
+                CASE 
+                    WHEN TIME(sensor_logs.datetime_created) >= '09:00:00' 
+                    THEN DATE(sensor_logs.datetime_created) 
+                    ELSE DATE(sensor_logs.datetime_created - INTERVAL 1 DAY) 
+                END AS custom_group_date
+            ")
             )
             ->leftJoin('locations', 'locations.id', '=', 'sensors.location_id')
             ->leftJoin('gateways', 'gateways.id', '=', 'sensors.gateway_id')
             ->leftJoin('sensor_logs', 'sensor_logs.sensor_id', '=', 'sensors.id')
-            // ->whereRaw('HOUR(sensor_logs.datetime_created) = 9'); // Get the date on the 9th hour of the day
             ->where('sensor_logs.datetime_created', '>=', Carbon::now()->subDays($request->days));
 
         if ($request->sensor_id) {
             $query->where('sensors.id', $request->sensor_id);
         }
 
-        $energyConsumption = $query->groupBy('sensors.description', 'date_created')
+        // Group by custom_group_date (9 AM - 8:59 AM) instead of standard dates
+        $energyConsumption = $query
+            ->groupBy('sensors.description', 'custom_group_date')
             ->orderBy('sensors.id')
             ->orderBy('sensor_logs.datetime_created')
             ->get();
+
 
         return Response::json($energyConsumption);
     }

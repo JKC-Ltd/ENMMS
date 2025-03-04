@@ -36,6 +36,24 @@
                                             <div class="error-message">{{ $message }}</div>
                                         @enderror
                                     </div>
+
+                                    <div class="form-group">
+                                        <label>PARENT LOCATION</label>
+                                        <select
+                                            class="form-control select2bs4 @error('pid') input-error @enderror"
+                                            name="pid" style="width: 100%;">
+                                            <option value="">SELECT PARENT LOCATION</option>
+                                            @foreach ($listOfLocations as $locationData)
+                                                <option value="{{ $locationData->id }}">
+                                                    {{-- {{ old('pid', isset($locationData) && $locationData->id == $location->id ? 'selected' : '') }}> --}}
+                                                    {{ $locationData->location_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('pid')
+                                            <div class="error-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -49,5 +67,18 @@
                 </form>
             </div>
         </div>
+    </x-slot>
+
+    <x-slot name="importedScripts">
+        <script>
+            $(document).ready(function() {
+                $('.select2bs4').select2({
+                    theme: 'bootstrap4'
+                })
+                @if ($errors->has('location_id'))
+                    $('.select2bs4').next('.select2').addClass('input-error');
+                @endif
+            });
+        </script>
     </x-slot>
 </x-app-layout>
