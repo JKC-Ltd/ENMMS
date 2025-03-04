@@ -12,7 +12,8 @@
     <div class="wrapper">
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('assets/images/SmartPower-logo.png')}}" alt="AdminLTELogo" width="200">
+            {{-- <img class="" src="{{ asset('assets/images/siix-logo.png')}}" alt="Logo" width="200"> --}}
+            <img src="{{ asset('assets/images/loader.gif')}}" alt="Loader" width="100">
         </div>
         @include('includes.navigation')
         @include('includes.aside')

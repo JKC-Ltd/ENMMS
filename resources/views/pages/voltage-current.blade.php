@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card card-primary card-tabs">
                     <div class="card-header p-0 pt-1">
-                        <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
+                        <ul class="nav nav-tabs dashboard-tabs" id="custom-tabs-five-tab" role="tablist">
                             @foreach ($sensors as $key => $sensor)
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-{{ $sensor->id }}-overlay-tab"
