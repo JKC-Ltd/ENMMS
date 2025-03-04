@@ -170,6 +170,6 @@
     <x-slot name="importedScripts">
         <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
         <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
-        <script src="{{ asset('dist/js/pages/main.js') }}"></script>
+        <script src="{{ asset('assets/js/main.js') }}"></script>
     </x-slot>
 </x-app-layout>
