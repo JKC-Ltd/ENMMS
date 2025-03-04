@@ -22,7 +22,8 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])->name('dashboard');
-
+    
+Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 
 Route::middleware(['auth', 'admin:Admin'])->group(function () {
 
@@ -38,6 +39,7 @@ Route::middleware(['auth', 'admin:Admin'])->group(function () {
     Route::resource('gateways', GatewayController::class);
     Route::resource('users', UserController::class);
     
+    
     Route::get('/getSensorType/{id}', [SensorModelController::class, 'getSensorType']);
     Route::get('/getSensorModel/{id}', [SensorModelController::class, 'getSensorModel']);
     Route::get('/getEnergyConsumption', [EnergyConsumptionController::class, 'getEnergyConsumption']);
@@ -45,6 +47,8 @@ Route::middleware(['auth', 'admin:Admin'])->group(function () {
     Route::get('/getEnergyConsumptionBasedOnHours', [DashboardController::class, 'getEnergyConsumptionBasedOnHours']);
     Route::get('/getActivePowerProfile', [ActivePowerController::class, 'getActivePowerProfile']);
     Route::get('/getVoltageCurrentProfile', [VoltageCurrentController::class, 'getVoltageCurrentProfile']);
+
+
 
     // Route::get('/locations', function () {
     //     return view('pages/configurations.locations.index');
@@ -63,6 +67,10 @@ Route::middleware(['auth', 'admin:Admin'])->group(function () {
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+
+// Route::get('/profile', [UserController::class, 'profile']);
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('locationDashboard', LocationDashboardController::class);
