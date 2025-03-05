@@ -323,29 +323,6 @@ CREATE TABLE `sensor_offlines` (
 -- Dumping data for table `sensor_offlines`
 --
 
-INSERT INTO `sensor_offlines` (`id`, `query`, `created_at`, `updated_at`, `deleted_at`, `gateway_id`) VALUES
-(1, 'insert into `gateways` (`location_id`, `customer_code`, `gateway`, `gateway_code`, `description`, `updated_at`, `created_at`) values (19, \'SIIX\', \'Gateway 2\', \'G02\', \'Gateway #2\', \'2025-03-05 03:59:40\', \'2025-03-05 03:59:40\')', '2025-03-04 19:59:40', '2025-03-04 19:59:40', NULL, 1),
-(2, 'insert into `gateways` (`location_id`, `customer_code`, `gateway`, `gateway_code`, `description`, `updated_at`, `created_at`) values (17, \'SIIX\', \'Gateway 1\', \'G01\', \'Gateway #1\', \'2025-03-05 04:00:35\', \'2025-03-05 04:00:35\')', '2025-03-04 20:00:35', '2025-03-04 20:00:35', NULL, 2),
-(3, 'insert into `gateways` (`location_id`, `customer_code`, `gateway`, `gateway_code`, `description`, `updated_at`, `created_at`) values (24, \'SIIX\', \'Gateway 3\', \'G03\', \'Gateway #3\', \'2025-03-05 04:02:33\', \'2025-03-05 04:02:33\')', '2025-03-04 20:02:33', '2025-03-04 20:02:33', NULL, 3),
-(4, 'update `sensors` set `gateway_id` = 1, `sensors`.`updated_at` = \'2025-03-05 04:05:39\' where `id` = 4', '2025-03-04 20:05:39', '2025-03-04 20:05:39', NULL, 1),
-(5, 'update `sensors` set `gateway_id` = 1, `sensors`.`updated_at` = \'2025-03-05 04:05:39\' where `id` = 4', '2025-03-04 20:05:39', '2025-03-04 20:05:39', NULL, 2),
-(6, 'update `sensors` set `gateway_id` = 1, `sensors`.`updated_at` = \'2025-03-05 04:05:39\' where `id` = 4', '2025-03-04 20:05:39', '2025-03-04 20:05:39', NULL, 3),
-(7, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (1, 19, 1, 1, \'PP-CANTEEN\', \'2025-03-05 04:07:41\', \'2025-03-05 04:07:41\')', '2025-03-04 20:07:41', '2025-03-04 20:07:41', NULL, 1),
-(8, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (1, 19, 1, 1, \'PP-CANTEEN\', \'2025-03-05 04:07:52\', \'2025-03-05 04:07:52\')', '2025-03-04 20:07:52', '2025-03-04 20:07:52', NULL, 1),
-(9, 'update `sensors` set `slave_address` = 2, `description` = \'PP-SEP\', `sensors`.`updated_at` = \'2025-03-05 04:08:25\' where `id` = 2', '2025-03-04 20:08:25', '2025-03-04 20:08:25', NULL, 1),
-(10, 'update `sensors` set `slave_address` = 2, `description` = \'PP-SEP\', `sensors`.`updated_at` = \'2025-03-05 04:08:25\' where `id` = 2', '2025-03-04 20:08:25', '2025-03-04 20:08:25', NULL, 2),
-(11, 'update `sensors` set `slave_address` = 2, `description` = \'PP-SEP\', `sensors`.`updated_at` = \'2025-03-05 04:08:25\' where `id` = 2', '2025-03-04 20:08:25', '2025-03-04 20:08:25', NULL, 3),
-(12, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (3, 19, 1, 1, \'PP-ACTIVITY\', \'2025-03-05 04:08:48\', \'2025-03-05 04:08:48\')', '2025-03-04 20:08:48', '2025-03-04 20:08:48', NULL, 1),
-(13, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (4, 19, 1, 1, \'PP-SLP (General Office)\', \'2025-03-05 04:09:23\', \'2025-03-05 04:09:23\')', '2025-03-04 20:09:23', '2025-03-04 20:09:23', NULL, 1),
-(14, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (5, 17, 2, 1, \'IIDA PP-220V\', \'2025-03-05 04:10:44\', \'2025-03-05 04:10:44\')', '2025-03-04 20:10:44', '2025-03-04 20:10:44', NULL, 2),
-(15, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (6, 17, 2, 1, \'IIDA PP-100V\', \'2025-03-05 04:11:18\', \'2025-03-05 04:11:18\')', '2025-03-04 20:11:18', '2025-03-04 20:11:18', NULL, 2),
-(16, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (7, 17, 2, 1, \'IIDA PP-200V\', \'2025-03-05 04:11:43\', \'2025-03-05 04:11:43\')', '2025-03-04 20:11:43', '2025-03-04 20:11:43', NULL, 2),
-(17, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (8, 24, 3, 1, \'EOL MP-2-3-220\', \'2025-03-05 04:12:36\', \'2025-03-05 04:12:36\')', '2025-03-04 20:12:37', '2025-03-04 20:12:37', NULL, 3),
-(18, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (8, 24, 3, 1, \'EOL MP-100V-2-3\', \'2025-03-05 04:13:14\', \'2025-03-05 04:13:14\')', '2025-03-04 20:13:14', '2025-03-04 20:13:14', NULL, 3),
-(19, 'update `sensors` set `slave_address` = 9, `sensors`.`updated_at` = \'2025-03-05 04:13:32\' where `id` = 9', '2025-03-04 20:13:32', '2025-03-04 20:13:32', NULL, 1),
-(20, 'update `sensors` set `slave_address` = 9, `sensors`.`updated_at` = \'2025-03-05 04:13:32\' where `id` = 9', '2025-03-04 20:13:32', '2025-03-04 20:13:32', NULL, 2),
-(21, 'update `sensors` set `slave_address` = 9, `sensors`.`updated_at` = \'2025-03-05 04:13:32\' where `id` = 9', '2025-03-04 20:13:32', '2025-03-04 20:13:32', NULL, 3);
-
 -- --------------------------------------------------------
 
 --
