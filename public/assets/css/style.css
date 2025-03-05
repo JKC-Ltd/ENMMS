@@ -7,6 +7,9 @@
 body {
     font-family: "Roboto", serif;
 }
+.preloader {
+    background: #c8e8ff;
+}
 p {
     font-size: 15px;
 }
@@ -38,7 +41,7 @@ p {
     color: red;
 }
 
-/* SIDE BAR */
+/* ASIDE */
 .brand-link {
     background: var(--primary-color);
 }
@@ -82,31 +85,16 @@ div#sensor-reg-address {
     flex-direction: column;
     padding: 10px 0;
 }
-#sensor_details .card-header {
-    background-color: var(--light-primary-color-1) !important;
+/* NAVIGATION */
+nav.main-header {
+    background: var(--primary-color);
 }
-.card-details .fas {
-    padding-right: 5px;
+.navbar-light .navbar-nav .nav-link {
+    color: #fff;
 }
-.card-details span {
-    padding-bottom: 1rem;
+.navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
+    color: var(--secondary-color);
 }
-
-.separator {
-    border-top: 1px solid #9d9d9d;
-    padding-bottom: 1.25rem;
-}
-span.badge {
-    font-size: 1rem;
-    padding: 8px;
-    margin: 3px;
-    font-weight: normal;
-}
-.badge-primary {
-    background-color: var(--light-primary-color-1);
-}
-
-
 li.user-header {
     display: flex;
     flex-direction: column;
@@ -136,18 +124,11 @@ li.user-footer {
     font-weight: bold;
     margin-bottom: 15px;
 }
-
-/* aside.main-sidebar {
-    background-color: #e5ebe7;
+/* FOOTER */
+footer.main-footer {
+    background: var(--primary-color);
+    color:#fff;
 }
-aside.main-sidebar a.nav-link {
-    color: #343a40;
-}
-
-aside.main-sidebar a.nav-link:hover {
-    color: #cd9502 !important;
-} */
-
 /* DASHBOARD */
 .small-box.bg-white {
     padding: 10px 20px
@@ -166,9 +147,43 @@ aside.main-sidebar a.nav-link:hover {
     background: #184aa1;
     color: #fff;
 }
-
+ul.dashboard-tabs {
+    background: var(--primary-color);
+    padding: 8px 10px 0px 10px;
+}
+.dashboard-tabs .nav-link.active {
+    background-color: #f39800 !important;
+    color: #fff !important;
+    border: 0px;
+}
 /* LOCATION DASHBOARD */
 div#tree {
     border-radius: 10px;
     box-shadow: 0px 2px 15px 0px #dbdbdb;
 }
+
+/* SENSOR MODELS */
+#sensor_details .card-header {
+    background-color: var(--light-primary-color-1) !important;
+}
+.card-details .fas {
+    padding-right: 5px;
+}
+.card-details span {
+    padding-bottom: 1rem;
+}
+
+.separator {
+    border-top: 1px solid #9d9d9d;
+    padding-bottom: 1.25rem;
+}
+span.badge {
+    font-size: 1rem;
+    padding: 8px;
+    margin: 3px;
+    font-weight: normal;
+}
+.badge-primary {
+    background-color: var(--light-primary-color-1);
+}
+
