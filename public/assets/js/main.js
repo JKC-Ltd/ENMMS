@@ -9,7 +9,7 @@ window.onload = function () {
 
     const formatDate = (date) => {
         const newDate = new Date(date);
-        return newDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric"});
+        return newDate.toLocaleDateString("en-US", { month: "long", day: "numeric"});
     }
 
     const processData = (data, refetch, chartID, columnName) => {
@@ -86,17 +86,25 @@ window.onload = function () {
     const processPandPEnergyConsumption = () => {
 
         const initPandPEnergyConsumption = () => {
+
+            CanvasJS.addColorSet("PandPColorSet",
+                [
+                "#4a8fc2",
+                "#f39801",
+               ]);
+
             return {
                 exportEnabled: true,
                 animationEnabled: true,
                 theme: "light2",
+                colorSet:  "PandPColorSet",
                 title: {
-                    text: "Top Oil Reserves",
                     fontSize: 20,
                     margin: 30
                 },
                 axisY: {
-                    title: "Reserves(MMbbl)"
+                    // title: "kWh"
+                    minimum: 10
                 },
                 legend: {
                     cursor: "pointer",
@@ -108,9 +116,11 @@ window.onload = function () {
                     {
                         type: "column",
                         indexLabel: "{y} kWh",
-                        indexLabelFontColor: "#000",
+                        indexLabelMaxWidth: 60,
+                        indexLabelFontColor: "#FFF",
                         indexLabelFontSize: 15,
                         indexLabelPlacement: "inside",
+                        indexLabelTextAlign: "center",
                         dataPoints: []
                     }
                 ]
@@ -136,13 +146,27 @@ window.onload = function () {
     const processDailyEnergyConsumptionPerMeter = () => {
 
         const initDailyEnergyConsumptionPerMeter = () => {
+
+            CanvasJS.addColorSet("DailyEnergyColorSet",
+                [
+                '#bca184', // Warm Taupe
+                '#7a8b4e', // Olive Green
+                '#d67c6e', // Muted Coral
+                '#4e5b7e', // Dark Slate Blue
+                '#9b4d82', // Soft Plum
+                '#b57e1f',  // Dark Mustard
+                '#5d737e', // Dusty Teal
+                '#e57c10', // Medium Orange
+                '#4a8fc2', // Medium Blue
+
+               ]);
+
             return {
                 animationEnabled: true,
                 exportEnabled: true,
                 theme: "light2",
-                colorSet: "greenShades",
+                colorSet: "DailyEnergyColorSet",
                 title: {
-                    text: "Daily Energy Consumption Per Meter",
                     fontSize: 20,
                     margin: 30
                 },
@@ -157,7 +181,7 @@ window.onload = function () {
                         type: "bar",
                         //indexLabel: "{y}", //Shows y value on all Data Points
                         showInLegend: false,
-                        indexLabelFontColor: "#000",
+                        indexLabelFontColor: "#FFF",
                         indexLabelFontSize: 15,
                         indexLabelPlacement: "inside",
                         indexLabel: "{y} kWh",

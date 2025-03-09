@@ -55,9 +55,8 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <div id="totalEnergyConsumption"
-                            style="height: 370px; width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-                            <h1 id="totalEnergyConsumptionValue">0 </h1>
+                        <div id="totalEnergyConsumption" class="card-box d-flex flex-column justify-content-center align-items-center ">
+                            <h1 id="totalEnergyConsumptionValue" class="dashboard-value">0 </h1>
                             <h6>kWh</h6>
                         </div>
                     </div>
@@ -73,7 +72,7 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <div id="pandpEnergyConsumption" style="height: 370px; width: 100%;"></div>
+                        <div id="pandpEnergyConsumption" class="card-box"></div>
                     </div>
                 </div>
             </div>
@@ -87,11 +86,17 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <div id="currentMonthEnergyConsumption" style="height: 370px; width: 100%;">
-                            <h1 id="currentMonthEnergyConsumptionValue">0 </h1>
-                            <h6>kWh</h6>
-                            <h4 id="currentMonthEnergyConsumptionStartDate"></h4>
-                            <h4 id="currentMonthEnergyConsumptionEndDate"></h4>
+                        <div id="currentMonthEnergyConsumption" class="card-box">
+                            <div class="currentMonthEnergy">
+                                <h1 id="currentMonthEnergyConsumptionValue" class="dashboard-value">0 </h1>
+                                <h6>kWh</h6>
+                            </div>
+                            <div class="currentMonthDate">
+                                <h4 class="mb-0"> <i class="fas fa-calendar-alt mr-3"></i><span id="currentMonthEnergyConsumptionStartDate"> </span> - 
+                                <span id="currentMonthEnergyConsumptionEndDate"></span>
+                                </h4>
+                            </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -105,12 +110,12 @@
                     <div class="card-header ui-sortable-handle" style="cursor: move;">
                         <h3 class="card-title">
                             <i class="fas fa-chart-pie mr-1"></i>
-                            Daily Energy Consumption
+                            Daily Energy Consumption Per Meter
                         </h3>
                     </div>
                     <div class="card-body">
                         <section class="col-12 connectedSortable">
-                            <div id="dailyEnergyConsumptionPerMeter" style="height: 370px; width: 100%;"></div>
+                            <div id="dailyEnergyConsumptionPerMeter" class="card-box"></div>
                         </section>
                     </div>
                 </div>
@@ -126,10 +131,10 @@
                     </div>
                     <div class="card-body">
                         <section class="col-12 connectedSortable">
-                            <div class="row" style="height: 370px; width: 100%;">
+                            <div class="row card-box">
                                 @foreach ($area as $sensor)
                                     <div class="col">
-                                        <div class="info-box bg-primary">
+                                        <div class="info-box bg-area">
                                             <div class="info-box-content">
                                                 <span
                                                     class="info-box-text">{{ $sensor->location->location_name }}</span>
@@ -156,7 +161,7 @@
                     </div>
                     <div class="card-body">
                         <section class="col-12 connectedSortable">
-                            <div style="height: 370px; width: 100%;">
+                            <div class="card-box">
                                 <div class="col-md-12">
                                     <h5>GHG Emission (kg of CO2) - Current Day</h5>
                                     <div class="progress " role="progressbar"
@@ -192,7 +197,7 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <div class="row" style="height: 370px; width: 100%;">
+                        <div class="row" class="card-box">
                             @foreach ($sensors as $sensor)
                                 <div class="col">
                                     <div class="info-box bg-primary">
@@ -216,7 +221,7 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <div class="row" style="height: 370px; width: 100%;">
+                        <div class="row" class="card-box">
 
                             <div class="col-md-12">
                                 <h5>Emission</h5>
