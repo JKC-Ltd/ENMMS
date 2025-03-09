@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Gateway;
 use App\Models\Sensor;
 use App\Models\User;
+use App\Services\EnergyConsumptionService;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -19,11 +20,13 @@ class DashboardController extends Controller
     {
         $gateways = Gateway::all();
         $sensors = Sensor::all();
+        $area = Sensor::groupBy('location_id')->get();
         $users = User::all();
 
         return view('pages.dashboard')
             ->with('gateways', $gateways)
             ->with('sensors', $sensors)
+            ->with('area', $area)
             ->with('users', $users);
 
     }
@@ -76,75 +79,94 @@ class DashboardController extends Controller
         //
     }
 
-    public function getEnergyConsumptionBasedOnDate(Request $request)
+    public function getDailyEnergyConsumption(Request $request)
     {
 
-        $query = Sensor::with(['location', 'gateway'])
-            ->select(
-                'sensors.*',
-                'locations.location_name as location_name',
-                'gateways.gateway_code',
-                'sensor_logs.energy',
-                'sensor_logs.datetime_created',
-                DB::raw("ROUND(sensor_logs.energy - LAG(sensor_logs.energy) OVER(
-                PARTITION BY sensors.id 
-                ORDER BY sensor_logs.datetime_created
-            ), 2) AS energy_difference"),
-                // Custom grouping key for 9 AM - 8:59 AM next day
-                DB::raw("
-                CASE 
-                    WHEN TIME(sensor_logs.datetime_created) >= '09:00:00' 
-                    THEN DATE(sensor_logs.datetime_created) 
-                    ELSE DATE(sensor_logs.datetime_created - INTERVAL 1 DAY) 
-                END AS custom_group_date
-            ")
-            )
-            ->leftJoin('locations', 'locations.id', '=', 'sensors.location_id')
-            ->leftJoin('gateways', 'gateways.id', '=', 'sensors.gateway_id')
-            ->leftJoin('sensor_logs', 'sensor_logs.sensor_id', '=', 'sensors.id')
-            ->where('sensor_logs.datetime_created', '>=', Carbon::now()->subDays($request->days));
+        $now = Carbon::now();
+        $today9AM = $now->copy()->startOfDay()->addHours(9);
+        $tomorrow9AM = $today9AM->copy()->addDay();
 
-        if ($request->sensor_id) {
-            $query->where('sensors.id', $request->sensor_id);
+        if ($now->greaterThanOrEqualTo($today9AM)) {
+            $startDate = Carbon::now()
+                ->subDay()
+                ->startOfDay()
+                ->addHours(9)
+                ->toDateTimeString(); // Yesterday's date
+
+            $endDate = $tomorrow9AM->toDateTimeString();
+        } else {
+            $startDate = Carbon::now()
+                ->subDays(2)
+                ->startOfDay()
+                ->addHours(9)
+                ->toDateTimeString(); // Yesterday's date
+
+            $endDate = $today9AM->toDateTimeString();
         }
 
-        // Group by custom_group_date (9 AM - 8:59 AM) instead of standard dates
-        $energyConsumption = $query
-            ->groupBy('sensors.description', 'custom_group_date')
-            ->orderBy('sensors.id')
-            ->orderBy('sensor_logs.datetime_created')
-            ->get();
+        $energyConsumptionService = (new EnergyConsumptionService)->get($request, $startDate, $endDate);
 
+        $dailyEnergy = $energyConsumptionService->get();
 
-        return Response::json($energyConsumption);
+        return Response::json($dailyEnergy);
     }
 
-    public function getEnergyConsumptionBasedOnHours(Request $request)
+    public function getDailyEnergyConsumptionPerMeter(Request $request)
     {
+        $now = Carbon::now();
+        $today9AM = $now->copy()->startOfDay()->addHours(9);
+        $tomorrow9AM = $today9AM->copy()->addDay();
 
-        $query = Sensor::select(
-            'sensor_logs.datetime_created',
-            DB::raw("ROUND(sensor_logs.energy - LAG(sensor_logs.energy) OVER(
-                    PARTITION BY sensors.id 
-                    ORDER BY sensor_logs.datetime_created
-                ), 2) AS energy_difference"),
-            DB::raw('HOUR(sensor_logs.datetime_created) AS date_hours')
-        )
-            ->leftJoin('locations', 'locations.id', '=', 'sensors.location_id')
-            ->leftJoin('gateways', 'gateways.id', '=', 'sensors.gateway_id')
-            ->leftJoin('sensor_logs', 'sensor_logs.sensor_id', '=', 'sensors.id')
-            // ->whereRaw('HOUR(sensor_logs.datetime_created) = 9'); // Get the date on the 9th hour of the day
-            ->where('sensor_logs.datetime_created', '>=', Carbon::now()->subHours(363));
-
-        if ($request->sensor_id) {
-            $query->where('sensors.id', $request->sensor_id);
+        if ($now->greaterThanOrEqualTo($today9AM)) {
+            $startDate = $today9AM->toDateTimeString();
+            $endDate = $tomorrow9AM->toDateTimeString();
+        } else {
+            $endDate = $today9AM->toDateTimeString();
+            $startDate = $today9AM->subDay()->toDateTimeString();
         }
 
-        $energyConsumption = $query->groupBy('date_hours')
-            ->orderBy('sensors.id')
-            ->orderBy('sensor_logs.datetime_created')
-            ->get();
+        $energyConsumptionService = (new EnergyConsumptionService)->get($request, $startDate, $endDate);
 
-        return Response::json($energyConsumption);
+        $dailyEnergy = $energyConsumptionService->get();
+
+        return Response::json($dailyEnergy);
+    }
+
+    public function getMonthlyEnergyConsumption(Request $request)
+    {
+
+        $now = Carbon::now();
+        $monthToday = $now->copy()->startOfMonth()->addHours(9)->addDays(24);
+
+        if ($now->greaterThanOrEqualTo($monthToday)) {
+
+            $request->select = "
+            DATE_FORMAT(NOW(), '%Y-%m-01 09:00') + INTERVAL 24 DAY AS start_date, 
+            DATE_FORMAT(DATE(NOW() + INTERVAL 1 MONTH), '%Y-%m-01 09:00') + INTERVAL 24 DAY AS end_date, 
+            ROUND(SUM((end_energy - start_energy)), 2) AS daily_consumption";
+
+            $startDate = $monthToday->toDateTimeString();
+            $endDate = $monthToday->addMonth()->toDateTimeString();
+        } else {
+            $request->select = "
+            DATE_FORMAT(DATE(NOW() - INTERVAL 1 MONTH), '%Y-%m-01 09:00') + INTERVAL 24 DAY AS start_date, 
+            DATE_FORMAT(NOW(), '%Y-%m-01 09:00') + INTERVAL 24 DAY AS end_date, 
+            ROUND(SUM((end_energy - start_energy)), 2) AS daily_consumption";
+
+            $endDate = $monthToday->toDateTimeString();
+            $startDate = $now->copy()
+                ->startOfDay()
+                ->addHours(9)
+                ->subMonth()
+                ->startOfMonth()
+                ->addDays(24)
+                ->toDateTimeString();
+        }
+
+        $energyConsumptionService = (new EnergyConsumptionService)->get($request, $startDate, $endDate);
+
+        $dailyEnergy = $energyConsumptionService->first();
+
+        return Response::json($dailyEnergy);
     }
 }

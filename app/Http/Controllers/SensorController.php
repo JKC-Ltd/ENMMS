@@ -95,7 +95,6 @@ class SensorController extends Controller
         DB::enableQueryLog();
         $sensor->update($request->all());
 
-       
         $gateways = Gateway::all();
 
         foreach ($gateways as $key => $gateway) {
