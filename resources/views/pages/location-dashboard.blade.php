@@ -16,7 +16,9 @@
         Location Dashboard
     </x-slot>
     <x-slot name="content">
-        <div id="tree"></div>
+        <div class="location-dashboard-chart">
+            <div id="tree"></div>
+        </div>
     </x-slot>
     <x-slot name="importedScripts">
         <script src="{{ asset('assets/js/orgchart.js') }}"></script>
