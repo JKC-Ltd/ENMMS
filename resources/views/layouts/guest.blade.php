@@ -25,7 +25,6 @@
             <div class="col-lg-4 col-md-5 col-sm-12 login-content">
                 <div class="login-form">
                     <img src="{{ asset('assets/images/siix-dark-logo.png') }}" class="login-logo">
-                    <h1>SIGN IN</h1>
                     <p>Welcome! Please enter your credentials to access your account.</p>
                     {{ $slot }}
                 </div>

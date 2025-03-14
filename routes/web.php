@@ -43,7 +43,8 @@ function registerCommonRoutes() {
     Route::get('/getSensor', [LocationDashboardController::class, 'getSensor']);
     Route::get('/getDailyEnergyConsumption', [DashboardController::class, 'getDailyEnergyConsumption']);
     Route::get('/getDailyEnergyConsumptionPerMeter', [DashboardController::class, 'getDailyEnergyConsumptionPerMeter']);
-    Route::get('/getMonthlyEnergyConsumption', [DashboardController::class, 'getMonthlyEnergyConsumption']);
+    Route::get('/getEnergyConsumption', [DashboardController::class, 'getEnergyConsumption']);
+    Route::get('/getPower', [DashboardController::class, 'getPower']);
 }
 
 Route::middleware(['auth', 'admin:Admin'])->group(function () {

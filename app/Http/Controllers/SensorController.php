@@ -11,6 +11,7 @@ use App\Services\SensorOfflineService;
 use DB;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Validation\Rule;
 use Response;
 
 class SensorController extends Controller
@@ -91,7 +92,7 @@ class SensorController extends Controller
     public function update(Request $request, Sensor $sensor)
     {
 
-        $request->validate(self::formRule(), self::errorMessage(), self::changeAttributes());
+        $request->validate(self::formRule($sensor->id), self::errorMessage(), self::changeAttributes());
         DB::enableQueryLog();
         $sensor->update($request->all());
 
@@ -123,10 +124,10 @@ class SensorController extends Controller
         return Response::json($sensor);
     }
 
-    public function formRule()
+    public function formRule($id = false)
     {
         return [
-            'slave_address' => ['required', 'string', 'min:1', 'max:200'],
+            'slave_address' => ['required', 'string', 'min:1', 'max:200', Rule::unique('sensors')->ignore($id ? $id : '')],
             'description' => ['required', 'string', 'min:3', 'max:500'],
             'location_id' => 'required',
             'gateway_id' => 'required',

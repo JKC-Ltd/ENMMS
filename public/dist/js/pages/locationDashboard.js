@@ -43,7 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 share: null,
                 edit: null,
-                remove: null
+                remove: null,
+                pdf: null
             },
             photoBinding: null,
 
