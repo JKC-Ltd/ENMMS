@@ -69,7 +69,8 @@ class LocationController extends Controller
      */
     public function edit(Location $location)
     {
-        return view('pages.configurations.locations.form', compact('location'));
+        $listOfLocations = Location::all();
+        return view('pages.configurations.locations.form', compact('location','listOfLocations'));
     }
 
     /**

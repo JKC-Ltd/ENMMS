@@ -50,6 +50,6 @@
     <x-slot name="importedScripts">
         <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
         <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
-        <script src="{{ asset('assets/js/energyConsumption.js') }}"></script>
+        <script type="module" src="{{ asset('assets/js/energyConsumption.js') }}"></script>
     </x-slot>
 </x-app-layout>
