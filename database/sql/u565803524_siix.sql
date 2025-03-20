@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Mar 05, 2025 at 05:18 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: 127.0.0.1:3306
+-- Generation Time: Mar 20, 2025 at 02:46 PM
+-- Server version: 10.11.10-MariaDB
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `enmms`
+-- Database: `u565803524_siix`
 --
 
 -- --------------------------------------------------------
@@ -32,6 +32,22 @@ CREATE TABLE `cache` (
   `value` mediumtext NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('admin@smartpowerph.com|119.94.167.83', 'i:1;', 1742467908),
+('admin@smartpowerph.com|119.94.167.83:timer', 'i:1742467908;', 1742467908),
+('daisy_effertz@clientcaf.info|212.102.63.50', 'i:2;', 1742322733),
+('daisy_effertz@clientcaf.info|212.102.63.50:timer', 'i:1742322733;', 1742322733),
+('isobel72@hotmail.com|212.102.63.50', 'i:2;', 1742322742),
+('isobel72@hotmail.com|212.102.63.50:timer', 'i:1742322742;', 1742322742),
+('sstokes81@yahoo.com|212.102.63.50', 'i:1;', 1742322739),
+('sstokes81@yahoo.com|212.102.63.50:timer', 'i:1742322739;', 1742322739),
+('test@example.com|180.190.121.92', 'i:1;', 1742463001),
+('test@example.com|180.190.121.92:timer', 'i:1742463001;', 1742463001);
 
 -- --------------------------------------------------------
 
@@ -84,9 +100,11 @@ CREATE TABLE `gateways` (
 --
 
 INSERT INTO `gateways` (`id`, `location_id`, `customer_code`, `gateway`, `gateway_code`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 19, 'SIIX', 'Gateway 2', 'G02', 'Gateway #2', '2025-03-04 19:59:40', '2025-03-04 19:59:40', NULL),
-(2, 17, 'SIIX', 'Gateway 1', 'G01', 'Gateway #1', '2025-03-04 20:00:35', '2025-03-04 20:00:35', NULL),
-(3, 24, 'SIIX', 'Gateway 3', 'G03', 'Gateway #3', '2025-03-04 20:02:33', '2025-03-04 20:02:33', NULL);
+(1, 18, 'SIIX', '1', 'GAT-01', 'Gateway on IIDA', '2025-03-20 22:26:56', '2025-03-20 22:26:56', NULL),
+(2, 19, 'SIIX', '2', 'GAT-02', 'Gateway on Canteen', '2025-03-20 22:27:47', '2025-03-20 22:27:47', NULL),
+(3, 24, 'SIIX', '3', 'GAT-03', 'Gateway on EOL', '2025-03-20 22:28:08', '2025-03-20 22:28:08', NULL),
+(4, 25, 'SIIX', '4', 'GAT-04', 'Gateway on EE Room', '2025-03-20 22:28:37', '2025-03-20 22:28:37', NULL),
+(5, 21, 'SIIX', '5', 'GAT-05', 'Gateway on SMT Area', '2025-03-20 22:29:02', '2025-03-20 22:29:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -167,7 +185,8 @@ INSERT INTO `locations` (`id`, `location_code`, `location_name`, `pid`, `created
 (21, 'SMT Area', 'SMT Area', '13', NULL, NULL, NULL),
 (22, 'A1 reflow', 'A1 reflow', '21', NULL, NULL, NULL),
 (23, 'B5 reflow', 'B5 reflow', '21', NULL, NULL, NULL),
-(24, 'EOL', 'EOL', '13', NULL, NULL, NULL);
+(24, 'EOL', 'EOL', '13', NULL, NULL, NULL),
+(25, 'EE Room', 'EE Room', '11', '2025-03-20 21:16:10', '2025-03-20 21:16:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -235,15 +254,20 @@ CREATE TABLE `sensors` (
 --
 
 INSERT INTO `sensors` (`id`, `slave_address`, `description`, `location_id`, `gateway_id`, `sensor_model_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '1', 'PP-CANTEEN', 19, 1, 1, '2025-03-04 20:07:41', '2025-03-04 20:07:41', NULL),
-(2, '2', 'PP-SEP', 19, 1, 1, '2025-03-04 20:07:52', '2025-03-04 20:08:25', NULL),
-(3, '3', 'PP-ACTIVITY', 19, 1, 1, '2025-03-04 20:08:48', '2025-03-04 20:08:48', NULL),
-(4, '4', 'PP-SLP (General Office)', 19, 1, 1, '2025-03-04 20:09:23', '2025-03-04 20:09:23', NULL),
-(5, '5', 'IIDA PP-220V', 17, 2, 1, '2025-03-04 20:10:44', '2025-03-04 20:10:44', NULL),
-(6, '6', 'IIDA PP-100V', 17, 2, 1, '2025-03-04 20:11:18', '2025-03-04 20:11:18', NULL),
-(7, '7', 'IIDA PP-200V', 17, 2, 1, '2025-03-04 20:11:43', '2025-03-04 20:11:43', NULL),
-(8, '8', 'EOL MP-2-3-220', 24, 3, 1, '2025-03-04 20:12:36', '2025-03-04 20:12:36', NULL),
-(9, '9', 'EOL MP-100V-2-3', 24, 3, 1, '2025-03-04 20:13:14', '2025-03-04 20:13:32', NULL);
+(1, '2', 'IIDA PP-100V', 17, 1, 1, '2025-03-20 22:32:53', '2025-03-20 22:37:17', NULL),
+(2, '3', 'IIDA PP-200V', 17, 1, 1, '2025-03-20 22:33:12', '2025-03-20 22:37:24', NULL),
+(3, '1', 'IIDA PP-220V', 17, 1, 1, '2025-03-20 22:33:31', '2025-03-20 22:37:32', NULL),
+(4, '6', 'IIDA PP-HDA-AP', 17, 1, 1, '2025-03-20 22:33:52', '2025-03-20 22:37:40', NULL),
+(5, '4', 'PP-CANTEEN', 19, 2, 1, '2025-03-20 22:37:03', '2025-03-20 22:37:03', NULL),
+(6, '5', 'PP-SEP', 19, 2, 1, '2025-03-20 22:38:00', '2025-03-20 22:38:00', NULL),
+(7, '7', 'PP-SLP', 19, 2, 1, '2025-03-20 22:38:20', '2025-03-20 22:38:20', NULL),
+(8, '9', 'EOL MP-100V', 24, 3, 1, '2025-03-20 22:39:35', '2025-03-20 22:39:35', NULL),
+(9, '8', 'EOL MP-2-2', 24, 3, 1, '2025-03-20 22:39:54', '2025-03-20 22:39:54', NULL),
+(10, '10', 'SWS Reflow A4', 25, 4, 1, '2025-03-20 22:40:45', '2025-03-20 22:40:45', NULL),
+(11, '11', 'B1 Reflow', 25, 4, 1, '2025-03-20 22:41:28', '2025-03-20 22:41:28', NULL),
+(12, '12', 'A1 Reflow', 21, 5, 1, '2025-03-20 22:41:48', '2025-03-20 22:41:48', NULL),
+(13, '13', 'A2 Reflow', 21, 5, 1, '2025-03-20 22:42:04', '2025-03-20 22:42:04', NULL),
+(14, '14', 'A3 Reflow', 21, 5, 1, '2025-03-20 22:42:22', '2025-03-20 22:42:22', NULL);
 
 -- --------------------------------------------------------
 
@@ -302,7 +326,7 @@ CREATE TABLE `sensor_models` (
 --
 
 INSERT INTO `sensor_models` (`id`, `sensor_model`, `sensor_brand`, `sensor_type_id`, `sensor_reg_address`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'SDM120', 'Eastron', 1, '0, 6, 12, 18, 342', '2025-02-14 00:59:59', '2025-02-14 00:59:59', NULL);
+(1, 'PM2120', 'Schneider', 1, '3020,3000,3060,3076,2700', '2025-03-19 01:33:52', '2025-03-19 01:33:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -318,10 +342,6 @@ CREATE TABLE `sensor_offlines` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `gateway_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `sensor_offlines`
---
 
 -- --------------------------------------------------------
 
@@ -371,7 +391,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('C5Vau1xfHtgF82F9uQnhWujbzw807PybGve8Lz5Z', 1, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoidUpxa09Nd0NUTHlEemVlTE1PN3VabFNsbllSaVZxS1dJZEFQRlhMZCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1741148300);
+('6y6giTxd1nB5RsiztdxEYD5W8j0L6QX5EfY8hCiK', 1, '2001:4451:4155:6000:1d68:eb05:680a:ccb1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoicVhYUzA1akVSMWlQZ1dGRDkzYTVMSGRQR29LZjk0SWZiZEtZN202cSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDc6Imh0dHBzOi8vc2lpeC5zbWFydHBvd2VycGguY29tL2xvY2F0aW9uRGFzaGJvYXJkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1742481746),
+('ba7FuVYt705uWAnY6O7eHuilBkreaH2Nyg3SVBwq', NULL, '2001:4451:41e0:5a00:fc3c:dea0:7546:d728', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQk1lcUxEekFvRzdneXNIVEdtZFFuRVk4dXRHNWNscGN1aVFNWmd0QiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHBzOi8vc2lpeC5zbWFydHBvd2VycGguY29tL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1742479687);
 
 -- --------------------------------------------------------
 
@@ -398,7 +419,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `user_type_id`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'Admin', 1, 'test@example.com', NULL, '$2y$12$lXmi9cYt0cVc8z3XymYYIe8cQpZn/8su/EsYE9Qox2lQD26vcWEh.', NULL, '2025-03-04 19:56:17', '2025-03-04 19:56:17', NULL);
+(1, 'Admin', 'Admin', 1, 'test@example.com', NULL, '$2y$12$F47rUVsa3edWbBRkM3RvxODjDKRgT.TMJiJjCoxoJ3.SA10ize7G.', NULL, '2025-03-18 05:48:11', '2025-03-18 05:48:11', NULL);
 
 -- --------------------------------------------------------
 
@@ -422,8 +443,8 @@ CREATE TABLE `user_types` (
 --
 
 INSERT INTO `user_types` (`id`, `name`, `created_by`, `updated_by`, `deleted_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', NULL, NULL, NULL, '2025-03-04 19:56:16', '2025-03-04 19:56:16', NULL),
-(2, 'User', NULL, NULL, NULL, '2025-03-04 19:56:16', '2025-03-04 19:56:16', NULL);
+(1, 'Admin', NULL, NULL, NULL, '2025-03-18 05:48:11', '2025-03-18 05:48:11', NULL),
+(2, 'User', NULL, NULL, NULL, '2025-03-18 05:48:11', '2025-03-18 05:48:11', NULL);
 
 --
 -- Indexes for dumped tables
@@ -492,6 +513,7 @@ ALTER TABLE `password_reset_tokens`
 --
 ALTER TABLE `sensors`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `sensors_slave_address_unique` (`slave_address`),
   ADD KEY `sensors_location_id_foreign` (`location_id`),
   ADD KEY `sensors_gateway_id_foreign` (`gateway_id`),
   ADD KEY `sensors_sensor_model_id_foreign` (`sensor_model_id`);
@@ -561,7 +583,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `gateways`
 --
 ALTER TABLE `gateways`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -573,7 +595,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -585,7 +607,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `sensors`
 --
 ALTER TABLE `sensors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `sensor_logs`
@@ -603,7 +625,7 @@ ALTER TABLE `sensor_models`
 -- AUTO_INCREMENT for table `sensor_offlines`
 --
 ALTER TABLE `sensor_offlines`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sensor_types`
