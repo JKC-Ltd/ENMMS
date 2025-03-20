@@ -34,240 +34,162 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
 
     if (refetch) {
         charts[chartID].render();
+    } else {
+        renderChart(chartID, charts[chartID].options);
     }
 
-    const formatDate = (date) => {
-        const newDate = new Date(date);
-        return newDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-    }
+};
 
-    const processData = (data, refetch, chartID, columnName) => {
+const processDailyEnergyConsumptionAllMeters = () => {
 
-        let totalEnergyConsumption = 0;
-        // let dateToday = new Date();
-        // dateToday.setHours(dateToday.getHours() - 9); // Deduct 9 hours
-        // dateToday = formatDate(dateToday);
+    let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
+    const [startDate, endDate] = getStartEndDate(9, 24, 'month', 1);
 
-        let uniqueDates = [...new Set(data.map(item => item.reading_date))];
+    const dailyEnergyConsumptionAllMeters = () => {
 
-        data.forEach((reading) => {
-            totalEnergyConsumption += reading.daily_consumption;
-            let existingSensor = charts[chartID].options.data.find(sensor => sensor.name === reading.description);
-            if (!existingSensor) {
-                charts[chartID].options.data.push({
-                    type: "stackedColumn",
-                    name: reading.description,
-                    showInLegend: true,
-                    dataPoints: uniqueDates.map(date => {
-                        let dataItem = data.find(d => d.reading_date === date && d.description === reading.description);
-                        return { name: dataItem.description, label: formatDate(date), y: dataItem ? dataItem.daily_consumption : null };
-                    })
-                });
-            }
-        });
-
-        $('#monthlyEnergyConsumption').html(totalEnergyConsumption.toLocaleString());
-
-        if (refetch) {
-            charts[chartID].render();
-        } else {
-            renderChart(chartID, charts[chartID].options);
-        }
-
-    };
-
-
-    const getStartEndDate = (hours, days, period, duration) => {
-        let now = moment();
-        let dateToday = now.clone().startOf(period).add(hours, 'hours');
-
-
-        if (period === 'month') {
-            dateToday.add(days, 'days');
-        }
-
-        let formattedStartDate, formattedEndDate;
-
-        if (now.isSameOrAfter(dateToday)) {
-            formattedStartDate = dateToday.clone().format('YYYY-MM-DD HH:mm:ss');
-            formattedEndDate = dateToday.clone().add(duration, period).format('YYYY-MM-DD HH:mm:ss');
-        } else {
-            formattedStartDate = dateToday.clone().subtract(duration, period).format('YYYY-MM-DD HH:mm:ss');
-            formattedEndDate = dateToday.clone().format('YYYY-MM-DD HH:mm:ss');
-        }
-
-        console.log(formattedStartDate, formattedEndDate);
-        return [formattedStartDate, formattedEndDate];
-    };
-
-
-
-    const fetchData = (request, chartID, url, columnName, refetch = false) => {
-
-        $.ajax({
-            type: "GET",
-            url: url,
-            data: request,
-            success: function (data) {
-                processData(data, refetch, chartID, columnName);
+        return {
+            animationEnabled: true,
+            theme: "light2",
+            colorSet: "DailyEnergyColorSet",
+            exportEnabled: true,
+            zoomEnabled: true,
+            title: {
+                text: "Daily Energy Consumption - SIIX EMS: All Meters",
+                fontSize: 20,
+                margin: 30
             },
-            error: function (error) {
-                console.log(error);
-            }
-        })
-    };
-
-    const setIntervalAtFiveMinuteMarks = (callback) => {
-        const now = new Date();
-        const delay = (5 - (now.getMinutes() % 5)) * 60 * 1000 - now.getSeconds() * 1000 - now.getMilliseconds();
-        setTimeout(() => {
-            callback();
-            setInterval(callback, 5 * 60 * 1000);
-        }, delay);
-    };
-
-    const processDailyEnergyConsumptionAllMeters = () => {
-
-        let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
-        [startDate, endDate] = getStartEndDate(9, 24, 'month', 1);
-
-        const initDailyEnergyConsumptionAllMeters = () => {
-
-            return {
-                animationEnabled: true,
-                theme: "light2",
-                colorSet: "DailyEnergyColorSet",
-                exportEnabled: true,
-                zoomEnabled: true,
-                title: {
-                    text: "Daily Energy Consumption - SIIX EMS: All Meters",
-                    fontSize: 20,
-                    margin: 30
+            axisY: {
+                title: "Energy (kWh)",
+                titlePadding: {
+                    top: 1,
+                    bottom: 15,
                 },
-                axisY: {
-                    title: "Energy (kWh)",
-                    titlePadding: {
-                        top: 1,
-                        bottom: 15,
-                    },
-                    titleFontSize: 15,
-                    // includeZero: true
-                    labelFontSize: 12
-                },
-                axisX: {
-                    labelAngle: -90,
-                    margin: 30,
-                    labelFontSize: 12,
-                    interval: 1,
-                    // intervalType: "month",
-                },
-                toolTip: {
-                    content: "{name}: {y} kWh"
-                },
-                legend: {
-                    cursor: "pointer",
-                    horizontalAlign: "center",
-                    itemclick: (e) => toggleDataSeries(e, "dailyEnergyConsumptionAllMeters"),
-                    fontSize: 15,
-                },
-                data: [],
-            }
+                titleFontSize: 15,
+                // includeZero: true
+                labelFontSize: 12
+            },
+            axisX: {
+                labelAngle: -90,
+                margin: 30,
+                labelFontSize: 12,
+                interval: 1,
+                // intervalType: "month",
+            },
+            toolTip: {
+                // content: "{name}: {y} kWh"
+                shared: true,
+            },
+            legend: {
+                cursor: "pointer",
+                horizontalAlign: "center",
+                itemclick: (e) => toggleDataSeries(e, "dailyEnergyConsumptionAllMeters"),
+                fontSize: 15,
+            },
+            data: [],
         }
+    }
 
+    const dailyEnergyConsumptionAllMetersDataOptions = () => {
 
-
-        const toggleDataSeries = (e, chartID) => {
-            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-                e.dataSeries.visible = false;
-            } else {
-                e.dataSeries.visible = true;
-            }
-            charts[chartID].render();
+        return {
+            type: "stackedColumn",
+            name: "",
+            showInLegend: true,
+            dataPoints: []
         }
+    }
 
-        const dailyEnergyConsumptionAllMeters = initDailyEnergyConsumptionAllMeters();
-        const dailyEnergyConsumptionAllMetersRequest = {
+
+
+    const toggleDataSeries = (e, chartID) => {
+        if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+        } else {
+            e.dataSeries.visible = true;
+        }
+        charts[chartID].render();
+    }
+
+    const dailyEnergyConsumptionAllMetersRequest = {
+        select: select,
+        startDate: startDate,
+        endDate: endDate
+
+    };
+    charts["dailyEnergyConsumptionAllMeters"] = { options: dailyEnergyConsumptionAllMeters() };
+    fetchData(dailyEnergyConsumptionAllMetersRequest, dailyEnergyConsumptionAllMetersDataOptions(), "dailyEnergyConsumptionAllMeters", "/getEnergyConsumption", "reading_date", processData);
+
+    setIntervalAtFiveMinuteMarks(function () {
+        console.log("refetching...");
+        fetchData(dailyEnergyConsumptionAllMetersRequest, dailyEnergyConsumptionAllMetersDataOptions(), "dailyEnergyConsumptionAllMeters", "/getEnergyConsumption", "reading_date", processData, true);
+        charts["dailyEnergyConsumptionAllMeters"].render();
+    });
+}
+
+// Process for the Monthly energy consumption calculation
+processDailyEnergyConsumptionAllMeters();
+
+// -----------------------------------------------------------------------------------------------
+
+
+// Separate process for no charts
+
+// Process for the Daily energy consumption per meter calculation
+
+
+const fetchDataNoneCharts = (select, startDate, endDate, divID) => {
+
+    $.ajax({
+        type: "GET",
+        url: "/getEnergyConsumption",
+        data: {
             select: select,
             startDate: startDate,
             endDate: endDate
+        },
+        success: function (data) {
+            let totalValue = {};
+            totalValue[divID] = data.reduce((total, item) => total + item.daily_consumption, 0);
 
-        };
-        charts["dailyEnergyConsumptionAllMeters"] = { options: dailyEnergyConsumptionAllMeters };
-        fetchData(dailyEnergyConsumptionAllMetersRequest, "dailyEnergyConsumptionAllMeters", "/getEnergyConsumption", "reading_date");
+            $(`#${divID}`).html(totalValue[divID].toLocaleString());
+            // console.log(totalValue);
 
-        setIntervalAtFiveMinuteMarks(function () {
-            console.log("refetching...");
-            fetchData(dailyEnergyConsumptionAllMetersRequest, "dailyEnergyConsumptionAllMeters", "/getEnergyConsumption", "reading_date", true);
-            charts["dailyEnergyConsumptionAllMeters"].render();
-        });
-    }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+};
 
-    // Process for the Monthly energy consumption calculation
-    processDailyEnergyConsumptionAllMeters();
+const processCurrentWeekEnergyConsumption = () => {
+    let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
 
-    // -----------------------------------------------------------------------------------------------
-
-
-    // Separate process for no charts
-
-    // Process for the Daily energy consumption per meter calculation
-
-
-    const fetchDataNoneCharts = (select, startDate, endDate, divID) => {
-
-        $.ajax({
-            type: "GET",
-            url: "/getEnergyConsumption",
-            data: {
-                select: select,
-                startDate: startDate,
-                endDate: endDate
-            },
-            success: function (data) {
-                let totalValue = {};
-                totalValue[divID] = data.reduce((total, item) => total + item.daily_consumption, 0);
-
-                $(`#${divID}`).html(totalValue[divID].toFixed(2));
-                console.log(totalValue);
-
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        })
-    };
-
-    const processCurrentWeekEnergyConsumption = () => {
-        let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
-
-        setIntervalAtFiveMinuteMarks(function () {
-            [startDate, endDate] = getStartEndDate(9, 7, 'week', 1);
-            console.log("refetching...");
-            fetchDataNoneCharts(select, startDate, endDate, "weeklyEnergyConsumption");
-        });
-
-        // Initial fetch
-        [startDate, endDate] = getStartEndDate(9, 7, 'week', 1);
+    setIntervalAtFiveMinuteMarks(function () {
+        const [startDate, endDate] = getStartEndDate(9, 7, 'week', 1);
+        console.log("refetching...");
         fetchDataNoneCharts(select, startDate, endDate, "weeklyEnergyConsumption");
-    };
+    });
 
-    const processCurrentDayEnergyConsumption = () => {
+    // Initial fetch
+    const [startDate, endDate] = getStartEndDate(9, 7, 'week', 1);
+    fetchDataNoneCharts(select, startDate, endDate, "weeklyEnergyConsumption");
+};
 
-        let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
+const processCurrentDayEnergyConsumption = () => {
 
-        setIntervalAtFiveMinuteMarks(function () {
-            [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
-            console.log("refetching...");
-            fetchDataNoneCharts(select, startDate, endDate, "dailyEnergyConsumption");
-        });
+    let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
 
-        [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
+    setIntervalAtFiveMinuteMarks(function () {
+        const [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
+        console.log("refetching...");
         fetchDataNoneCharts(select, startDate, endDate, "dailyEnergyConsumption");
+    });
 
-    };
+    const [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
+    fetchDataNoneCharts(select, startDate, endDate, "dailyEnergyConsumption");
 
-    processCurrentWeekEnergyConsumption();
+};
 
-    processCurrentDayEnergyConsumption();
+processCurrentWeekEnergyConsumption();
 
-}
+processCurrentDayEnergyConsumption();
