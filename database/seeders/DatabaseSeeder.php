@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserTypeSeeder::class,
             UserSeeder::class,
+            SensorTypeSeeder::class,
+            LocationSeeder::class,
+            
         ]);
 
 
