@@ -39,8 +39,8 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate( self::formRule(),self::errorMessage(), self::changeAttributes());
-        
+        $request->validate(self::formRule(), self::errorMessage(), self::changeAttributes());
+
         DB::enableQueryLog();
 
         $location = new Location($request->all());
@@ -69,7 +69,10 @@ class LocationController extends Controller
      */
     public function edit(Location $location)
     {
-        return view('pages.configurations.locations.form', compact('location'));
+        $listOfLocations = Location::all();
+
+        return view('pages.configurations.locations.form')
+            ->with('listOfLocations', $listOfLocations);
     }
 
     /**
@@ -77,8 +80,8 @@ class LocationController extends Controller
      */
     public function update(Request $request, Location $location)
     {
-        $request->validate( self::formRule( $location->id),self::errorMessage(), self::changeAttributes());
-        
+        $request->validate(self::formRule($location->id), self::errorMessage(), self::changeAttributes());
+
         DB::enableQueryLog();
 
         $location->update($request->all());

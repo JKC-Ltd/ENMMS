@@ -1,38 +1,23 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme } from "./shared/main.js";
+window.onload = function () {
 
-colorScheme();
+    let charts = [];
 
-const processData = (data, refetch, chartID, dataOptions, columnName) => {
-    let totalEnergyConsumption = 0;
+    CanvasJS.addColorSet("DailyEnergyColorSet",
+        [
+            '#bca184', // Warm Taupe
+            '#7a8b4e', // Olive Green
+            '#d67c6e', // Muted Coral
+            '#4e5b7e', // Dark Slate Blue
+            '#9b4d82', // Soft Plum
+            '#b57e1f',  // Dark Mustard
+            '#5d737e', // Dusty Teal
+            '#e57c10', // Medium Orange
+            '#4a8fc2', // Medium Blue
 
-    let uniqueDates = [...new Set(data.map(item => item.reading_date))];
+        ]);
 
-    data.forEach((reading) => {
-        totalEnergyConsumption += reading.daily_consumption;
-
-        let existingSensor = charts[chartID].options.data.find(sensor => sensor.name === reading.description);
-
-        if (!existingSensor) {
-            let newDataOptions = {
-                ...dataOptions,
-                name: reading.description,
-                dataPoints: uniqueDates.map(date => {
-                    let dataItem = data.find(d => d.reading_date === date && d.description === reading.description);
-                    return {
-                        name: dataItem?.description,
-                        label: formatDate(date),
-                        y: dataItem ? dataItem.daily_consumption : null
-                    };
-                })
-            };
-
-            charts[chartID].options.data.push(newDataOptions);
-        }
-    });
-
-    $('#monthlyEnergyConsumption').html(totalEnergyConsumption.toLocaleString());
-
-    if (refetch) {
+    const renderChart = (chartID, config) => {
+        charts[chartID] = new CanvasJS.Chart(chartID, config);
         charts[chartID].render();
     }
 
