@@ -20,8 +20,8 @@ class UserSeeder extends Seeder
                 'id'        => 1,
                 'firstname' => 'Admin',
                 'lastname'  => 'Admin',
-                'email'     => 'test@example.com',
-                'password'  =>  Hash::make('Smartpower123'),
+                'email'     => 'admin@smartpowerph.com',
+                'password'  =>  Hash::make('SmartPower123'),
                 'user_type_id' => 1
             ],
         ];
