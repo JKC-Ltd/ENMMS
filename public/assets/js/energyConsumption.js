@@ -78,6 +78,7 @@ const processDailyEnergyConsumptionAllMeters = () => {
             toolTip: {
                 // content: "{name}: {y} kWh"
                 shared: true,
+                content: (e) => toolTipContent(e),
             },
             legend: {
                 cursor: "pointer",
@@ -99,7 +100,21 @@ const processDailyEnergyConsumptionAllMeters = () => {
         }
     }
 
+    const toolTipContent = (e) => {
 
+        // console.log(e.entries[0].dataPoint.label);
+
+        const totalConsumption = e.entries.reduce((total, item) => total + item.dataPoint.y, 0);
+        const label = "<span style = \"color:DodgerBlue;\">Date:<strong> " + e.entries[0].dataPoint.label + "</strong></span><br/>";
+        const total = "<span style = \"color:Tomato\">Total:</span><strong> " + totalConsumption.toLocaleString() + "</strong><br/>";
+        let sensors = "";
+
+        e.entries.forEach(entry => {
+            sensors += `<span style="color: ${entry.dataSeries.color}"> ${entry.dataSeries.name}: </span> <strong>${entry.dataPoint.y}</strong><br/>`
+        });
+
+        return (label.concat(sensors)).concat(total);
+    }
 
     const toggleDataSeries = (e, chartID) => {
         if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
