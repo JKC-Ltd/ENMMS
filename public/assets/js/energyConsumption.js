@@ -1,4 +1,4 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, exportFn } from "./shared/main.js";
+import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, exportFn } from "./shared/main.js?v=1.0";
 
 colorScheme();
 

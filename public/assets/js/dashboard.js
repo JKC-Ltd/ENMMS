@@ -1,4 +1,4 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme } from "./shared/main.js";
+import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme } from "./shared/main.js?v=1.0";
 
 colorScheme();
 const processData = (data, refetch, chartID, dataOptions, columnName) => {
@@ -221,9 +221,14 @@ const fetchDataNoneCharts = (select, startDate, endDate, divID) => {
         },
         success: function (data) {
             data = data[0];
+
+            let endDateMoment = moment(endDate);
+            let endDateSub = endDateMoment.clone().subtract(1, "day").format('YYYY-MM-DD HH:mm:ss');
+
+            // console.log(endDateSub);
             $(`#${divID}Value`).html(data.daily_consumption.toLocaleString());
             $(`#${divID}StartDate`).html(formatDate(startDate));
-            $(`#${divID}EndDate`).html(formatDate(endDate));
+            $(`#${divID}EndDate`).html(formatDate(endDateSub));
 
             // $("#ghgCurrentMonth").html(`${(data.daily_consumption * 0.512).toLocaleString()} kWh`);
             $("#ghgCurrentMonthValue").html(`${Number((data.daily_consumption * 0.512).toFixed(2)).toLocaleString()
