@@ -41,7 +41,7 @@
                     <a href="{{ route('activePower.index') }}" class="nav-link {{ request()->routeIs('activePower.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Active Power
+                            Active Power Profile
                         </p>
                     </a>
                 </li>
