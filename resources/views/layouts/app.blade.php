@@ -45,9 +45,10 @@
         </div>
             @include('includes.footer')
             @include('includes.script')
-            @isset($importedScripts)
+            {{-- @isset($importedScripts)
                 {{ $importedScripts }}
-            @endisset
+            @endisset --}}
+            @yield('scripts')
         
 </body>
 

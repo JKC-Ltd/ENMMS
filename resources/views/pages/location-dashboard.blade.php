@@ -20,8 +20,9 @@
             <div id="tree"></div>
         </div>
     </x-slot>
-    <x-slot name="importedScripts">
+
+    @section('scripts')
         <script src="{{ asset('assets/js/orgchart.js') }}"></script>
         <script src="{{ asset('dist/js/pages/locationDashboard.js') }}"></script>
-    </x-slot>
+    @endsection
 </x-app-layout>

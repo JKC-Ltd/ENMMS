@@ -256,9 +256,10 @@
 
         </div>
     </x-slot>
-    <x-slot name="importedScripts">
+
+    @section('scripts')
         <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
         <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
         <script type="module" src="{{ asset('assets/js/dashboard.js') }}"></script>
-    </x-slot>
+    @endsection
 </x-app-layout>
