@@ -23,6 +23,6 @@
 
     @section('scripts')
         <script src="{{ asset('assets/js/orgchart.js') }}"></script>
-        <script src="{{ asset('dist/js/pages/locationDashboard.js') }}"></script>
+        <script src="{{ asset('dist/js/pages/locationDashboard.js') }}?v={{ time() }}"></script>
     @endsection
 </x-app-layout>
