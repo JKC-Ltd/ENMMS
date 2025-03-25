@@ -72,12 +72,12 @@ const processActivePowerProfile = (id) => {
         }
     }
 
-    const [startDate, endDate] = getStartEndDate(9, 24, 'month', 1);
+    // const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
 
     const activePowerProfileRequest = {
         select: "real_power, datetime_created, sensor_id",
-        startDate: startDate,
-        endDate: endDate,
+        // startDate: startDate,
+        // endDate: endDate,
         where:
         {
             field: "sensor_id",

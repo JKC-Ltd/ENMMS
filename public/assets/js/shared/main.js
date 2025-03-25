@@ -25,6 +25,27 @@ const formatDate = (date) => {
 const renderChart = (chartID, config) => {
     charts[chartID] = new CanvasJS.Chart(chartID, config);
     charts[chartID].render();
+
+
+    // var toolBar = document.getElementsByClassName("canvasjs-chart-toolbar")[0];
+    // if (charts[chartID].get("exportEnabled")) {
+    //     var exportCSV = document.createElement('div');
+    //     var text = document.createTextNode("Save as CSV");
+    //     exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
+    //     exportCSV.appendChild(text);
+
+    //     exportCSV.addEventListener("mouseover", function () {
+    //         exportCSV.setAttribute("style", "padding: 12px 8px; background-color: #2196F3; color: white")
+    //     });
+    //     exportCSV.addEventListener("mouseout", function () {
+    //         exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
+    //     });
+    //     exportCSV.addEventListener("click", function () {
+    //         console.log('test');
+    //         // downloadCSV({ filename: "chart-data.csv", chart: chart })
+    //     });
+    //     toolBar.lastChild.appendChild(exportCSV);
+    // }
 }
 
 const getStartEndDate = (hours, days, period, duration) => {
@@ -87,7 +108,9 @@ const setIntervalAtFiveMinuteMarks = (callback) => {
     }, delay);
 };
 
+const exportFn = (request, url) => {
+    console.log(request, url);
+}
 
 
-
-export { colorScheme, formatDate, renderChart, getStartEndDate, fetchData, setIntervalAtFiveMinuteMarks, charts };
+export { colorScheme, formatDate, renderChart, getStartEndDate, fetchData, setIntervalAtFiveMinuteMarks, exportFn, charts };

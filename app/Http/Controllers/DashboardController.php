@@ -104,7 +104,10 @@ class DashboardController extends Controller
             $endDate = $today9AM->toDateTimeString();
         }
 
-        $energyConsumptionService = (new EnergyConsumptionService)->get($request, $startDate, $endDate);
+        $request->startDate = $startDate;
+        $request->endDate = $endDate;
+
+        $energyConsumptionService = (new EnergyConsumptionService)->get($request);
 
         $dailyEnergy = $energyConsumptionService->get();
 
@@ -134,10 +137,8 @@ class DashboardController extends Controller
 
     public function getEnergyConsumption(Request $request)
     {
-        $startDate = $request->startDate;
-        $endDate = $request->endDate;
 
-        $energyConsumptionService = (new EnergyConsumptionService)->get($request, $startDate, $endDate);
+        $energyConsumptionService = (new EnergyConsumptionService)->get($request);
 
         $dailyEnergy = $energyConsumptionService->get();
 
@@ -146,10 +147,8 @@ class DashboardController extends Controller
 
     public function getPower(Request $request)
     {
-        $startDate = $request->startDate;
-        $endDate = $request->endDate;
 
-        $energyConsumptionService = (new EnergyConsumptionService)->getPower($request, $startDate, $endDate);
+        $energyConsumptionService = (new EnergyConsumptionService)->getPower($request);
 
         $dailyEnergy = $energyConsumptionService->get();
 

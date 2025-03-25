@@ -1,8 +1,9 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme } from "./shared/main.js";
+import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, exportFn } from "./shared/main.js";
 
 colorScheme();
 
 const processData = (data, refetch, chartID, dataOptions, columnName) => {
+
     let totalEnergyConsumption = 0;
 
     let uniqueDates = [...new Set(data.map(item => item.reading_date))];
@@ -43,7 +44,14 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
 const processDailyEnergyConsumptionAllMeters = () => {
 
     let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
-    const [startDate, endDate] = getStartEndDate(9, 24, 'month', 1);
+    // const [startDate, endDate] = getStartEndDate(9, 24, 'month', 1);
+    const processUrl = "/getEnergyConsumption";
+    const chartName = "dailyEnergyConsumptionAllMeters";
+    const column = "reading_date";
+
+    $(`#${chartName}Btn`).on('click', () => {
+        exportFn(dailyEnergyConsumptionAllMetersRequest, processUrl);
+    })
 
     const dailyEnergyConsumptionAllMeters = () => {
 
@@ -83,7 +91,7 @@ const processDailyEnergyConsumptionAllMeters = () => {
             legend: {
                 cursor: "pointer",
                 horizontalAlign: "center",
-                itemclick: (e) => toggleDataSeries(e, "dailyEnergyConsumptionAllMeters"),
+                itemclick: (e) => toggleDataSeries(e, chartName),
                 fontSize: 15,
             },
             data: [],
@@ -127,18 +135,22 @@ const processDailyEnergyConsumptionAllMeters = () => {
 
     const dailyEnergyConsumptionAllMetersRequest = {
         select: select,
-        startDate: startDate,
-        endDate: endDate
+        // startDate: startDate,
+        // endDate: endDate
 
     };
-    charts["dailyEnergyConsumptionAllMeters"] = { options: dailyEnergyConsumptionAllMeters() };
-    fetchData(dailyEnergyConsumptionAllMetersRequest, dailyEnergyConsumptionAllMetersDataOptions(), "dailyEnergyConsumptionAllMeters", "/getEnergyConsumption", "reading_date", processData);
+
+    charts[chartName] = { options: dailyEnergyConsumptionAllMeters() };
+    fetchData(dailyEnergyConsumptionAllMetersRequest, dailyEnergyConsumptionAllMetersDataOptions(), chartName, processUrl, column, processData);
+
 
     setIntervalAtFiveMinuteMarks(function () {
         console.log("refetching...");
-        fetchData(dailyEnergyConsumptionAllMetersRequest, dailyEnergyConsumptionAllMetersDataOptions(), "dailyEnergyConsumptionAllMeters", "/getEnergyConsumption", "reading_date", processData, true);
-        charts["dailyEnergyConsumptionAllMeters"].render();
+        fetchData(dailyEnergyConsumptionAllMetersRequest, dailyEnergyConsumptionAllMetersDataOptions(), chartName, processUrl, column, processData, true);
+        charts[chartName].render();
     });
+
+
 }
 
 // Process for the Monthly energy consumption calculation

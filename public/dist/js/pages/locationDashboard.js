@@ -98,15 +98,16 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateChartLayout(data, isSensor = false, ctr = 0) {
         if (isSensor) {
             data.forEach((sensor) => {
-                sensor.id = ctr;
+                sensor.id = (Math.random() * 100).toFixed(2);
                 chartLayout.push(sensor);
                 ctr++;
             });
         } else {
-            data.forEach((location) => {
+            data.forEach((location, key) => {
                 chartLayout.push(location);
             });
         }
+        console.log(chartLayout);
     }
 
     function fetchData(url) {

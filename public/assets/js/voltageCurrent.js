@@ -154,12 +154,12 @@ const processVoltageCurrentProfile = (id) => {
         charts[chartID].render();
     }
 
-    const [startDate, endDate] = getStartEndDate(9, 24, 'month', 1);
+    // const [startDate, endDate] = getStartEndDate(9, 24, 'month', 1);
 
     const voltageCurrentProfileRequest = {
         select: "*",
-        startDate: startDate,
-        endDate: endDate,
+        // startDate: startDate,
+        // endDate: endDate,
         where:
         {
             field: "sensor_id",

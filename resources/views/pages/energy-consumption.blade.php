@@ -40,6 +40,7 @@
             <section class="col-12 connectedSortable">
                 <div class="card">
                     <div class="card-body">
+                        {{-- <button class="btn btn-primary" id="dailyEnergyConsumptionAllMetersBtn">Download CSV</button> --}}
                         <div id="dailyEnergyConsumptionAllMeters" style="height: 520px; width: 100%;"></div>
                     </div>
                 </div>

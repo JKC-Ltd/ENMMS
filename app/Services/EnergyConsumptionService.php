@@ -8,9 +8,8 @@ use DB;
 class EnergyConsumptionService
 {
 
-    public function get($request, $startDate, $endDate)
+    public function get($request)
     {
-
         $sensor_logs = DB::table('sensor_logs')
             ->selectRaw("
                 sensor_id,
@@ -18,13 +17,16 @@ class EnergyConsumptionService
                 MIN(energy) AS start_energy,
                 MAX(energy) AS end_energy,
                 datetime_created
-            ")
+            ");
 
+        if ($request->startDate && $request->endDate) {
             // This should be dynamic based on the request parameters.
-            ->where("datetime_created", ">=", $startDate)
-            ->where("datetime_created", "<=", $endDate)
+            $sensor_logs->where("datetime_created", ">=", $request->startDate)
+                ->where("datetime_created", "<=", $request->endDate);
+        }
 
-            ->groupBy('sensor_id', 'reading_date');
+
+        $sensor_logs->groupBy('sensor_id', 'reading_date');
 
         $query = DB::table(DB::raw("({$sensor_logs->toSql()}) as daily_energy"))
             ->mergeBindings($sensor_logs)
@@ -44,7 +46,7 @@ class EnergyConsumptionService
 
     }
 
-    public function getPower($request, $startDate, $endDate)
+    public function getPower($request)
     {
 
         $sensor_logs = DB::table('sensor_logs')
@@ -59,12 +61,13 @@ class EnergyConsumptionService
                 current_c,
                 real_power,
                 apparent_power
-            ")
+            ");
 
+        if ($request->startDate && $request->endDate) {
             // This should be dynamic based on the request parameters.
-            ->where("datetime_created", ">=", $startDate)
-            ->where("datetime_created", "<=", $endDate);
-
+            $sensor_logs->where("datetime_created", ">=", $request->startDate)
+                ->where("datetime_created", "<=", $request->endDate);
+        }
 
         $query = DB::table(DB::raw("({$sensor_logs->toSql()}) as daily_energy"))
             ->mergeBindings($sensor_logs)

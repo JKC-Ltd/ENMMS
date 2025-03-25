@@ -243,13 +243,13 @@ const processCurrentMonthEnergyConsumption = () => {
         `;
 
     setIntervalAtFiveMinuteMarks(function () {
-        const [startDate, endDate] = getStartEndDate(9, 24, 'month', 1);
+        const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
         console.log("refetching...");
         fetchDataNoneCharts(select, startDate, endDate, "currentMonthEnergyConsumption");
     });
 
     // Initial fetch
-    const [startDate, endDate] = getStartEndDate(9, 24, 'month', 1);
+    const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
     fetchDataNoneCharts(select, startDate, endDate, "currentMonthEnergyConsumption");
 };
 
