@@ -147,7 +147,7 @@ const processDailyEnergyConsumptionPerMeter = () => {
             name: "dailyEnergyConsumptionPerMeter",
             indexLabel: "{y} kWh",
             showInlegend: false,
-            indexLabelFontColor: "#000",
+            indexLabelFontColor: "#fff",
             indexLabelFontSize: 13,
             indexLabelPlacement: "inside",
             dataPoints: []
