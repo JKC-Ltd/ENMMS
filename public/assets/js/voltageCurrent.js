@@ -98,7 +98,7 @@ const processVoltageCurrentProfile = (id) => {
                 // intervalType: "day",
             },
             axisY: {
-                title: "Volts",
+                title: "Voltage (V)",
                 titlePadding: {
                     top: 1,
                     bottom: 15,
@@ -133,7 +133,7 @@ const processVoltageCurrentProfile = (id) => {
                 fontSize: 20,
             },
             axisY: {
-                title: "Ampheres",
+                title: "Current (A)",
                 titlePadding: {
                     top: 1,
                     bottom: 15,

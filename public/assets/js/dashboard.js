@@ -7,7 +7,7 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
         let existingSensor = charts[chartID].options.data.find(sensor => sensor.name === chartID);
 
         if (!existingSensor) {
-            console.log('tests');
+            // console.log('tests');
             dataOptions.dataPoints.push({
                 y: reading.daily_consumption,
                 label: reading[columnName]
@@ -17,7 +17,7 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
         } else {
 
             let existingDataOptions = existingSensor.dataPoints.find(dp => dp.label === reading[columnName]);
-            console.log(existingDataOptions);
+            // console.log(existingDataOptions);
             if (!existingDataOptions) {
                 existingSensor.dataPoints.push({
                     y: reading.daily_consumption,
@@ -52,9 +52,11 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
 
     if (chartID === "pandpEnergyConsumption") {
         let totalEnergyConsumption = charts[chartID].options.data[0].dataPoints.find(date => formatDate(date.label) === formatDate(dateToday));
-        $("#totalEnergyConsumptionValue").html(totalEnergyConsumption?.y ?? 0);
-        $("#ghgCurrentDayValue").html(`${(totalEnergyConsumption.y * 0.512).toLocaleString()} kWh`);
-        $("#ghgCurrentDay").css('width', (totalEnergyConsumption.y * 0.512).toLocaleString());
+        
+        $("#totalEnergyConsumptionValue").html(totalEnergyConsumption?.y.toLocaleString() ?? 0);
+        $("#ghgCurrentDayValue").html(`${Number((totalEnergyConsumption.y * 0.512).toFixed(2)).toLocaleString()} kWh`);
+        $("#ghgCurrentDay").css('width', (totalEnergyConsumption.y * 0.512).toFixed(2));
+        
     }
 
     if (chartID === "dailyEnergyConsumptionPerMeter") {

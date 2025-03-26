@@ -80,7 +80,9 @@ class EnergyConsumptionService
         }
 
         $query->leftJoin('sensors', 'sensor_id', '=', 'sensors.id')
-            ->orderBy('sensor_id');
+            ->leftJoin('sensor_models', 'sensor_model_id', '=', 'sensor_models.id')
+            ->orderBy('sensor_id')
+            ->orderBy('datetime_created');
 
         if ($request->groupBy) {
             $query->groupBy($request->groupBy);

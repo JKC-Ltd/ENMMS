@@ -4,6 +4,7 @@ colorScheme();
 
 const processData = (data, refetch, chartID, dataOptions, columnName) => {
     console.log(`Processing data for chart: ${chartID}`);
+    console.log(data);
 
     let dateToday = new Date();
     dateToday.setHours(dateToday.getHours() - 9); // Deduct 9 hours
@@ -11,6 +12,10 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
 
     data.forEach((reading) => {
         let existingSensor = charts[chartID].options.data.find(chartData => chartData.name === "Real Power");
+
+        if (reading.sensor_brand === "Eastron") {
+            reading.real_power = reading.real_power / 1000;
+        }
 
         if (existingSensor) {
             existingSensor.dataPoints.push(
@@ -75,7 +80,7 @@ const processActivePowerProfile = (id) => {
     // const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
 
     const activePowerProfileRequest = {
-        select: "real_power, datetime_created, sensor_id",
+        select: "real_power, datetime_created, sensor_id, sensor_model, sensor_brand",
         // startDate: startDate,
         // endDate: endDate,
         where:
