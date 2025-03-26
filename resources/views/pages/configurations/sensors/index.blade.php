@@ -45,7 +45,8 @@
                                         <td>{{ $sensor->gateway->gateway_code }}</td>
                                         <td>{{ $sensor->sensorModel->sensorType->sensor_type_code }}</td>
                                         </td>
-                                        <td>{{ $sensor->sensorModel->sensor_model }} - {{ $sensor->sensorModel->sensor_brand }}</td>
+                                        <td>{{ $sensor->sensorModel->sensor_model }} -
+                                            {{ $sensor->sensorModel->sensor_brand }}</td>
                                         <td>{{ $sensor->description }}</td>
                                         <td>{{ $sensor->updated_at }}</td>
                                         <td>
@@ -57,8 +58,7 @@
                                                 </a>
                                                 <button type="button" class="btn btn-danger btn-sm delete-data-info"
                                                     data-name="{{ $sensor->slave_address }}"
-                                                    data-id="{{ $sensor->id }}"
-                                                    data-url="sensors/destroy">
+                                                    data-id="{{ $sensor->id }}" data-url="sensors/destroy">
                                                     <i class="fa fa-trash"></i> Delete
                                                 </button>
                                             </div>
@@ -73,10 +73,10 @@
             </div>
         </div>
     </x-slot>
-    <x-slot name="importedScripts">
+    @section('scripts')
         @include('includes.datatables-scripts')
         <script src="{{ asset('assets/js/datatables.js') }}"></script>
         <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
         <script src="{{ asset('./assets/js/sweetalert-delete.js') }}"></script>
-    </x-slot>
+    @endsection
 </x-app-layout>

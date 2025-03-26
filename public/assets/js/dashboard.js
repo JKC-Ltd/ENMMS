@@ -7,6 +7,7 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
         let existingSensor = charts[chartID].options.data.find(sensor => sensor.name === chartID);
 
         if (!existingSensor) {
+            console.log('tests');
             dataOptions.dataPoints.push({
                 y: reading.daily_consumption,
                 label: reading[columnName]
@@ -16,7 +17,7 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
         } else {
 
             let existingDataOptions = existingSensor.dataPoints.find(dp => dp.label === reading[columnName]);
-
+            console.log(existingDataOptions);
             if (!existingDataOptions) {
                 existingSensor.dataPoints.push({
                     y: reading.daily_consumption,
@@ -38,16 +39,16 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
     dateToday.setHours(dateToday.getHours() - 9);
     dateToday = formatDate(dateToday);
 
-    data.forEach((reading) => {
-        let existingSensor = charts[chartID].options.data[0].dataPoints.find(chartData => chartData.label === reading[columnName]);
-        if (existingSensor) {
-            existingSensor.y = reading.daily_consumption;
-        } else {
-            charts[chartID].options.data[0].dataPoints.push(
-                { y: reading.daily_consumption, label: reading[columnName] }
-            );
-        }
-    });
+    // data.forEach((reading) => {
+    //     let existingSensor = charts[chartID].options.data[0].dataPoints.find(chartData => chartData.label === reading[columnName]);
+    //     if (existingSensor) {
+    //         existingSensor.y = reading.daily_consumption;
+    //     } else {
+    //         charts[chartID].options.data[0].dataPoints.push(
+    //             { y: reading.daily_consumption, label: reading[columnName] }
+    //         );
+    //     }
+    // });
 
     if (chartID === "pandpEnergyConsumption") {
         let totalEnergyConsumption = charts[chartID].options.data[0].dataPoints.find(date => formatDate(date.label) === formatDate(dateToday));

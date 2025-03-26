@@ -38,7 +38,8 @@
                                         <input type="text" name="customer_code"
                                             class="form-control @error('customer_code') input-error @enderror"
                                             id="customerCode" placeholder="Customer Code"
-                                            value="{{ old('customer_code', isset($gateway) ? $gateway->customer_code : '') }}" required>
+                                            value="{{ old('customer_code', isset($gateway) ? $gateway->customer_code : '') }}"
+                                            required>
                                         @error('customer_code')
                                             <div class="error-message">{{ $message }}</div>
                                         @enderror
@@ -48,7 +49,8 @@
                                         <input type="text" name="gateway"
                                             class="form-control @error('gateway') input-error @enderror" id="gateway"
                                             placeholder="Gateway"
-                                            value="{{ old('gateway', isset($gateway) ? $gateway->gateway : '') }}" required>
+                                            value="{{ old('gateway', isset($gateway) ? $gateway->gateway : '') }}"
+                                            required>
                                         @error('gateway')
                                             <div class="error-message">{{ $message }}</div>
                                         @enderror
@@ -58,7 +60,8 @@
                                         <input type="text" name="gateway_code"
                                             class="form-control @error('gateway_code') input-error @enderror"
                                             id="gatewayCode" placeholder="Gateway Code"
-                                            value="{{ old('gateway_code', isset($gateway) ? $gateway->gateway_code : '') }}" required>
+                                            value="{{ old('gateway_code', isset($gateway) ? $gateway->gateway_code : '') }}"
+                                            required>
                                         @error('gateway_code')
                                             <div class="error-message">{{ $message }}</div>
                                         @enderror
@@ -88,7 +91,7 @@
             </div>
         </div>
     </x-slot>
-    <x-slot name="importedScripts">
+    @section('scripts')
         <script>
             $(document).ready(function() {
                 $('.select2bs4').select2({
@@ -99,5 +102,5 @@
                 @endif
             });
         </script>
-    </x-slot>
+    @endsection
 </x-app-layout>

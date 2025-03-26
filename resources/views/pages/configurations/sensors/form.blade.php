@@ -101,7 +101,7 @@
             </div>
         </div>
     </x-slot>
-    <x-slot name="importedScripts">
+    @section('scripts')
         <script>
             $(document).ready(function() {
                 $('.select2bs4').select2({
@@ -112,5 +112,5 @@
                 @endif
             });
         </script>
-    </x-slot>
+    @endsection
 </x-app-layout>

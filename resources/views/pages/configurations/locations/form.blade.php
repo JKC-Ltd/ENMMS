@@ -39,8 +39,7 @@
 
                                     <div class="form-group">
                                         <label>PARENT LOCATION</label>
-                                        <select
-                                            class="form-control select2bs4 @error('pid') input-error @enderror"
+                                        <select class="form-control select2bs4 @error('pid') input-error @enderror"
                                             name="pid" style="width: 100%;">
                                             <option value="">SELECT PARENT LOCATION</option>
                                             @foreach ($listOfLocations as $locationData)
@@ -68,8 +67,7 @@
             </div>
         </div>
     </x-slot>
-
-    <x-slot name="importedScripts">
+    @section('scripts')
         <script>
             $(document).ready(function() {
                 $('.select2bs4').select2({
@@ -80,5 +78,5 @@
                 @endif
             });
         </script>
-    </x-slot>
+    @endsection
 </x-app-layout>

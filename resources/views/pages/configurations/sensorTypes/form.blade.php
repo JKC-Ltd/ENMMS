@@ -32,7 +32,7 @@
                                         @enderror
                                     </div>
                                     @php
-                                           
+
                                     @endphp
                                     <div class="form-group">
                                         <label for="sensorTypeParameter">Sensor Type Parameter</label>
@@ -49,12 +49,12 @@
                                             required>
                                             @if (isset($sensorType))
                                                 @php
-                                         
+
                                                     $sensorTypeParameters = explode(
                                                         ',',
                                                         $sensorType->sensor_type_parameter,
                                                     );
-                                                   
+
                                                 @endphp
                                                 @foreach ($sensorTypeParameters as $sensor_type_parameter)
                                                     <option selected value="{{ $sensor_type_parameter }}">
@@ -63,9 +63,8 @@
                                             @endif
                                             {{-- <option selected value="V">V</option> --}}
                                             {{-- <option selected value="CO2">CO2</option>         --}}
-                                            @foreach ( $sensorLogs as $sensorLog)
+                                            @foreach ($sensorLogs as $sensorLog)
                                                 <option value="{{ $sensorLog }}">{{ $sensorLog }}</option>)
-                                            
                                             @endforeach
                                             {{-- <option value="V">V</option>
                                             <option value="CO2">CO2</option> --}}
@@ -102,7 +101,7 @@
             </div>
         </div>
     </x-slot>
-    <x-slot name="importedScripts">
+    @section('scripts')
         <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
         <script>
             $(document).ready(function() {
@@ -114,5 +113,5 @@
                 @endif
             });
         </script>
-    </x-slot>
+    @endsection
 </x-app-layout>
