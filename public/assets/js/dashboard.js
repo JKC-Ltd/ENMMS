@@ -133,7 +133,8 @@ const processDailyEnergyConsumptionPerMeter = () => {
                 includeZero: true,
             },
             axisX: {
-                labelFontSize: 12
+                labelFontSize: 12,
+                interval: 1,
             },
             data: [
 

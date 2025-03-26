@@ -97,6 +97,16 @@ const processVoltageCurrentProfile = (id) => {
                 interval: 50,
                 // intervalType: "day",
             },
+            axisY: {
+                title: "Volts",
+                titlePadding: {
+                    top: 1,
+                    bottom: 15,
+                },
+                titleFontSize: 15,
+                // includeZero: true
+                labelFontSize: 12
+            },
             toolTip: {
                 shared: true
             },
@@ -121,6 +131,17 @@ const processVoltageCurrentProfile = (id) => {
             title: {
                 text: "Current Profile",
                 fontSize: 20,
+            },
+            axisY: {
+                title: "Ampheres",
+                titlePadding: {
+                    top: 1,
+                    bottom: 15,
+                },
+                titleFontSize: 15,
+                // includeZero: true
+                labelFontSize: 12,
+                minimum: -15
             },
             axisX: {
                 labelAngle: -90,
