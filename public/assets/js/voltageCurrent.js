@@ -1,4 +1,4 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme } from "./shared/main.js?v=1.0";
+import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme } from "./shared/main.js?v=1.1";
 
 colorScheme();
 
@@ -78,12 +78,31 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
 
 
 const processVoltageCurrentProfile = (id) => {
+    const processUrl = "/getPower";
+    const column = "datetime_created";
+    // const [startDate, endDate] = getStartEndDate(9, 24, 'month', 1);
+    const voltageCurrentProfileRequest = {
+        select: "*",
+        // startDate: startDate,
+        // endDate: endDate,
+        where:
+        {
+            field: "sensor_id",
+            operator: "=",
+            value: id,
+        }
+    };
 
     const voltageProfile = () => {
 
         return {
             exportEnabled: true,
             animationEnabled: true,
+            chartName: "Voltage Profile",
+            chartProps: {
+                request: voltageCurrentProfileRequest,
+                processUrl,
+            },
             theme: "light2",
             zoomEnabled: true,
             title: {
@@ -126,6 +145,11 @@ const processVoltageCurrentProfile = (id) => {
         return {
             exportEnabled: true,
             animationEnabled: true,
+            chartName: "Current Profile",
+            chartProps: {
+                request: voltageCurrentProfileRequest,
+                processUrl,
+            },
             theme: "light2",
             zoomEnabled: true,
             title: {
@@ -174,24 +198,10 @@ const processVoltageCurrentProfile = (id) => {
         }
         charts[chartID].render();
     }
-
-    // const [startDate, endDate] = getStartEndDate(9, 24, 'month', 1);
-
-    const voltageCurrentProfileRequest = {
-        select: "*",
-        // startDate: startDate,
-        // endDate: endDate,
-        where:
-        {
-            field: "sensor_id",
-            operator: "=",
-            value: id,
-        }
-    };
     charts[`voltageProfile${id}`] = { options: voltageProfile() };
     charts[`currentProfile${id}`] = { options: currentProfile() };
 
-    fetchData(voltageCurrentProfileRequest, "", id, "/getPower", "datetime_created", processData);
+    fetchData(voltageCurrentProfileRequest, "", id, processUrl, column, processData);
 
 
 }

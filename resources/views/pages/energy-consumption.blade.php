@@ -6,33 +6,72 @@
 
         <!-- Main row -->
         <div class="row">
-            <section class="col-4 connectedSortable">
+            <div class="col-lg-4 col-12">
+                <!-- small box -->
+                <div class="small-box bg-white" style="border-bottom: 8px solid #f39800;">
+                    <div class="inner">
+                        <p>Daily kWh Consumption - All Meters</p>
+                        <h3 id="dailyEnergyConsumption">0</h3>
+                        <i>kWh / day</i>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-bolt"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <!-- small box -->
+                <div class="small-box bg-white" style="border-bottom: 8px solid #f39800;">
+                    <div class="inner">
+                        <p>Weekly Consumption - All Meters</p>
+                        <h3 id="weeklyEnergyConsumption">0</h3>
+                        <i>kWh / week</i>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-bolt"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <!-- small box -->
+                <div class="small-box bg-white" style="border-bottom: 8px solid #f39800;">
+                    <div class="inner">
+                        <p>Monthly Consumption - All Meters</p>
+                        <h3 id="monthlyEnergyConsumption">0</h3>
+                        <i>kWh / month</i>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-bolt"></i>
+                    </div>
+                </div>
+            </div>
+            {{-- <section class="col col-lg-4 col-md-4 col-sm-12 connectedSortable">
                 <div class="card">
                     <div class="card-body text-center">
                         <h6>Daily kWh Consumption - All Meters</h6>
-                        <h1 style="font-size: 6rem; font-weight: 600;" id="dailyEnergyConsumption">0</h1>
+                        <h1 >0</h1>
                         <i>kWh / day</i>
                     </div>
                 </div>
-            </section>
-            <section class="col-4 connectedSortable">
+            </section> --}}
+            {{-- <section class="col col-lg-4 col-md-4 col-sm-12 connectedSortable">
                 <div class="card">
                     <div class="card-body text-center">
                         <h6>Weekly Consumption - All Meters</h6>
-                        <h1 style="font-size: 6rem; font-weight: 600;" id="weeklyEnergyConsumption">0</h1>
+                        <h1 id="weeklyEnergyConsumption">0</h1>
                         <i>kWh / week</i>
                     </div>
                 </div>
             </section>
-            <section class="col-4 connectedSortable">
+            <section class="col col-lg-4 col-md-4 col-sm-12 connectedSortable">
                 <div class="card">
                     <div class="card-body text-center">
                         <h6>Monthly Consumption - All Meters</h6>
-                        <h1 style="font-size: 6rem; font-weight: 600;" id="monthlyEnergyConsumption">0</h1>
+                        <h1 id="monthlyEnergyConsumption">0</h1>
                         <i>kWh / month</i>
                     </div>
                 </div>
-            </section>
+            </section> --}}
         </div>
 
 

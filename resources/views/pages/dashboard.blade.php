@@ -192,68 +192,6 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="col-12 col-lg-4">
-                <div class="card">
-                    <div class="card-header ui-sortable-handle" style="cursor: move;">
-                        <h3 class="card-title">
-                            <i class="fas fa-chart-pie mr-1"></i>
-                            CHANGE IN COST
-                        </h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row" class="card-box">
-                            @foreach ($sensors as $sensor)
-                                <div class="col">
-                                    <div class="info-box bg-primary">
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">{{ $sensor->description }}</span>
-                                            <span class="info-box-number" id="info-box-{{ $sensor->id }}"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-4">
-                <div class="card">
-                    <div class="card-header ui-sortable-handle" style="cursor: move;">
-                        <h3 class="card-title">
-                            <i class="fas fa-chart-pie mr-1"></i>
-                            CARBON FOOTPRINT
-                        </h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row" class="card-box">
-
-                            <div class="col-md-12">
-                                <h5>Emission</h5>
-                                <div class="progress" role="progressbar" aria-label="Example with label"
-                                    aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="progress-bar" style="width: 90%">90%</div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="col-md-12">
-                                <h5>Green Energy Generated</h5>
-                                <div class="progress" role="progressbar" aria-label="Example with label"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="progress-bar" style="width: 25%">25%</div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <h5>Green Energy Generated</h5>
-                                <div class="progress" role="progressbar" aria-label="Example with label"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="progress-bar" style="width: 25%">25%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>  --}}
-
         </div>
     </x-slot>
 

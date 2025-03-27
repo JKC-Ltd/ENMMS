@@ -26,26 +26,42 @@ const renderChart = (chartID, config) => {
     charts[chartID] = new CanvasJS.Chart(chartID, config);
     charts[chartID].render();
 
+    console.log(config)
 
-    // var toolBar = document.getElementsByClassName("canvasjs-chart-toolbar")[0];
-    // if (charts[chartID].get("exportEnabled")) {
-    //     var exportCSV = document.createElement('div');
-    //     var text = document.createTextNode("Save as CSV");
-    //     exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
-    //     exportCSV.appendChild(text);
+    if (charts[chartID].get("exportEnabled")) {
+        const toolbarClass = $(`#${chartID}`).find('.canvasjs-chart-toolbar')[0];
 
-    //     exportCSV.addEventListener("mouseover", function () {
-    //         exportCSV.setAttribute("style", "padding: 12px 8px; background-color: #2196F3; color: white")
-    //     });
-    //     exportCSV.addEventListener("mouseout", function () {
-    //         exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
-    //     });
-    //     exportCSV.addEventListener("click", function () {
-    //         console.log('test');
-    //         // downloadCSV({ filename: "chart-data.csv", chart: chart })
-    //     });
-    //     toolBar.lastChild.appendChild(exportCSV);
-    // }
+        var exportCSV = document.createElement('div');
+        var text = document.createTextNode("Export as CSV");
+        exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
+        exportCSV.appendChild(text);
+
+        exportCSV.addEventListener("mouseover", function () {
+            exportCSV.setAttribute("style", "padding: 12px 8px; background-color: #2196F3; color: white")
+        });
+        exportCSV.addEventListener("mouseout", function () {
+            exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
+        });
+        exportCSV.addEventListener("click", function () {
+            console.log(config.chartName);
+            console.log(config.chartProps.processUrl);
+
+            // $.ajax({
+            //     type: "GET",
+            //     url: config.chartProps.processUrl,
+            //     data: config.chartProps.request,
+            //     success: function (data) {
+            //         console.log(data);
+            //     },
+            //     error: function (error) {
+            //         console.log(error);
+            //     }
+            // });
+            // downloadCSV({ filename: "chart-data.csv", chart: chart })
+        });
+        toolbarClass.lastChild.appendChild(exportCSV);
+    }
+
 }
 
 const getStartEndDate = (hours, days, period, duration) => {

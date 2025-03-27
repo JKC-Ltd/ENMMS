@@ -1,15 +1,15 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, exportFn } from "./shared/main.js?v=1.0";
+import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, exportFn } from "./shared/main.js?v=1.1";
 
 colorScheme();
 
 const processData = (data, refetch, chartID, dataOptions, columnName) => {
 
-    let totalEnergyConsumption = 0;
+    // let totalEnergyConsumption = 0;
 
     let uniqueDates = [...new Set(data.map(item => item.reading_date))];
 
     data.forEach((reading) => {
-        totalEnergyConsumption += reading.daily_consumption;
+        // totalEnergyConsumption += reading.daily_consumption;
 
         let existingSensor = charts[chartID].options.data.find(sensor => sensor.name === reading.description);
 
@@ -31,7 +31,7 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
         }
     });
 
-    $('#monthlyEnergyConsumption').html(totalEnergyConsumption.toLocaleString());
+    // $('#monthlyEnergyConsumption').html(totalEnergyConsumption.toLocaleString());
 
     if (refetch) {
         charts[chartID].render();
@@ -48,6 +48,12 @@ const processDailyEnergyConsumptionAllMeters = () => {
     const processUrl = "/getEnergyConsumption";
     const chartName = "dailyEnergyConsumptionAllMeters";
     const column = "reading_date";
+    const dailyEnergyConsumptionAllMetersRequest = {
+        select: select,
+        // startDate: startDate,
+        // endDate: endDate
+
+    };
 
     $(`#${chartName}Btn`).on('click', () => {
         exportFn(dailyEnergyConsumptionAllMetersRequest, processUrl);
@@ -58,6 +64,11 @@ const processDailyEnergyConsumptionAllMeters = () => {
         return {
             animationEnabled: true,
             theme: "light2",
+            chartName: "Daily Energy Consumption - All Meters",
+            chartProps: {
+                request: dailyEnergyConsumptionAllMetersRequest,
+                processUrl,
+            },
             colorSet: "DailyEnergyColorSet",
             exportEnabled: true,
             zoomEnabled: true,
@@ -113,8 +124,8 @@ const processDailyEnergyConsumptionAllMeters = () => {
         // console.log(e.entries[0].dataPoint.label);
 
         const totalConsumption = e.entries.reduce((total, item) => total + item.dataPoint.y, 0);
-        const label = "<span style = \"color:DodgerBlue;\">Date:<strong> " + e.entries[0].dataPoint.label + "</strong></span><br/>";
-        const total = "<span style = \"color:Tomato\">Total:</span><strong> " + totalConsumption.toLocaleString() + "</strong><br/>";
+        const label = "<span style = \"color:DodgerBlue;\">Date:<strong> " + e.entries[0].dataPoint.label + "</strong></span><br/><br/>";
+        const total = "<br/><span style = \"color:Tomato\">Total:</span><strong> " + totalConsumption.toLocaleString() + "</strong><br/>";
         let sensors = "";
 
         e.entries.forEach(entry => {
@@ -133,22 +144,15 @@ const processDailyEnergyConsumptionAllMeters = () => {
         charts[chartID].render();
     }
 
-    const dailyEnergyConsumptionAllMetersRequest = {
-        select: select,
-        // startDate: startDate,
-        // endDate: endDate
-
-    };
-
-    charts[chartName] = { options: dailyEnergyConsumptionAllMeters() };
-    fetchData(dailyEnergyConsumptionAllMetersRequest, dailyEnergyConsumptionAllMetersDataOptions(), chartName, processUrl, column, processData);
-
 
     setIntervalAtFiveMinuteMarks(function () {
         console.log("refetching...");
         fetchData(dailyEnergyConsumptionAllMetersRequest, dailyEnergyConsumptionAllMetersDataOptions(), chartName, processUrl, column, processData, true);
         charts[chartName].render();
     });
+
+    charts[chartName] = { options: dailyEnergyConsumptionAllMeters() };
+    fetchData(dailyEnergyConsumptionAllMetersRequest, dailyEnergyConsumptionAllMetersDataOptions(), chartName, processUrl, column, processData);
 
 
 }
@@ -190,33 +194,45 @@ const fetchDataNoneCharts = (select, startDate, endDate, divID) => {
 
 const processCurrentWeekEnergyConsumption = () => {
     let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
+    const [startDate, endDate] = getStartEndDate(9, 7, 'week', 1);
 
     setIntervalAtFiveMinuteMarks(function () {
-        const [startDate, endDate] = getStartEndDate(9, 7, 'week', 1);
         console.log("refetching...");
         fetchDataNoneCharts(select, startDate, endDate, "weeklyEnergyConsumption");
     });
 
     // Initial fetch
-    const [startDate, endDate] = getStartEndDate(9, 7, 'week', 1);
     fetchDataNoneCharts(select, startDate, endDate, "weeklyEnergyConsumption");
 };
 
 const processCurrentDayEnergyConsumption = () => {
-
     let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
+    const [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
 
     setIntervalAtFiveMinuteMarks(function () {
-        const [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
         console.log("refetching...");
         fetchDataNoneCharts(select, startDate, endDate, "dailyEnergyConsumption");
     });
 
-    const [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
     fetchDataNoneCharts(select, startDate, endDate, "dailyEnergyConsumption");
+
+};
+
+const processMonthlyEnergyConsumption = () => {
+    let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
+    const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
+
+    setIntervalAtFiveMinuteMarks(function () {
+        console.log("refetching...");
+        fetchDataNoneCharts(select, startDate, endDate, "monthlyEnergyConsumption");
+    });
+
+    fetchDataNoneCharts(select, startDate, endDate, "monthlyEnergyConsumption");
 
 };
 
 processCurrentWeekEnergyConsumption();
 
 processCurrentDayEnergyConsumption();
+
+processMonthlyEnergyConsumption();

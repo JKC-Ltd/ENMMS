@@ -1,4 +1,4 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme } from "./shared/main.js?v=1.0";
+import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme } from "./shared/main.js?v=1.1";
 
 colorScheme();
 const processData = (data, refetch, chartID, dataOptions, columnName) => {
@@ -15,8 +15,9 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
 
             charts[chartID].options.data.push(dataOptions);
         } else {
+            let chartDataPoints = existingSensor.dataPoints;
 
-            let existingDataOptions = existingSensor.dataPoints.find(dp => dp.label === reading[columnName]);
+            let existingDataOptions = chartDataPoints.find(dp => dp.label === reading[columnName]);
             // console.log(existingDataOptions);
             if (!existingDataOptions) {
                 existingSensor.dataPoints.push({
@@ -29,34 +30,23 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
         }
     });
 
-    if (refetch) {
-        charts[chartID].render();
-    } else {
-        renderChart(chartID, charts[chartID].options);
-    }
-
     let dateToday = new Date();
     dateToday.setHours(dateToday.getHours() - 9);
     dateToday = formatDate(dateToday);
 
-    // data.forEach((reading) => {
-    //     let existingSensor = charts[chartID].options.data[0].dataPoints.find(chartData => chartData.label === reading[columnName]);
-    //     if (existingSensor) {
-    //         existingSensor.y = reading.daily_consumption;
-    //     } else {
-    //         charts[chartID].options.data[0].dataPoints.push(
-    //             { y: reading.daily_consumption, label: reading[columnName] }
-    //         );
-    //     }
-    // });
-
     if (chartID === "pandpEnergyConsumption") {
-        let totalEnergyConsumption = charts[chartID].options.data[0].dataPoints.find(date => formatDate(date.label) === formatDate(dateToday));
-        
+        let chartDataPoints = charts[chartID].options.data[0].dataPoints;
+
+        if (chartDataPoints.length > 2) {
+            chartDataPoints.shift();
+        }
+
+        let totalEnergyConsumption = chartDataPoints.find(date => formatDate(date.label) === formatDate(dateToday));
+
         $("#totalEnergyConsumptionValue").html(totalEnergyConsumption?.y.toLocaleString() ?? 0);
         $("#ghgCurrentDayValue").html(`${Number((totalEnergyConsumption.y * 0.512).toFixed(2)).toLocaleString()} kWh`);
         $("#ghgCurrentDay").css('width', (totalEnergyConsumption.y * 0.512).toFixed(2));
-        
+
     }
 
     if (chartID === "dailyEnergyConsumptionPerMeter") {
@@ -70,12 +60,34 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
             sensorLocationID.html(totalValuePerArea[sensorData.location_id].toLocaleString());
         });
     }
+
+    if (refetch) {
+        charts[chartID].render();
+    } else {
+        renderChart(chartID, charts[chartID].options);
+    }
 };
 
 
 const processPandPEnergyConsumption = () => {
+    const select = `DATE_FORMAT(reading_date, '%M %d, %Y') as reading_date, 
+                    ROUND(SUM((end_energy - start_energy)), 2) AS daily_consumption, 
+                    sensor_id`;
+    const processUrl = "/getDailyEnergyConsumption";
+    const chartName = "pandpEnergyConsumption";
+    const column = "reading_date";
+    const pandpEnergyConsumptionRequest = {
+        groupBy: "reading_date",
+        select: select,
+    };
+
     const pandPEnergyConsumptionOptions = () => ({
         exportEnabled: true,
+        chartName: "Previous and Present Energy Consumption - All Meters",
+        chartProps: {
+            request: pandpEnergyConsumptionRequest,
+            processUrl,
+        },
         animationEnabled: true,
         theme: "light2",
         colorSet: "DailyEnergyColorSet",
@@ -94,7 +106,7 @@ const processPandPEnergyConsumption = () => {
 
     const pandPEnergyConsumptionDataOptions = () => ({
         type: "column",
-        name: "pandpEnergyConsumption",
+        name: chartName,
         indexLabel: "{y}",
         indexLabelMaxWidth: 60,
         indexLabelFontColor: "#FFF",
@@ -104,28 +116,46 @@ const processPandPEnergyConsumption = () => {
         dataPoints: []
     });
 
-    const pandpEnergyConsumptionRequest = {
-        groupBy: "reading_date",
-        select: "DATE_FORMAT(reading_date, '%M %d, %Y') as reading_date, ROUND(SUM((end_energy - start_energy)), 2) AS daily_consumption, sensor_id",
-    };
-
     setIntervalAtFiveMinuteMarks(() => {
         console.log("Refetching...");
-        fetchData(pandpEnergyConsumptionRequest, pandPEnergyConsumptionDataOptions(), "pandpEnergyConsumption", "/getDailyEnergyConsumption", "reading_date", processData, true);
-        charts["pandpEnergyConsumption"].render();
+        fetchData(pandpEnergyConsumptionRequest, pandPEnergyConsumptionDataOptions(), chartName, processUrl, column, processData, true);
+        charts[chartName].render();
     });
 
-    charts["pandpEnergyConsumption"] = { options: pandPEnergyConsumptionOptions() };
-    fetchData(pandpEnergyConsumptionRequest, pandPEnergyConsumptionDataOptions(), "pandpEnergyConsumption", "/getDailyEnergyConsumption", "reading_date", processData);
+    charts[chartName] = { options: pandPEnergyConsumptionOptions() };
+    fetchData(pandpEnergyConsumptionRequest, pandPEnergyConsumptionDataOptions(), chartName, processUrl, column, processData);
 };
 
 const processDailyEnergyConsumptionPerMeter = () => {
+
+    const select = `description as sensor_description,
+                    location_id,
+                    sensor_id,
+                    reading_date,
+                    ROUND((end_energy - start_energy), 2) AS daily_consumption`;
+    const processUrl = "/getEnergyConsumption";
+    const chartName = "dailyEnergyConsumptionPerMeter";
+    const column = "sensor_description";
+
+    // Get updated dates dynamically
+    const [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
+
+    const dailyEnergyConsumptionPerMeterRequest = {
+        select: select,
+        startDate: startDate,
+        endDate: endDate
+    };
 
     const dailyEnergyConsumptionPerMeterOptions = () => {
 
         return {
             animationEnabled: true,
             exportEnabled: true,
+            chartName: "Daily Energy Consumption Per Meter",
+            chartProps: {
+                request: dailyEnergyConsumptionPerMeterRequest,
+                processUrl,
+            },
             theme: "light2",
             colorSet: "DailyEnergyColorSet",
             title: {
@@ -148,7 +178,7 @@ const processDailyEnergyConsumptionPerMeter = () => {
     const dailyEnergyConsumptionPerMeterDataOptions = () => {
         return {
             type: "bar",
-            name: "dailyEnergyConsumptionPerMeter",
+            name: chartName,
             indexLabel: "{y} kWh",
             showInlegend: false,
             indexLabelFontColor: "#fff",
@@ -158,42 +188,16 @@ const processDailyEnergyConsumptionPerMeter = () => {
         }
     };
 
-    charts["dailyEnergyConsumptionPerMeter"] = { options: dailyEnergyConsumptionPerMeterOptions() };
 
     setIntervalAtFiveMinuteMarks(function () {
         console.log("refetching...");
 
-        // Get updated dates dynamically
-        const [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
-
-        const dailyEnergyConsumptionPerMeterRequest = {
-            select: `description as sensor_description,
-                    location_id,
-                    sensor_id,
-                    reading_date,
-                    ROUND((end_energy - start_energy), 2) AS daily_consumption`,
-            startDate: startDate,
-            endDate: endDate
-        };
-
-        fetchData(dailyEnergyConsumptionPerMeterRequest, dailyEnergyConsumptionPerMeterDataOptions(), "dailyEnergyConsumptionPerMeter", "/getEnergyConsumption", "sensor_description", processData, true);
-        charts["dailyEnergyConsumptionPerMeter"].render();
+        fetchData(dailyEnergyConsumptionPerMeterRequest, dailyEnergyConsumptionPerMeterDataOptions(), chartName, processUrl, column, processData, true);
+        charts[chartName].render();
     });
 
-    // Initial Fetch with Dynamic Dates
-    const [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
-
-    const dailyEnergyConsumptionPerMeterRequest = {
-        select: `description as sensor_description,
-                location_id,
-                sensor_id,
-                reading_date,
-                ROUND((end_energy - start_energy), 2) AS daily_consumption`,
-        startDate: startDate,
-        endDate: endDate
-    };
-
-    fetchData(dailyEnergyConsumptionPerMeterRequest, dailyEnergyConsumptionPerMeterDataOptions(), "dailyEnergyConsumptionPerMeter", "/getEnergyConsumption", "sensor_description", processData);
+    charts[chartName] = { options: dailyEnergyConsumptionPerMeterOptions() };
+    fetchData(dailyEnergyConsumptionPerMeterRequest, dailyEnergyConsumptionPerMeterDataOptions(), chartName, processUrl, column, processData);
 
 }
 

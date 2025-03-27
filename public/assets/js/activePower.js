@@ -1,4 +1,4 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme } from "./shared/main.js?v=1.0";
+import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme } from "./shared/main.js?v=1.1";
 
 colorScheme();
 
@@ -34,13 +34,32 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
 };
 
 const processActivePowerProfile = (id) => {
-    console.log(`Processing active power profile for sensor: ${id}`);
+    // const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
+    const processUrl = "/getPower";
+    const column = "datetime_created";
+    const chartName = "activePowerProfile";
+    const activePowerProfileRequest = {
+        select: "real_power, datetime_created, sensor_id, sensor_model, sensor_brand",
+        // startDate: startDate,
+        // endDate: endDate,
+        where:
+        {
+            field: "sensor_id",
+            operator: "=",
+            value: id,
+        }
+    };
 
     const activePowerProfile = () => {
 
         return {
             exportEnabled: true,
             animationEnabled: true,
+            chartName: "Active Power Profile",
+            chartProps: {
+                request: activePowerProfileRequest,
+                processUrl,
+            },
             theme: "light2",
             zoomEnabled: true,
             title: {
@@ -76,22 +95,8 @@ const processActivePowerProfile = (id) => {
             dataPoints: [],
         }
     }
-
-    // const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
-
-    const activePowerProfileRequest = {
-        select: "real_power, datetime_created, sensor_id, sensor_model, sensor_brand",
-        // startDate: startDate,
-        // endDate: endDate,
-        where:
-        {
-            field: "sensor_id",
-            operator: "=",
-            value: id,
-        }
-    };
-    charts[`activePowerProfile${id}`] = { options: activePowerProfile() };
-    fetchData(activePowerProfileRequest, activePowerProfileDataOptions(), `activePowerProfile${id}`, "/getPower", "datetime_created", processData);
+    charts[chartName + id] = { options: activePowerProfile() };
+    fetchData(activePowerProfileRequest, activePowerProfileDataOptions(), chartName + id, processUrl, column, processData);
 
 }
 
