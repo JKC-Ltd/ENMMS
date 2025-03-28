@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 { type: 'textbox', label: 'Sensor', binding: 'name' },
                 { type: 'textbox', label: 'Active Power (kW)', binding: 'real_power' },
                 { type: 'textbox', label: 'Daily Energy Consumption (kWh)', binding: 'daily_consumption' },
+                { type: 'textbox', label: 'Sensor Brand', binding: 'sensor_brand' },
             ],
             photoBinding: null,
             buttons: {
@@ -65,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
         },
         nodeBinding: {
-            field_0: "name",
+            field_0: "name"
         },
     });
 
@@ -96,14 +97,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // });
 
 
-
-
     let chartLayout = [];
 
     function updateChartLayout(data, isSensor = false, ctr = 0) {
         if (isSensor) {
             data.forEach((sensor) => {
-                sensor.id = (Math.random() * 100).toFixed(2);
+                delete sensor.sensor_brand;
+                sensor.id = sensor.id + (Math.random() * 99).toFixed(2);
                 chartLayout.push(sensor);
                 ctr++;
             });
@@ -137,8 +137,6 @@ document.addEventListener("DOMContentLoaded", function () {
         startDate: startDate,
         endDate: endDate
     };
-
-    console.log(locationRequest);
 
     Promise.all([
         fetchData("/getLocationChart"),

@@ -19,6 +19,7 @@
                 font-size: 1rem;
                 /* color: black !important; */
             }
+            
         </style>
     </x-slot>
     <x-slot name="pageTitle">

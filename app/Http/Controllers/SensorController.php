@@ -169,13 +169,20 @@ class SensorController extends Controller
             'sensors.location_id as pid',
             'sensors.description as name',
             'sensors.id',
+            'sensor_models.sensor_brand'
         )
             ->leftJoin('gateways', 'sensors.gateway_id', '=', 'gateways.id')
+            ->leftJoin('sensor_models', 'sensor_model_id', '=', 'sensor_models.id')
             ->get()
             ->map(function ($sensor) use ($energyResult) {
                 $energy = $energyResult->where('sensor_id', $sensor->id)->first();
+                $formatter = new \NumberFormatter('en_US', \NumberFormatter::DECIMAL);
 
                 if ($energy) {
+                    $energy->real_power = $sensor->sensor_brand === "Eastron"
+                        ? number_format($energy->real_power / 1000, 2, '.', ',')
+                        : number_format($energy->real_power, 2, '.', ',');
+
                     $sensor->real_power = $energy->real_power;
                     $sensor->daily_consumption = $energy->daily_consumption;
                 } else {
