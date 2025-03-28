@@ -28,39 +28,39 @@ const renderChart = (chartID, config) => {
 
     console.log(config)
 
-    if (charts[chartID].get("exportEnabled")) {
-        const toolbarClass = $(`#${chartID}`).find('.canvasjs-chart-toolbar')[0];
+    // if (charts[chartID].get("exportEnabled")) {
+    //     const toolbarClass = $(`#${chartID}`).find('.canvasjs-chart-toolbar')[0];
 
-        var exportCSV = document.createElement('div');
-        var text = document.createTextNode("Export as CSV");
-        exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
-        exportCSV.appendChild(text);
+    //     var exportCSV = document.createElement('div');
+    //     var text = document.createTextNode("Export as CSV");
+    //     exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
+    //     exportCSV.appendChild(text);
 
-        exportCSV.addEventListener("mouseover", function () {
-            exportCSV.setAttribute("style", "padding: 12px 8px; background-color: #2196F3; color: white")
-        });
-        exportCSV.addEventListener("mouseout", function () {
-            exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
-        });
-        exportCSV.addEventListener("click", function () {
-            console.log(config.chartName);
-            console.log(config.chartProps.processUrl);
+    //     exportCSV.addEventListener("mouseover", function () {
+    //         exportCSV.setAttribute("style", "padding: 12px 8px; background-color: #2196F3; color: white")
+    //     });
+    //     exportCSV.addEventListener("mouseout", function () {
+    //         exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
+    //     });
+    //     exportCSV.addEventListener("click", function () {
+    //         console.log(config.chartName);
+    //         console.log(config.chartProps.processUrl);
 
-            // $.ajax({
-            //     type: "GET",
-            //     url: config.chartProps.processUrl,
-            //     data: config.chartProps.request,
-            //     success: function (data) {
-            //         console.log(data);
-            //     },
-            //     error: function (error) {
-            //         console.log(error);
-            //     }
-            // });
-            // downloadCSV({ filename: "chart-data.csv", chart: chart })
-        });
-        toolbarClass.lastChild.appendChild(exportCSV);
-    }
+    //         // $.ajax({
+    //         //     type: "GET",
+    //         //     url: config.chartProps.processUrl,
+    //         //     data: config.chartProps.request,
+    //         //     success: function (data) {
+    //         //         console.log(data);
+    //         //     },
+    //         //     error: function (error) {
+    //         //         console.log(error);
+    //         //     }
+    //         // });
+    //         // downloadCSV({ filename: "chart-data.csv", chart: chart })
+    //     });
+    //     toolbarClass.lastChild.appendChild(exportCSV);
+    // }
 
 }
 
