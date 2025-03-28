@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
     const locationRequest = {
-        select: "real_power, location_id, ROUND((end_energy - start_energy), 2) AS daily_consumption",
+        select: "sensor_id, real_power, ROUND((end_energy - start_energy), 2) AS daily_consumption",
         startDate: startDate,
         endDate: endDate
     };

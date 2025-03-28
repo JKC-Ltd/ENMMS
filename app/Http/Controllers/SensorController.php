@@ -164,14 +164,16 @@ class SensorController extends Controller
         $getEnergy = (new EnergyConsumptionService)->get($request);
         $energyResult = collect($getEnergy->get());
 
+
         $sensors = Sensor::select(
             'sensors.location_id as pid',
             'sensors.description as name',
+            'sensors.id',
         )
             ->leftJoin('gateways', 'sensors.gateway_id', '=', 'gateways.id')
             ->get()
             ->map(function ($sensor) use ($energyResult) {
-                $energy = $energyResult->where('location_id', $sensor->pid)->first();
+                $energy = $energyResult->where('sensor_id', $sensor->id)->first();
 
                 if ($energy) {
                     $sensor->real_power = $energy->real_power;
