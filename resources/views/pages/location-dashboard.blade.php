@@ -8,7 +8,16 @@
             }
 
             .boc-edit-form-header {
-                height: 40% !important;
+                height: 100% !important;
+            }
+
+            .boc-form-fieldset {
+                padding-top: 25px;
+            }
+
+            label.hasval {
+                font-size: 1rem;
+                /* color: black !important; */
             }
         </style>
     </x-slot>
@@ -23,6 +32,6 @@
 
     @section('scripts')
         <script src="{{ asset('assets/js/orgchart.js') }}"></script>
-        <script src="{{ asset('dist/js/pages/locationDashboard.js') }}?v={{ time() }}"></script>
+        <script type="module" src="{{ asset('dist/js/pages/locationDashboard.js') }}?v={{ time() }}"></script>
     @endsection
 </x-app-layout>
