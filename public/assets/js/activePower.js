@@ -11,7 +11,7 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
     dateToday = formatDate(dateToday);
 
     data.forEach((reading) => {
-        let existingSensor = charts[chartID].options.data.find(chartData => chartData.name === "Real Power");
+        let existingSensor = charts[chartID].options.data.find(chartData => chartData.name === "Active Power");
 
         if (reading.sensor_brand === "Eastron") {
             reading.real_power = reading.real_power / 1000;
@@ -73,6 +73,16 @@ const processActivePowerProfile = (id) => {
                 interval: 50,
                 // intervalType: "day",
             },
+            axisY: {
+                title: "Active Power (kW)",
+                titlePadding: {
+                    top: 1,
+                    bottom: 15,
+                },
+                titleFontSize: 15,
+                // includeZero: true
+                labelFontSize: 12
+            },
             toolTip: {
                 shared: true
             },
@@ -90,7 +100,7 @@ const processActivePowerProfile = (id) => {
 
         return {
             type: "line",
-            name: `Real Power`,
+            name: `Active Power`,
             markerSize: 0,
             dataPoints: [],
         }

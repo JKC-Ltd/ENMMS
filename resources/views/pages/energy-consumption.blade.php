@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="pageTitle">
-        Dashboard
+        Energy Consumption
     </x-slot>
     <x-slot name="content">
 
