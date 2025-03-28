@@ -16,6 +16,7 @@ class EnergyConsumptionService
                 DATE(datetime_created - INTERVAL 9 HOUR) AS reading_date,
                 MIN(energy) AS start_energy,
                 MAX(energy) AS end_energy,
+                real_power,
                 datetime_created
             ");
 

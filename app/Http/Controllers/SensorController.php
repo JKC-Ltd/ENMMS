@@ -7,6 +7,7 @@ use App\Models\Location;
 use App\Models\Gateway;
 use App\Models\SensorType;
 use App\Models\SensorModel;
+use App\Services\EnergyConsumptionService;
 use App\Services\SensorOfflineService;
 use DB;
 use Illuminate\Http\Request;
@@ -157,19 +158,29 @@ class SensorController extends Controller
         ];
     }
 
-    public function getSensorChart()
+    public function getSensorChart(Request $request)
     {
+
+        $getEnergy = (new EnergyConsumptionService)->get($request);
+        $energyResult = collect($getEnergy->get());
+
         $sensors = Sensor::select(
             'sensors.location_id as pid',
             'sensors.description as name',
-            'gateways.gateway',
-            'gateways.customer_code',
-            'slave_address',
-            'gateway_id'
         )
             ->leftJoin('gateways', 'sensors.gateway_id', '=', 'gateways.id')
             ->get()
-            ->map(function ($sensor) {
+            ->map(function ($sensor) use ($energyResult) {
+                $energy = $energyResult->where('location_id', $sensor->pid)->first();
+
+                if ($energy) {
+                    $sensor->real_power = $energy->real_power;
+                    $sensor->daily_consumption = $energy->daily_consumption;
+                } else {
+                    $sensor->real_power = null;
+                    $sensor->daily_consumption = null;
+                }
+
                 $sensor->tags = ["Sensor"];
                 return $sensor;
             });
