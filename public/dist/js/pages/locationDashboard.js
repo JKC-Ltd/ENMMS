@@ -29,18 +29,15 @@ document.addEventListener("DOMContentLoaded", function () {
         scaleInitial: OrgChart.match.boundary,
         editForm: {
             elements: [
-                { type: 'textbox', label: 'Name', binding: 'name' },
-                { type: 'textbox', label: 'Gateway', binding: 'gateway' },
-                { type: 'textbox', label: 'Customer Code', binding: 'customer_code' },
-                { type: 'textbox', label: 'Slave Address', binding: 'slave_address' },
-                { type: 'textbox', label: 'Gateway ID', binding: 'gateway_id' },
+                { type: 'textbox', label: 'Active Power (kW)', binding: 'name' },
+                { type: 'textbox', label: 'Daily Energy Consumption (kWh)', binding: 'gateway' },
             ],
             photoBinding: null,
             buttons: {
-                map: {
-                    icon: linkIcon,
-                    text: 'Map'
-                },
+                // map: {
+                //     icon: linkIcon,
+                //     text: 'Map'
+                // },
                 share: null,
                 edit: null,
                 remove: null,
@@ -67,31 +64,35 @@ document.addEventListener("DOMContentLoaded", function () {
             field_0: "name",
         },
     });
+    
+    // chart.editUI.on('button-click', function (sender, args) {
+    //     console.log("Button clicked");
+    //     let nodeId = args.nodeId;
+    //     let node = chart.get(nodeId);
 
-    chart.editUI.on('button-click', function (sender, args) {
-        let nodeId = args.nodeId;
-        let node = chart.get(nodeId);
+    //     if (node) {
 
-        if (node) {
+    //         $.ajax({
+    //             url: "/getSensor",
+    //             type: "GET",
+    //             data: {
+    //                 name: node.name,
+    //                 slave_address: node.slave_address,
+    //                 gateway_id: node.gateway_id,
+    //             },
+    //             success: function (sensor) {
+    //                 window.open(`/locationDashboard/${sensor.id}`, "_self");
+    //             },
+    //         });
+    //     } else {
+    //         console.log("Node not found with ID:", nodeId);
+    //     }
+    //     // window.open('/dashboard', "_self");
+     
+    // });
 
-            $.ajax({
-                url: "/getSensor",
-                type: "GET",
-                data: {
-                    name: node.name,
-                    slave_address: node.slave_address,
-                    gateway_id: node.gateway_id,
-                },
-                success: function (sensor) {
-                    window.open(`/locationDashboard/${sensor.id}`, "_self");
-                },
+    
 
-            });
-        } else {
-            console.log("Node not found with ID:", nodeId);
-        }
-        // window.open('/dashboard', "_self");
-    });
 
     let chartLayout = [];
 
@@ -127,14 +128,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     Promise.all([
         fetchData("/getLocationChart"),
-        fetchData("/getSensorChart")
+        fetchData("/getSensorChart"),
+
     ]).then(([locationData, sensorData]) => {
         updateChartLayout(locationData);
         let ctr = locationData.length + 1;
+        
         updateChartLayout(sensorData, true, ctr);
         chart.load(chartLayout);
+
     }).catch((error) => {
         console.error("Error loading data:", error);
     });
 
 });
+
