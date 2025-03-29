@@ -3,6 +3,10 @@ import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChar
 colorScheme();
 const processData = (data, refetch, chartID, dataOptions, columnName) => {
 
+    let now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+
     data.forEach((reading) => {
         let existingSensor = charts[chartID].options.data.find(sensor => sensor.name === chartID);
 
@@ -17,15 +21,21 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
         } else {
             let chartDataPoints = existingSensor.dataPoints;
 
+            console.log(`Current Time: ${hours}:${minutes}`);
+
             let existingDataOptions = chartDataPoints.find(dp => dp.label === reading[columnName]);
             // console.log(existingDataOptions);
             if (!existingDataOptions) {
-                existingSensor.dataPoints.push({
+                chartDataPoints.push({
                     y: reading.daily_consumption,
                     label: reading[columnName]
                 });
             } else {
-                existingDataOptions.y = reading.daily_consumption;
+                if (hours === 9 && minutes >= 0 && minutes <= 4) {
+                    existingDataOptions.y = 0;
+                } else {
+                    existingDataOptions.y = reading.daily_consumption;
+                }
             }
         }
     });
@@ -35,13 +45,9 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
     dateToday = formatDate(dateToday);
 
     if (chartID === "pandpEnergyConsumption") {
-        let chartDataPointsPandP = charts[chartID].options.data[0].dataPoints;
+        let chartDataPoints = charts[chartID].options.data[0].dataPoints;
 
-        if (chartDataPointsPandP.length > 2) {
-            chartDataPointsPandP.shift();
-        }
-
-        let totalEnergyConsumption = chartDataPointsPandP.find(date => formatDate(date.label) === dateToday);
+        let totalEnergyConsumption = chartDataPoints.find(date => formatDate(date.label) === formatDate(dateToday));
 
         $("#totalEnergyConsumptionValue").html(totalEnergyConsumption?.y.toLocaleString() ?? 0);
         $("#ghgCurrentDayValue").html(`${Number((totalEnergyConsumption.y * 0.512).toFixed(2)).toLocaleString()} kWh`);
@@ -50,37 +56,22 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
     }
 
     if (chartID === "dailyEnergyConsumptionPerMeter") {
-
-        let now = new Date();
-        let hours = now.getHours();
-        let minutes = now.getMinutes();
-
-        // console.log(`Current Time: ${hours}:${minutes}`);
-
         let totalValuePerArea = {};
-
         data.forEach(sensorData => {
             let sensorLocationID = $(`#energyConsumptionPerArea${sensorData.location_id}`);
             if (!totalValuePerArea[sensorData.location_id]) {
                 totalValuePerArea[sensorData.location_id] = 0;
             }
-            totalValuePerArea[sensorData.location_id] += sensorData.daily_consumption;
+
+            if (hours === 9 && minutes >= 0 && minutes <= 4) {
+                totalValuePerArea[sensorData.location_id] = 0;
+            } else {
+                totalValuePerArea[sensorData.location_id] += sensorData.daily_consumption;
+            }
+
             sensorLocationID.html(totalValuePerArea[sensorData.location_id].toLocaleString());
+
         });
-
-        if (hours === 9 && minutes >= 0 && minutes <= 5) {
-            console.log("Reset triggered!");
-            charts[chartID].options.data[0].dataPoints.forEach((dp) => {
-                dp.y = 0;
-            });
-
-            // Explicitly reset totalValuePerArea
-            Object.keys(totalValuePerArea).forEach(key => {
-                let sensorLocationID = $(`#energyConsumptionPerArea${key}`);
-                totalValuePerArea[key] = 0;
-                sensorLocationID.html(totalValuePerArea[key].toLocaleString());
-            });
-        }
     }
 
     if (refetch) {
