@@ -35,13 +35,13 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
     dateToday = formatDate(dateToday);
 
     if (chartID === "pandpEnergyConsumption") {
-        let chartDataPoints = charts[chartID].options.data[0].dataPoints;
+        let chartDataPointsPandP = charts[chartID].options.data[0].dataPoints;
 
-        if (chartDataPoints.length > 2) {
-            chartDataPoints.shift();
+        if (chartDataPointsPandP.length > 2) {
+            chartDataPointsPandP.shift();
         }
 
-        let totalEnergyConsumption = chartDataPoints.find(date => formatDate(date.label) === formatDate(dateToday));
+        let totalEnergyConsumption = chartDataPointsPandP.find(date => formatDate(date.label) === dateToday);
 
         $("#totalEnergyConsumptionValue").html(totalEnergyConsumption?.y.toLocaleString() ?? 0);
         $("#ghgCurrentDayValue").html(`${Number((totalEnergyConsumption.y * 0.512).toFixed(2)).toLocaleString()} kWh`);
@@ -50,7 +50,15 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
     }
 
     if (chartID === "dailyEnergyConsumptionPerMeter") {
+
+        let now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+
+        // console.log(`Current Time: ${hours}:${minutes}`);
+
         let totalValuePerArea = {};
+
         data.forEach(sensorData => {
             let sensorLocationID = $(`#energyConsumptionPerArea${sensorData.location_id}`);
             if (!totalValuePerArea[sensorData.location_id]) {
@@ -59,6 +67,20 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
             totalValuePerArea[sensorData.location_id] += sensorData.daily_consumption;
             sensorLocationID.html(totalValuePerArea[sensorData.location_id].toLocaleString());
         });
+
+        if (hours === 9 && minutes >= 0 && minutes <= 5) {
+            console.log("Reset triggered!");
+            charts[chartID].options.data[0].dataPoints.forEach((dp) => {
+                dp.y = 0;
+            });
+
+            // Explicitly reset totalValuePerArea
+            Object.keys(totalValuePerArea).forEach(key => {
+                let sensorLocationID = $(`#energyConsumptionPerArea${key}`);
+                totalValuePerArea[key] = 0;
+                sensorLocationID.html(totalValuePerArea[key].toLocaleString());
+            });
+        }
     }
 
     if (refetch) {
