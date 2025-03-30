@@ -23,6 +23,7 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])->name('dashboard');
 
+
 function registerCommonRoutes()
 {
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
