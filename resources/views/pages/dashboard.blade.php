@@ -1,9 +1,6 @@
 <x-app-layout>
-    <x-slot name="pageTitle">
-        Dashboard
-    </x-slot>
     <x-slot name="content">
-        <div class="row">
+        <div class="row summary-box">
             <div class="col-lg-4 col-12">
                 <!-- small box -->
                 <div class="small-box bg-white" style="border-bottom: 8px solid #f39800;">
@@ -34,11 +31,11 @@
                 <!-- small box -->
                 <div class="small-box bg-white" style="border-bottom: 8px solid #f39800;">
                     <div class="inner">
-                        <p>Users</p>
-                        <h3>{{ $users->count() }}</h3>
+                        <p>Areas with Sensors</p>
+                        <h3>{{ $area->count() }}</h3>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-person-add"></i>
+                        <i class="ion ion-ios-location"></i>
                     </div>
                 </div>
             </div>
@@ -135,7 +132,7 @@
                         <section class="col-12 connectedSortable">
                             <div class="row card-box">
                                 @foreach ($area as $sensor)
-                                    <div class="col">
+                                    <div class="col-xl-6 col-lg-12 col-md-12">
                                         <div class="info-box bg-area">
                                             <div class="info-box-content">
                                                 <span

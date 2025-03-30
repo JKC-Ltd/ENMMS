@@ -29,8 +29,10 @@
                             </div><!-- /.col -->
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                                    <li class="breadcrumb-item active">{{ $pageTitle ?? '' }}</li>
+                                    @if (!request()->routeIs('dashboard')) 
+                                        <li class="breadcrumb-item "><a href="{{ route('dashboard') }}">Home</a></li>
+                                        <li class="breadcrumb-item active">{{ $pageTitle ?? '' }}</li>
+                                    @endif
                                 </ol>
                             </div><!-- /.col -->
                         </div><!-- /.row -->

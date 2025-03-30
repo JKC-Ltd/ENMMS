@@ -5,7 +5,7 @@
     <x-slot name="content">
 
         <!-- Main row -->
-        <div class="row">
+        <div class="row summary-box">
             <div class="col-lg-4 col-12">
                 <!-- small box -->
                 <div class="small-box bg-white" style="border-bottom: 8px solid #f39800;">
@@ -15,7 +15,7 @@
                         <i>kWh / day</i>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-bolt"></i>
+                        <i class="fa fa-calendar-day"></i>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                         <i>kWh / week</i>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-bolt"></i>
+                        <i class="fa fa-calendar-week"></i>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                         <i>kWh / month</i>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-bolt"></i>
+                        <i class="fa fa-calendar-alt"></i>
                     </div>
                 </div>
             </div>
