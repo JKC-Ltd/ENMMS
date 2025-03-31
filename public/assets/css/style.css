@@ -167,6 +167,7 @@ footer.main-footer {
     font-weight: bold;
     text-transform: uppercase;
     color: var(--primary-color);
+    text-align: left;
 }
 
 .small-box.bg-white .inner h3 {
@@ -203,6 +204,9 @@ h1.dashboard-value {
     height: 100%;
     min-height: 370px;
     width: 100%;
+}
+.dashboard-card span.odometer-digit {
+    font-size: 95%;
 }
 .odometer-inside {
     font-family: "Roboto", serif;

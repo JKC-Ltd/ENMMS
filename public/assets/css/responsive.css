@@ -46,3 +46,22 @@
         min-height: 150px;
     }
 }
+@media (max-width: 991px) {
+    .summary-box .col-lg-4.col-12 {
+        margin-bottom: 20px;
+    }
+}
+@media (max-width: 767px) {
+    .small-box .icon {
+        display: block;
+    }
+    .small-box.bg-white .inner h3 {
+        text-align: left;
+    }
+}
+
+@media (max-width: 370px) {
+    .dashboard-card span.odometer-digit, .dashboard-card span.odometer-formatting-mark {
+        font-size: 50px;
+    }
+}

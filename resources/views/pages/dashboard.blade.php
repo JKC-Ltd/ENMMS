@@ -2,6 +2,9 @@
     <x-slot name="importedLinks">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.5/themes/odometer-theme-default.css"/>
     </x-slot>
+    <x-slot name="pageTitle">
+        Dashboard
+    </x-slot>
     <x-slot name="content">
         <div class="row summary-box">
             <div class="col-lg-4 col-12">
