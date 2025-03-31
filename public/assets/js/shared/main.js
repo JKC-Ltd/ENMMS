@@ -10,7 +10,7 @@ const colorScheme = () => {
             '#b1d3ec',  // Light blue tone
             '#e3cbb3',  // Soft beige tan
             '#f39801',  // Base orange
-            
+
             '#b26500',  // Deep orange
             '#f8c784',  // Soft pastel orange
             '#fbe7cc',  // Very light warm beige
@@ -18,7 +18,6 @@ const colorScheme = () => {
             '#cc759e',  // Muted rose
             '#a8825d',  // Warm muted tan
             '#7e9eab',  // Dusty blue-gray
-
         ]);
 };
 
@@ -136,9 +135,9 @@ const exportFn = (request, url) => {
 
 const createOdometer = (el, value) => {
     const odometer = new Odometer({
-      el: el,
-      value: 0,
-      duration: 3000,
+        el: el,
+        value: 0,
+        duration: 3000,
     });
     odometer.update(value);
 };
