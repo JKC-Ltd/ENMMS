@@ -176,7 +176,7 @@ class SensorController extends Controller
             ->get()
             ->map(function ($sensor) use ($energyResult) {
                 $energy = $energyResult->where('sensor_id', $sensor->id)->first();
-                $formatter = new \NumberFormatter('en_US', \NumberFormatter::DECIMAL);
+                // $formatter = new NumberFormatter('en_US', NumberFormatter::DECIMAL);
 
                 if ($energy) {
                     $energy->real_power = $sensor->sensor_brand === "Eastron"

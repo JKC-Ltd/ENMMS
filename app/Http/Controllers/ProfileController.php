@@ -2,59 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\User;
+use DB;
+use Response;
+use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
+
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit(User $user): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+
+        // Get the authenticated user
+        $user = auth()->user() ?? collect(); 
+
+        // Return the view with the user's data
+        return view('pages.profile.form', compact('user'));
+    }
+
+    
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request, User $user)
     {
-        $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        $user = auth()->user() ?? collect(); 
 
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
-
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
+        $request->validate([
+            'firstname' => 'string',
+            'lastname' => 'string',
+            'old_password' => 'nullable|required_with:new_password|current_password',
+            'new_password' => 'nullable|confirmed',
         ]);
 
-        $user = $request->user();
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
 
-        Auth::logout();
+        if ($request->filled('old_password') && $request->filled('new_password')) {
+            $user->password = bcrypt($request->new_password);
+        }
 
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        $user->save();
+    
+        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.');
+        
     }
+
 }

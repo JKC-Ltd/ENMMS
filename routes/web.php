@@ -23,10 +23,11 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])->name('dashboard');
 
-
 function registerCommonRoutes()
 {
-    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
+
     Route::resource('locationDashboard', LocationDashboardController::class);
     Route::resource('energyConsumption', EnergyConsumptionController::class);
     Route::resource('activePower', ActivePowerController::class);
