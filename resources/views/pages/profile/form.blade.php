@@ -28,7 +28,8 @@
                                         @error('firstname')
                                             <div class="error-message">{{ $message }}</div>
                                         @enderror
-
+                                    </div>
+                                    <div class="form-group">
                                         <label for="lastname">Last Name</label>
                                         <input type="text" name="lastname"
                                             class="form-control @error('lastname') input-error @enderror" id="lastname"
@@ -37,12 +38,9 @@
                                         @error('lastname')
                                             <div class="error-message">{{ $message }}</div>
                                         @enderror
-
+                                    </div>     
                                        
-                                        @error('user_type_id')
-                                            <div class="error-message">{{ $message }}</div>
-                                        @enderror
-
+                                    <div class="form-group">
                                         <label for="email">Email</label>
                                         <input type="text" name="email"
                                             class="form-control @error('email') input-error @enderror" id="email"
@@ -50,24 +48,9 @@
                                         @error('email')
                                             <div class="error-message">{{ $message }}</div>
                                         @enderror
-
-                                        {{-- <label for="password">Password</label>
-                                        <input type="password" name="password" 
-                                            class="form-control @error('password') input-error @enderror" id="password"
-                                            placeholder="Password" value="">
-                                        @error('password')
-                                            <div class="error-message">{{ $message }}</div>
-                                        @enderror
-
-                                        <label for="password_confirmation">Confirm Password</label>
-                                        <input type="password" name="password_confirmation" 
-                                            class="form-control @error('password') input-error @enderror" id="password_confirmation"
-                                            placeholder="Password" value="">
-                                        @error('password_confirmation')
-                                            <div class="error-message">{{ $message }}</div>
-                                        @enderror --}}
-
                                     </div>
+                         
+
                                 </div>
 
                                 <div class="col-md-6">
