@@ -46,33 +46,3 @@
         min-height: 150px;
     }
 }
-.boc-edit-form-header {
-    height: 80px;
-}
-.boc-edit-form-instruments {
-    display:none;
-}
-.boc-form-field {
-    padding: 10px;
-}
-
-.boc-input {
-    border-bottom: 3px solid #f39800;
-    border-radius: 10px;
-    box-shadow: 1px 2px 20px 0px #cdcdcd;
-}
-
-label.hasval {
-    padding: 12px 20px;
-    color: #184aa1;
-    font-size: 18px;
-}
-
-.boc-form-fieldset .boc-form-field .boc-input input {
-    background: #f4f6f9 !important;
-    padding: 70px 20px 50px 20px;
-    color: #000;
-    font-weight: bold;
-    font-size: 30px;
-    border-radius: 10px;
-}
