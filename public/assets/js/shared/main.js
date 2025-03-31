@@ -6,16 +6,16 @@ const colorScheme = () => {
             '#184aa1',
             '#f39800',
             '#4a8fc2',
-            '#FF6347', //(Tomato)
-            '#8A2BE2', //(Blue Violet)
-            '#32CD32', //(Lime Green)
+            '#FF7F50', //(Coral)
+            '#B0E0E6', //(Powder Blue)
+            '#F08080', //(Light Coral)
             '#FFD700', //(Gold)
-            '#FF4500', //(Orange Red)
-            '#DA70D6', //(Orchid)
-            '#00FA9A', //(Medium Spring Green)
-            '#C71585', //(Medium Violet Red)
-            '#00BFFF', //(Deep Sky Blue)
-            '#FF1493', //(Deep Pink)
+            '#98C9E6', //(Sky Blue)
+            '#D5A6BD', //(Light Orchid)
+            '#F4A300', //(Vivid Orange)
+            '#6AC0B3', //(Medium Turquoise)
+            '#F1C40F', //(Sunflower Yellow)
+            '#FF9F00', //(Amber)
             // '#e57c10', // Medium Orange
             // '#4a8fc2', // Medium Blue
             // '#bca184', // Warm Taupe
