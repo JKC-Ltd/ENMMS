@@ -1,4 +1,4 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, exportFn, createOdometer } from "./shared/main.js?v=1.2";
+import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, exportFn, createOdometer } from "./shared/main.js?v=1.3";
 
 colorScheme();
 
