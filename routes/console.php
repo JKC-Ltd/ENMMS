@@ -9,3 +9,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 Schedule::command('export:sensor-logs')->monthly()->at('09:00');
+
+Schedule::command('app:store-missing-sensor-log')->everyFiveMinutes();
