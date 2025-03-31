@@ -3,15 +3,28 @@ const charts = [];
 const colorScheme = () => {
     return CanvasJS.addColorSet("DailyEnergyColorSet",
         [
-            '#e57c10', // Medium Orange
-            '#4a8fc2', // Medium Blue
-            '#bca184', // Warm Taupe
-            '#7a8b4e', // Olive Green
-            '#d67c6e', // Muted Coral
-            '#4e5b7e', // Dark Slate Blue
-            '#9b4d82', // Soft Plum
-            '#b57e1f',  // Dark Mustard
-            '#5d737e', // Dusty Teal
+            '#184aa1',
+            '#f39800',
+            '#4a8fc2',
+            '#FF6347', //(Tomato)
+            '#8A2BE2', //(Blue Violet)
+            '#32CD32', //(Lime Green)
+            '#FFD700', //(Gold)
+            '#FF4500', //(Orange Red)
+            '#DA70D6', //(Orchid)
+            '#00FA9A', //(Medium Spring Green)
+            '#C71585', //(Medium Violet Red)
+            '#00BFFF', //(Deep Sky Blue)
+            '#FF1493', //(Deep Pink)
+            // '#e57c10', // Medium Orange
+            // '#4a8fc2', // Medium Blue
+            // '#bca184', // Warm Taupe
+            // '#7a8b4e', // Olive Green
+            // '#d67c6e', // Muted Coral
+            // '#4e5b7e', // Dark Slate Blue
+            // '#9b4d82', // Soft Plum
+            // '#b57e1f',  // Dark Mustard
+            // '#5d737e', // Dusty Teal
 
         ]);
 };

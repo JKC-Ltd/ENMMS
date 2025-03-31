@@ -125,7 +125,7 @@ const processPandPEnergyConsumption = () => {
         name: chartName,
         indexLabel: "{y}",
         indexLabelMaxWidth: 60,
-        indexLabelFontColor: "#FFF",
+        indexLabelFontColor: "#000",
         indexLabelFontSize: 15,
         indexLabelPlacement: "inside",
         indexLabelTextAlign: "center",
@@ -197,7 +197,7 @@ const processDailyEnergyConsumptionPerMeter = () => {
             name: chartName,
             indexLabel: "{y} kWh",
             showInlegend: false,
-            indexLabelFontColor: "#fff",
+            indexLabelFontColor: "#000",
             indexLabelFontSize: 13,
             indexLabelPlacement: "inside",
             dataPoints: []
