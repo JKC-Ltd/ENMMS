@@ -3,12 +3,12 @@ const charts = [];
 const colorScheme = () => {
     return CanvasJS.addColorSet("DailyEnergyColorSet",
         [
-            '#184aa1',
-            '#f39800',
             '#4a8fc2',
+            '#f39800',
             '#FF7F50', //(Coral)
             '#B0E0E6', //(Powder Blue)
             '#F08080', //(Light Coral)
+            '#66b361',
             '#FFD700', //(Gold)
             '#98C9E6', //(Sky Blue)
             '#D5A6BD', //(Light Orchid)
