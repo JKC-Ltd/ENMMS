@@ -128,5 +128,13 @@ const exportFn = (request, url) => {
     console.log(request, url);
 }
 
+const createOdometer = (el, value) => {
+    const odometer = new Odometer({
+      el: el,
+      value: 0,
+      duration: 3000,
+    });
+    odometer.update(value);
+};
 
-export { colorScheme, formatDate, renderChart, getStartEndDate, fetchData, setIntervalAtFiveMinuteMarks, exportFn, charts };
+export { colorScheme, formatDate, renderChart, getStartEndDate, fetchData, setIntervalAtFiveMinuteMarks, exportFn, charts, createOdometer };

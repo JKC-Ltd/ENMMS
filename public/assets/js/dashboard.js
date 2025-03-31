@@ -1,4 +1,4 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme } from "./shared/main.js?v=1.1.1";
+import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, createOdometer } from "./shared/main.js?v=1.2";
 
 colorScheme();
 const processData = (data, refetch, chartID, dataOptions, columnName) => {
@@ -48,8 +48,11 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
         let chartDataPoints = charts[chartID].options.data[0].dataPoints;
 
         let totalEnergyConsumption = chartDataPoints.find(date => formatDate(date.label) === formatDate(dateToday));
+        let totalEnergyConsumptionValue = document.getElementById("totalEnergyConsumptionValue");
 
-        $("#totalEnergyConsumptionValue").html(totalEnergyConsumption?.y.toLocaleString() ?? 0);
+        // $("#totalEnergyConsumptionValue").html(totalEnergyConsumption?.y.toLocaleString() ?? 0);
+        createOdometer(totalEnergyConsumptionValue, totalEnergyConsumption?.y.toLocaleString() ?? 0);  
+        
         $("#ghgCurrentDayValue").html(`${Number((totalEnergyConsumption.y * 0.512).toFixed(2)).toLocaleString()} kWh`);
         $("#ghgCurrentDay").css('width', (totalEnergyConsumption.y * 0.512).toFixed(2));
 
@@ -245,9 +248,11 @@ const fetchDataNoneCharts = (select, startDate, endDate, divID) => {
 
             let endDateMoment = moment(endDate);
             let endDateSub = endDateMoment.clone().subtract(1, "day").format('YYYY-MM-DD HH:mm:ss');
+            let currentMonthEnergyConsumptionValue = document.getElementById(`${divID}Value`);
 
             // console.log(endDateSub);
-            $(`#${divID}Value`).html(data.daily_consumption.toLocaleString());
+            // $(`#${divID}Value`).html(data.daily_consumption.toLocaleString());
+            createOdometer(currentMonthEnergyConsumptionValue, data.daily_consumption.toLocaleString()); 
             $(`#${divID}StartDate`).html(formatDate(startDate));
             $(`#${divID}EndDate`).html(formatDate(endDateSub));
 
@@ -278,5 +283,4 @@ const processCurrentMonthEnergyConsumption = () => {
     const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
     fetchDataNoneCharts(select, startDate, endDate, "currentMonthEnergyConsumption");
 };
-
 processCurrentMonthEnergyConsumption();

@@ -1,4 +1,4 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, exportFn } from "./shared/main.js?v=1.1.1";
+import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, exportFn, createOdometer } from "./shared/main.js?v=1.2";
 
 colorScheme();
 
@@ -168,8 +168,8 @@ processDailyEnergyConsumptionAllMeters();
 // Process for the Daily energy consumption per meter calculation
 
 
-const fetchDataNoneCharts = (select, startDate, endDate, divID) => {
-
+const fetchDataNoneCharts = (select, startDate, endDate, divID, divDate) => {
+    $(`#${divDate}`).text(`${formatDate(startDate)} - ${formatDate(endDate)}`);
     $.ajax({
         type: "GET",
         url: "/getEnergyConsumption",
@@ -180,9 +180,12 @@ const fetchDataNoneCharts = (select, startDate, endDate, divID) => {
         },
         success: function (data) {
             let totalValue = {};
-            totalValue[divID] = data.reduce((total, item) => total + item.daily_consumption, 0);
+            let totalValueId = document.getElementById(`${divID}`);
 
-            $(`#${divID}`).html(totalValue[divID].toLocaleString());
+            totalValue[divID] = data.reduce((total, item) => total + item.daily_consumption, 0);
+            
+            createOdometer(totalValueId, totalValue[divID].toLocaleString()); 
+            // $(`#${divID}`).html(totalValue[divID].toLocaleString());
             // console.log(totalValue);
 
         },
@@ -190,19 +193,22 @@ const fetchDataNoneCharts = (select, startDate, endDate, divID) => {
             console.log(error);
         }
     })
+    
 };
 
 const processCurrentWeekEnergyConsumption = () => {
     let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
     const [startDate, endDate] = getStartEndDate(9, 7, 'week', 1);
+    let endDateMoment = moment(endDate);
+    let endDateSub = endDateMoment.clone().subtract(1, "day").format('YYYY-MM-DD HH:mm:ss');
 
     setIntervalAtFiveMinuteMarks(function () {
         console.log("refetching...");
-        fetchDataNoneCharts(select, startDate, endDate, "weeklyEnergyConsumption");
+        fetchDataNoneCharts(select, startDate, endDateSub, "weeklyEnergyConsumption", "weeklyEnergyConsumptionDate");
     });
-
+    
     // Initial fetch
-    fetchDataNoneCharts(select, startDate, endDate, "weeklyEnergyConsumption");
+    fetchDataNoneCharts(select, startDate, endDateSub, "weeklyEnergyConsumption", "weeklyEnergyConsumptionDate");
 };
 
 const processCurrentDayEnergyConsumption = () => {
@@ -211,23 +217,25 @@ const processCurrentDayEnergyConsumption = () => {
 
     setIntervalAtFiveMinuteMarks(function () {
         console.log("refetching...");
-        fetchDataNoneCharts(select, startDate, endDate, "dailyEnergyConsumption");
+        fetchDataNoneCharts(select, startDate, endDate, "dailyEnergyConsumption", "dailyEnergyConsumptionDate");
     });
 
-    fetchDataNoneCharts(select, startDate, endDate, "dailyEnergyConsumption");
+    fetchDataNoneCharts(select, startDate, endDate, "dailyEnergyConsumption", "dailyEnergyConsumptionDate");
 
 };
 
 const processMonthlyEnergyConsumption = () => {
     let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
     const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
+    let endDateMoment = moment(endDate);
+    let endDateSub = endDateMoment.clone().subtract(1, "day").format('YYYY-MM-DD HH:mm:ss');
 
     setIntervalAtFiveMinuteMarks(function () {
         console.log("refetching...");
-        fetchDataNoneCharts(select, startDate, endDate, "monthlyEnergyConsumption");
+        fetchDataNoneCharts(select, startDate, endDateSub, "monthlyEnergyConsumption", "monthlyEnergyConsumptionDate");
     });
 
-    fetchDataNoneCharts(select, startDate, endDate, "monthlyEnergyConsumption");
+    fetchDataNoneCharts(select, startDate, endDateSub, "monthlyEnergyConsumption", "monthlyEnergyConsumptionDate");
 
 };
 

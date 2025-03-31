@@ -204,7 +204,9 @@ h1.dashboard-value {
     min-height: 370px;
     width: 100%;
 }
-
+.odometer-inside {
+    font-family: "Roboto", serif;
+}
 /* Current Month Energy Consumption */
 .currentMonthEnergy {
     height: 80%;
@@ -329,6 +331,13 @@ div#tree {
     top: 20px !important;
 }
 
+/* ENERGY CONSUMPTION */
+.small-box.bg-white .inner p.energy-consumption-date {
+    text-transform: capitalize;
+    font-size: 16px;
+    color: var(--secondary-color);
+    margin-bottom: 5px;
+}
 /* SENSOR MODELS */
 #sensor_details .card-header {
     background-color: var(--light-primary-color-1) !important;
