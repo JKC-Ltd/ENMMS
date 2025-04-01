@@ -37,7 +37,7 @@ class EnergyConsumptionService
 
         $query->leftJoin('sensors', 'sensor_id', '=', 'sensors.id')
             ->orderBy('sensor_id')
-            ->orderBy('reading_date');
+            ->orderBy('reading_date', 'DESC');
 
         if ($request->groupBy) {
             $query->groupBy($request->groupBy);
