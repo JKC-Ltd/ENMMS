@@ -1,5 +1,4 @@
-import { getStartEndDate } from "../../../assets/js/shared/main.js?v=1.1";
-
+import { getStartEndDate } from "../../../assets/js/shared/main.js?v=1.3";
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -141,17 +140,20 @@ document.addEventListener("DOMContentLoaded", function () {
     Promise.all([
         fetchData("/getLocationChart"),
         fetchData("/getSensorChart", locationRequest),
+    ])
+        .then(([locationData, sensorData]) => {
+            updateChartLayout(locationData);
+            let ctr = locationData.length + 1;
 
-    ]).then(([locationData, sensorData]) => {
-        updateChartLayout(locationData);
-        let ctr = locationData.length + 1;
+            updateChartLayout(sensorData, true, ctr);
+            chart.load(chartLayout);
+        })
+        .catch((error) => {
+            console.error("Error loading data:", error);
+        });
 
-        updateChartLayout(sensorData, true, ctr);
-        chart.load(chartLayout);
-
-    }).catch((error) => {
-        console.error("Error loading data:", error);
+    chart.onNodeClick((args) => {
+       return args.node.templateName === 'locationTemplate' ? false : true;
     });
 
 });
-
