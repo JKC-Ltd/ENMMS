@@ -12,7 +12,6 @@ const colorScheme = () => {
             '#9b4d82', // Soft Plum
             '#b57e1f',  // Dark Mustard
             '#5d737e', // Dusty Teal
-
         ]);
 };
 
@@ -130,9 +129,9 @@ const exportFn = (request, url) => {
 
 const createOdometer = (el, value) => {
     const odometer = new Odometer({
-      el: el,
-      value: 0,
-      duration: 3000,
+        el: el,
+        value: 0,
+        duration: 3000,
     });
     odometer.update(value);
 };
