@@ -64,7 +64,7 @@
             </div>
         </div>
     </x-slot>
-    <x-slot name="importedScripts">
+    @section('scripts')
         @include('includes.datatables-scripts')
         <script src="{{ asset('assets/js/datatables.js') }}"></script>
         <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
@@ -86,5 +86,5 @@
                 @endif
             });
         </script>
-    </x-slot>
+    @endsection
 </x-app-layout>
