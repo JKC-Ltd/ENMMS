@@ -19,19 +19,6 @@ const colorScheme = () => {
             '#a8825d',  // Warm muted tan
             '#7e9eab',  // Dusty blue-gray
 
-
-
-
-            // '#e57c10', // Medium Orange
-            // '#4a8fc2', // Medium Blue
-            // '#bca184', // Warm Taupe
-            // '#7a8b4e', // Olive Green
-            // '#d67c6e', // Muted Coral
-            // '#4e5b7e', // Dark Slate Blue
-            // '#9b4d82', // Soft Plum
-            // '#b57e1f',  // Dark Mustard
-            // '#5d737e', // Dusty Teal
-
         ]);
 };
 
