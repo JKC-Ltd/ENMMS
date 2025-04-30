@@ -54,7 +54,12 @@ class SensorController extends Controller
         $sensor = new Sensor($request->all());
         $sensor->save();
 
-        (new SensorOfflineService())->store(DB::getQueryLog(), $request->gateway_id);
+        $gateways = Gateway::all();
+
+        foreach ($gateways as $key => $gateway) {
+            (new SensorOfflineService())->store(DB::getQueryLog(), $gateway->id);
+            // (new SensorOfflineService())->store(DB::getQueryLog(), $request->gateway_id);
+        }
 
         return redirect()->route('sensors.index');
 
@@ -177,7 +182,7 @@ class SensorController extends Controller
             ->map(function ($sensor) use ($energyResult) {
                 $energy = $energyResult->where('sensor_id', $sensor->id)->first();
                 // $formatter = new NumberFormatter('en_US', NumberFormatter::DECIMAL);
-
+    
                 if ($energy) {
                     $energy->real_power = $sensor->sensor_brand === "Eastron"
                         ? number_format($energy->real_power / 1000, 2, '.', ',')
