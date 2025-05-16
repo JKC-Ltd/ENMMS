@@ -50,6 +50,13 @@ const processDailyEnergyConsumptionAllMeters = () => {
     const column = "reading_date";
     const dailyEnergyConsumptionAllMetersRequest = {
         select: select,
+        // where: [
+        //     {
+        //         field: "sensor_id",
+        //         operator: "!=",
+        //         value: 15,
+        //     }
+        // ]
         // startDate: startDate,
         // endDate: endDate
 
@@ -183,8 +190,8 @@ const fetchDataNoneCharts = (select, startDate, endDate, divID, divDate) => {
             let totalValueId = document.getElementById(`${divID}`);
 
             totalValue[divID] = data.reduce((total, item) => total + item.daily_consumption, 0);
-            
-            createOdometer(totalValueId, totalValue[divID].toLocaleString()); 
+
+            createOdometer(totalValueId, totalValue[divID].toLocaleString());
             // $(`#${divID}`).html(totalValue[divID].toLocaleString());
             // console.log(totalValue);
 
@@ -193,7 +200,7 @@ const fetchDataNoneCharts = (select, startDate, endDate, divID, divDate) => {
             console.log(error);
         }
     })
-    
+
 };
 
 const processCurrentWeekEnergyConsumption = () => {
@@ -206,7 +213,7 @@ const processCurrentWeekEnergyConsumption = () => {
         console.log("refetching...");
         fetchDataNoneCharts(select, startDate, endDateSub, "weeklyEnergyConsumption", "weeklyEnergyConsumptionDate");
     });
-    
+
     // Initial fetch
     fetchDataNoneCharts(select, startDate, endDateSub, "weeklyEnergyConsumption", "weeklyEnergyConsumptionDate");
 };

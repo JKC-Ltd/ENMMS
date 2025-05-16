@@ -54,7 +54,7 @@
                     <div class="card-header ui-sortable-handle" style="cursor: move;">
                         <h3 class="card-title">
                             <i class="fas fa-lightbulb mr-1"></i>
-                            Total Energy Consumption
+                            MDP Energy Consumption
                         </h3>
                     </div>
                     <div class="card-body energy-bg">
@@ -72,7 +72,7 @@
                     <div class="card-header ui-sortable-handle" style="cursor: move;">
                         <h3 class="card-title">
                             <i class="fas fa-plug mr-1"></i>
-                            Previous & Present Energy Consumption - All Meters
+                            Previous & Present Energy Consumption - MDP
                         </h3>
                     </div>
                     <div class="card-body">

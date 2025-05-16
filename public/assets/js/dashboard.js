@@ -1,4 +1,4 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, createOdometer } from "./shared/main.js?v=1.3.1";
+import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, createOdometer } from "./shared/main.js?v=1.3";
 
 colorScheme();
 const processData = (data, refetch, chartID, dataOptions, columnName) => {
@@ -44,19 +44,19 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
     dateToday.setHours(dateToday.getHours() - 9);
     dateToday = formatDate(dateToday);
 
-    if (chartID === "pandpEnergyConsumption") {
-        let chartDataPoints = charts[chartID].options.data[0].dataPoints;
+    // if (chartID === "pandpEnergyConsumption") {
+    //     let chartDataPoints = charts[chartID].options.data[0].dataPoints;
 
-        let totalEnergyConsumption = chartDataPoints.find(date => formatDate(date.label) === formatDate(dateToday));
-        let totalEnergyConsumptionValue = document.getElementById("totalEnergyConsumptionValue");
+    //     let totalEnergyConsumption = chartDataPoints.find(date => formatDate(date.label) === formatDate(dateToday));
+    //     let totalEnergyConsumptionValue = document.getElementById("totalEnergyConsumptionValue");
 
-        // $("#totalEnergyConsumptionValue").html(totalEnergyConsumption?.y.toLocaleString() ?? 0);
-        createOdometer(totalEnergyConsumptionValue, totalEnergyConsumption?.y.toLocaleString() ?? 0);  
-        
-        $("#ghgCurrentDayValue").html(`${Number((totalEnergyConsumption.y * 0.512).toFixed(2)).toLocaleString()} kWh`);
-        $("#ghgCurrentDay").css('width', (totalEnergyConsumption.y * 0.512).toFixed(2));
+    //     // $("#totalEnergyConsumptionValue").html(totalEnergyConsumption?.y.toLocaleString() ?? 0);
+    //     createOdometer(totalEnergyConsumptionValue, totalEnergyConsumption?.y.toLocaleString() ?? 0);  
 
-    }
+    //     $("#ghgCurrentDayValue").html(`${Number((totalEnergyConsumption.y * 0.512).toFixed(2)).toLocaleString()} kWh`);
+    //     $("#ghgCurrentDay").css('width', (totalEnergyConsumption.y * 0.512).toFixed(2));
+
+    // }
 
     if (chartID === "dailyEnergyConsumptionPerMeter") {
         let totalValuePerArea = {};
@@ -95,6 +95,13 @@ const processPandPEnergyConsumption = () => {
     const pandpEnergyConsumptionRequest = {
         groupBy: "reading_date",
         select: select,
+        where: [
+            {
+                field: "sensor_id",
+                operator: "=",
+                value: 15,
+            }
+        ]
     };
 
     const pandPEnergyConsumptionOptions = () => ({
@@ -159,7 +166,14 @@ const processDailyEnergyConsumptionPerMeter = () => {
     const dailyEnergyConsumptionPerMeterRequest = {
         select: select,
         startDate: startDate,
-        endDate: endDate
+        endDate: endDate,
+        where: [
+            {
+                field: "sensor_id",
+                operator: "!=",
+                value: 15,
+            }
+        ]
     };
 
     const dailyEnergyConsumptionPerMeterOptions = () => {
@@ -235,37 +249,84 @@ processDailyEnergyConsumptionPerMeter();
 
 const fetchDataNoneCharts = (select, startDate, endDate, divID) => {
 
-    $.ajax({
-        type: "GET",
-        url: "/getEnergyConsumption",
-        data: {
-            select: select,
-            startDate: startDate,
-            endDate: endDate
-        },
-        success: function (data) {
-            data = data[0];
+    if (divID === 'currentMonthEnergyConsumption') {
+        $.ajax({
+            type: "GET",
+            url: "/getEnergyConsumption",
+            data: {
+                select: select,
+                startDate: startDate,
+                endDate: endDate,
+                where: [
+                    {
+                        field: "sensor_id",
+                        operator: "=",
+                        value: 15,
+                    }
+                ]
+            },
+            success: function (data) {
+                data = data[0];
 
-            let endDateMoment = moment(endDate);
-            let endDateSub = endDateMoment.clone().subtract(1, "day").format('YYYY-MM-DD HH:mm:ss');
-            let currentMonthEnergyConsumptionValue = document.getElementById(`${divID}Value`);
+                let endDateMoment = moment(endDate);
+                let endDateSub = endDateMoment.clone().subtract(1, "day").format('YYYY-MM-DD HH:mm:ss');
+                let currentMonthEnergyConsumptionValue = document.getElementById(`${divID}Value`);
 
-            // console.log(endDateSub);
-            // $(`#${divID}Value`).html(data.daily_consumption.toLocaleString());
-            createOdometer(currentMonthEnergyConsumptionValue, data.daily_consumption.toLocaleString()); 
-            $(`#${divID}StartDate`).html(formatDate(startDate));
-            $(`#${divID}EndDate`).html(formatDate(endDateSub));
+                // console.log(endDateSub);
+                // $(`#${divID}Value`).html(data.daily_consumption.toLocaleString());
+                createOdometer(currentMonthEnergyConsumptionValue, data.daily_consumption.toLocaleString());
+                $(`#${divID}StartDate`).html(formatDate(startDate));
+                $(`#${divID}EndDate`).html(formatDate(endDateSub));
 
-            // $("#ghgCurrentMonth").html(`${(data.daily_consumption * 0.512).toLocaleString()} kWh`);
-            $("#ghgCurrentMonthValue").html(`${Number((data.daily_consumption * 0.512).toFixed(2)).toLocaleString()
-                } kWh`);
-            $("#ghgCurrentMonth").css('width', (data.daily_consumption * 0.512).toFixed(2));
+                // $("#ghgCurrentMonth").html(`${(data.daily_consumption * 0.512).toLocaleString()} kWh`);
+                $("#ghgCurrentMonthValue").html(`${Number((data.daily_consumption * 0.512).toFixed(2)).toLocaleString()
+                    } kWh`);
+                $("#ghgCurrentMonth").css('width', (data.daily_consumption * 0.512).toFixed(2));
 
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    })
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    if (divID === 'currentCurrentDayConsumption') {
+        $.ajax({
+            type: "GET",
+            url: "/getEnergyConsumption",
+            data: {
+                select: select,
+                startDate: startDate,
+                endDate: endDate,
+                where: [
+                    {
+                        field: "sensor_id",
+                        operator: "=",
+                        value: 15,
+                    }
+                ]
+            },
+            success: function (data) {
+                data = data[0];
+
+                let totalEnergyConsumptionValue = document.getElementById("totalEnergyConsumptionValue");
+
+                // $("#totalEnergyConsumptionValue").html(totalEnergyConsumption?.y.toLocaleString() ?? 0);
+                createOdometer(totalEnergyConsumptionValue, data.daily_consumption.toLocaleString() ?? 0);
+
+                // $("#ghgCurrentMonth").html(`${(data.daily_consumption * 0.512).toLocaleString()} kWh`);
+                $("#ghgCurrentDayValue").html(`${Number((data.daily_consumption * 0.512).toFixed(2)).toLocaleString()
+                    } kWh`);
+                $("#ghgCurrentDay").css('width', (data.daily_consumption * 0.512).toFixed(2));
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
 };
 
 const processCurrentMonthEnergyConsumption = () => {
@@ -283,4 +344,24 @@ const processCurrentMonthEnergyConsumption = () => {
     const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
     fetchDataNoneCharts(select, startDate, endDate, "currentMonthEnergyConsumption");
 };
+
+const processCurrentCurrentDayConsumption = () => {
+    const select = `
+            ROUND(SUM((end_energy - start_energy)), 2) AS daily_consumption
+        `;
+
+    setIntervalAtFiveMinuteMarks(function () {
+        const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
+        console.log("refetching...");
+        fetchDataNoneCharts(select, startDate, endDate, "currentCurrentDayConsumption");
+    });
+
+    // Initial fetch
+    const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
+    fetchDataNoneCharts(select, startDate, endDate, "currentCurrentDayConsumption");
+};
+
 processCurrentMonthEnergyConsumption();
+
+processCurrentCurrentDayConsumption();
+
