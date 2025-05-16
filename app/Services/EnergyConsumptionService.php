@@ -39,9 +39,17 @@ class EnergyConsumptionService
             ->orderBy('sensor_id')
             ->orderBy('reading_date');
 
+        if ($request->where) {
+            foreach ($request->where as $where) {
+                $query->where($where['field'], $where['operator'], $where['value']);
+            }
+        }
+
         if ($request->groupBy) {
             $query->groupBy($request->groupBy);
         }
+
+        // dd($query->toRawSql());
 
         return $query;
 

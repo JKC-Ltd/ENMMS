@@ -1,4 +1,4 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme } from "./shared/main.js?v=1.1.1";
+import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme } from "./shared/main.js?v=1.1.2";
 
 colorScheme();
 
@@ -70,7 +70,7 @@ const processActivePowerProfile = (id) => {
                 labelAngle: -90,
                 margin: 30,
                 labelFontSize: 12,
-                interval: 50,
+                interval: 150,
                 // intervalType: "day",
             },
             axisY: {

@@ -20,7 +20,7 @@ class DashboardController extends Controller
     {
         $gateways = Gateway::all();
         $sensors = Sensor::all();
-        $area = Sensor::groupBy('location_id')->get();
+        $area = Sensor::groupBy('location_id')->where('id', "!=", 15)->get();
         $users = User::all();
 
         return view('pages.dashboard')
