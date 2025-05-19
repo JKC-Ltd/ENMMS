@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SensorDataExport;
 use App\Models\Gateway;
 use App\Models\Sensor;
 use App\Models\User;
@@ -9,6 +10,7 @@ use App\Services\EnergyConsumptionService;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Response;
 
 class DashboardController extends Controller
@@ -34,49 +36,34 @@ class DashboardController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function exportCSV(Request $request)
     {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $processUrl = $request->input('processUrl');
+        $requestPayload = new Request($request->input('requestPayload'));
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        if (method_exists($this, $processUrl)) {
+            $data = $this->$processUrl($requestPayload);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+            $dataResponse = $this->$processUrl($requestPayload);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+            if ($dataResponse instanceof \Illuminate\Http\JsonResponse) {
+                $original = $dataResponse->getData(true); // `true` returns associative array
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+                // Assuming your data is inside a `data` key (update if different)
+                $data = $original['data'] ?? $original;
+            } else {
+                $data = $dataResponse;
+            }
+
+            $headers = array_keys($data[0] ?? []);
+
+            return Excel::download(new SensorDataExport($data, $headers), 'sensor_data.csv', 'Csv', [
+                'Content-Type' => 'text/csv',
+            ]);
+        } else {
+            return response()->json(['error' => 'Invalid processUrl'], 400);
+        }
     }
 
     public function getDailyEnergyConsumption(Request $request)

@@ -32,39 +32,61 @@ const renderChart = (chartID, config) => {
 
     console.log(config)
 
-    // if (charts[chartID].get("exportEnabled")) {
-    //     const toolbarClass = $(`#${chartID}`).find('.canvasjs-chart-toolbar')[0];
+    if (charts[chartID].get("exportEnabled")) {
+        const toolbarClass = $(`#${chartID}`).find('.canvasjs-chart-toolbar')[0];
 
-    //     var exportCSV = document.createElement('div');
-    //     var text = document.createTextNode("Export as CSV");
-    //     exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
-    //     exportCSV.appendChild(text);
+        var exportCSV = document.createElement('div');
+        var text = document.createTextNode("Export as CSV");
+        exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
+        exportCSV.appendChild(text);
 
-    //     exportCSV.addEventListener("mouseover", function () {
-    //         exportCSV.setAttribute("style", "padding: 12px 8px; background-color: #2196F3; color: white")
-    //     });
-    //     exportCSV.addEventListener("mouseout", function () {
-    //         exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
-    //     });
-    //     exportCSV.addEventListener("click", function () {
-    //         console.log(config.chartName);
-    //         console.log(config.chartProps.processUrl);
+        exportCSV.addEventListener("mouseover", function () {
+            exportCSV.setAttribute("style", "padding: 12px 8px; background-color: #2196F3; color: white")
+        });
+        exportCSV.addEventListener("mouseout", function () {
+            exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
+        });
+        exportCSV.addEventListener("click", function () {
 
-    //         // $.ajax({
-    //         //     type: "GET",
-    //         //     url: config.chartProps.processUrl,
-    //         //     data: config.chartProps.request,
-    //         //     success: function (data) {
-    //         //         console.log(data);
-    //         //     },
-    //         //     error: function (error) {
-    //         //         console.log(error);
-    //         //     }
-    //         // });
-    //         // downloadCSV({ filename: "chart-data.csv", chart: chart })
-    //     });
-    //     toolbarClass.lastChild.appendChild(exportCSV);
-    // }
+            $.ajax({
+                type: "GET",
+                url: '/exportCSV',
+                data: {
+                    chartName: config.chartName,
+                    processUrl: config.chartProps.processUrl ? config.chartProps.processUrl.substring(1) : "",
+                    requestPayload: config.chartProps.request,
+                },
+                xhr: function () {
+                    const xhr = new XMLHttpRequest();
+                    xhr.responseType = 'blob'; // set it directly here
+                    return xhr;
+                },
+                success: function (blob, status, xhr) {
+                    // const disposition = xhr.getResponseHeader('Content-Disposition');
+                    // let filename = 'export.csv';
+
+                    // if (disposition && disposition.indexOf('filename=') !== -1) {
+                    //     filename = disposition.split('filename=')[1].replace(/['"]/g, '');
+                    // }
+
+                    // const url = window.URL.createObjectURL(blob);
+                    // const a = document.createElement('a');
+                    // a.href = url;
+                    // a.download = filename;
+                    // document.body.appendChild(a);
+                    // a.click();
+                    // a.remove();
+                    // window.URL.revokeObjectURL(url);
+                },
+                error: function (error) {
+                    console.error("Download failed:", error);
+                }
+            });
+
+            // downloadCSV({ filename: "chart-data.csv", chart: chart })
+        });
+        toolbarClass.lastChild.appendChild(exportCSV);
+    }
 
 }
 

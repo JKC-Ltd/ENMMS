@@ -42,6 +42,7 @@ function registerCommonRoutes()
     Route::get('/getDailyEnergyConsumption', [DashboardController::class, 'getDailyEnergyConsumption']);
     Route::get('/getEnergyConsumption', [DashboardController::class, 'getEnergyConsumption']);
     Route::get('/getPower', [DashboardController::class, 'getPower']);
+    Route::get('/exportCSV', [DashboardController::class, 'exportCSV']);
 
     // Route::get('/getEnergyConsumption', [EnergyConsumptionController::class, 'getEnergyConsumption']);
     // Route::get('/getEnergyConsumptionBasedOnDate', [DashboardController::class, 'getEnergyConsumptionBasedOnDate']);
