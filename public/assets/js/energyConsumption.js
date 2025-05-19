@@ -5,7 +5,6 @@ colorScheme();
 const processData = (data, refetch, chartID, dataOptions, columnName) => {
 
     // let totalEnergyConsumption = 0;
-
     let uniqueDates = [...new Set(data.map(item => item.reading_date))].sort((a, b) => a.localeCompare(b));
 
     data.forEach((reading) => {
