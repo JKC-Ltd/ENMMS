@@ -345,23 +345,23 @@ const processCurrentMonthEnergyConsumption = () => {
     fetchDataNoneCharts(select, startDate, endDate, "currentMonthEnergyConsumption");
 };
 
-const processCurrentCurrentDayConsumption = () => {
+const processCurrentDayConsumption = () => {
     const select = `
             ROUND(SUM((end_energy - start_energy)), 2) AS daily_consumption
         `;
 
     setIntervalAtFiveMinuteMarks(function () {
-        const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
+        const [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
         console.log("refetching...");
         fetchDataNoneCharts(select, startDate, endDate, "currentCurrentDayConsumption");
     });
 
     // Initial fetch
-    const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
+    const [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
     fetchDataNoneCharts(select, startDate, endDate, "currentCurrentDayConsumption");
 };
 
 processCurrentMonthEnergyConsumption();
 
-processCurrentCurrentDayConsumption();
+processCurrentDayConsumption();
 
