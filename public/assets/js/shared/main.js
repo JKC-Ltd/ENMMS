@@ -10,7 +10,6 @@ const colorScheme = () => {
             '#b1d3ec',  // Light blue tone
             '#e3cbb3',  // Soft beige tan
             '#f39801',  // Base orange
-
             '#b26500',  // Deep orange
             '#f8c784',  // Soft pastel orange
             '#fbe7cc',  // Very light warm beige
