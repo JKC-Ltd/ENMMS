@@ -29,24 +29,22 @@
                                     <th>ID</th>
                                     <th>Location Code</th>
                                     <th>Location Name</th>
+                                    <th>Parent Location</th>                                
                                     <th>Last Update</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($locations as $location)
+                                   
                                     <tr>
                                         <td>{{ $location->id }}</td>
                                         <td>{{ $location->location_code }}</td>
                                         <td>{{ $location->location_name }}</td>
+                                        <td>{{ $listOfLocationsParents[$location->id] ?? '—' }}</td>
                                         <td>{{ $location->updated_at }}</td>
                                         <td>
                                             <div class="btn-group">
-                                                {{-- <a href="">
-                                                    <button class="btn btn-primary btn-sm">
-                                                        <i class="fa fa-eye"></i> View
-                                                    </button>
-                                                </a> --}}
                                                 <a href="{{ route('locations.edit', $location->id) }}">
                                                     <button class="btn btn-primary btn-sm">
                                                         <i class="fa fa-pen"></i> Edit

@@ -42,10 +42,10 @@
                                         <select class="form-control select2bs4 @error('pid') input-error @enderror"
                                             name="pid" style="width: 100%;">
                                             <option value="">SELECT PARENT LOCATION</option>
-                                            @foreach ($listOfLocations as $locationData)
-                                                <option value="{{ $locationData->id }}">
-                                                    {{-- {{ old('pid', isset($locationData) && $locationData->id == $location->id ? 'selected' : '') }}> --}}
-                                                    {{ $locationData->location_name }}
+                                            @foreach ($listOfLocationsParents as $locationData)
+                                                <option value="{{ $locationData['location']->id }}"
+                                                    {{ old('pid',  isset($location) && $location->pid == $locationData['location']->id ? 'selected' : '') }}>
+                                                    {{ $locationData['fullPath'] }}
                                                 </option>
                                             @endforeach
                                         </select>
