@@ -146,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let ctr = locationData.length + 1;
 
             updateChartLayout(sensorData, true, ctr);
+            chart.load([]);
             chart.load(chartLayout);
         })
         .catch((error) => {
