@@ -10,7 +10,6 @@ const colorScheme = () => {
             '#b1d3ec',  // Light blue tone
             '#e3cbb3',  // Soft beige tan
             '#f39801',  // Base orange
-            
             '#b26500',  // Deep orange
             '#f8c784',  // Soft pastel orange
             '#fbe7cc',  // Very light warm beige
@@ -18,7 +17,6 @@ const colorScheme = () => {
             '#cc759e',  // Muted rose
             '#a8825d',  // Warm muted tan
             '#7e9eab',  // Dusty blue-gray
-
         ]);
 };
 
@@ -34,39 +32,52 @@ const renderChart = (chartID, config) => {
 
     console.log(config)
 
-    // if (charts[chartID].get("exportEnabled")) {
-    //     const toolbarClass = $(`#${chartID}`).find('.canvasjs-chart-toolbar')[0];
+    if (charts[chartID].get("exportEnabled")) {
+        const toolbarClass = $(`#${chartID}`).find('.canvasjs-chart-toolbar')[0];
 
-    //     var exportCSV = document.createElement('div');
-    //     var text = document.createTextNode("Export as CSV");
-    //     exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
-    //     exportCSV.appendChild(text);
+        var exportCSV = document.createElement('div');
+        var text = document.createTextNode("Export as CSV");
+        exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
+        exportCSV.appendChild(text);
 
-    //     exportCSV.addEventListener("mouseover", function () {
-    //         exportCSV.setAttribute("style", "padding: 12px 8px; background-color: #2196F3; color: white")
-    //     });
-    //     exportCSV.addEventListener("mouseout", function () {
-    //         exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
-    //     });
-    //     exportCSV.addEventListener("click", function () {
-    //         console.log(config.chartName);
-    //         console.log(config.chartProps.processUrl);
+        exportCSV.addEventListener("mouseover", function () {
+            exportCSV.setAttribute("style", "padding: 12px 8px; background-color: #2196F3; color: white")
+        });
+        exportCSV.addEventListener("mouseout", function () {
+            exportCSV.setAttribute("style", "padding: 12px 8px; background-color: white; color: black")
+        });
+        exportCSV.addEventListener("click", function () {
 
-    //         // $.ajax({
-    //         //     type: "GET",
-    //         //     url: config.chartProps.processUrl,
-    //         //     data: config.chartProps.request,
-    //         //     success: function (data) {
-    //         //         console.log(data);
-    //         //     },
-    //         //     error: function (error) {
-    //         //         console.log(error);
-    //         //     }
-    //         // });
-    //         // downloadCSV({ filename: "chart-data.csv", chart: chart })
-    //     });
-    //     toolbarClass.lastChild.appendChild(exportCSV);
-    // }
+            $.ajax({
+                type: "GET",
+                url: '/exportCSV',
+                data: {
+                    chartName: config.chartName,
+                    processUrl: config.chartProps.processUrl ? config.chartProps.processUrl.substring(1) : "",
+                    requestPayload: config.chartProps.request,
+                },
+                success: function (data) {
+                    console.log("Download started:", data);
+                    const blob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${config.chartName}.csv`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    console.log("Download completed");
+                },
+                error: function (error) {
+                    console.error("Download failed:", error);
+                }
+            });
+
+            // downloadCSV({ filename: "chart-data.csv", chart: chart })
+        });
+        toolbarClass.lastChild.appendChild(exportCSV);
+    }
 
 }
 

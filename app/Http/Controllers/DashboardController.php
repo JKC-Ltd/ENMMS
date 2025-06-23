@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SensorDataExport;
 use App\Models\Gateway;
 use App\Models\Sensor;
 use App\Models\User;
 use App\Services\EnergyConsumptionService;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Response;
 
 class DashboardController extends Controller
@@ -34,74 +37,54 @@ class DashboardController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function exportCSV(Request $request)
     {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $processUrl = $request->input('processUrl');
+        $requestPayload = new Request($request->input('requestPayload'));
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $data = $this->$processUrl($requestPayload);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        $dataResponse = $this->$processUrl($requestPayload);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        if ($dataResponse instanceof JsonResponse) {
+            $original = $dataResponse->getData(true); // `true` returns associative array
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+            // Assuming your data is inside a `data` key (update if different)
+            $data = $original['data'] ?? $original;
+        } else {
+            $data = $dataResponse;
+        }
+
+        $headers = array_keys($data[0] ?? []);
+
+
+        return Excel::download(new SensorDataExport($data, $headers), 'sensor_data.csv');
     }
 
     public function getDailyEnergyConsumption(Request $request)
     {
 
         $now = Carbon::now();
-        $today9AM = $now->copy()->startOfDay()->addHours(9);
-        $tomorrow9AM = $today9AM->copy()->addDay();
+        $today7AM = $now->copy()->startOfDay()->addHours(7);
+        $tomorrow7AM = $today7AM->copy()->addDay();
 
-        if ($now->greaterThanOrEqualTo($today9AM)) {
+        if ($now->greaterThanOrEqualTo($today7AM)) {
             $startDate = Carbon::now()
                 ->subDay()
                 ->startOfDay()
-                ->addHours(9)
+                ->addHours(7)
                 ->toDateTimeString(); // Yesterday's date
 
-            $endDate = $tomorrow9AM->toDateTimeString();
+            $endDate = $tomorrow7AM->toDateTimeString();
         } else {
             $startDate = Carbon::now()
                 ->subDays(2)
                 ->startOfDay()
-                ->addHours(9)
+                ->addHours(7)
                 ->toDateTimeString(); // Yesterday's date
 
-            $endDate = $today9AM->toDateTimeString();
+            $endDate = $today7AM->toDateTimeString();
         }
 
         $request->startDate = $startDate;
