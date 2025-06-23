@@ -56,27 +56,18 @@ const renderChart = (chartID, config) => {
                     processUrl: config.chartProps.processUrl ? config.chartProps.processUrl.substring(1) : "",
                     requestPayload: config.chartProps.request,
                 },
-                xhr: function () {
-                    const xhr = new XMLHttpRequest();
-                    xhr.responseType = 'blob'; // set it directly here
-                    return xhr;
-                },
-                success: function (blob, status, xhr) {
-                    // const disposition = xhr.getResponseHeader('Content-Disposition');
-                    // let filename = 'export.csv';
-
-                    // if (disposition && disposition.indexOf('filename=') !== -1) {
-                    //     filename = disposition.split('filename=')[1].replace(/['"]/g, '');
-                    // }
-
-                    // const url = window.URL.createObjectURL(blob);
-                    // const a = document.createElement('a');
-                    // a.href = url;
-                    // a.download = filename;
-                    // document.body.appendChild(a);
-                    // a.click();
-                    // a.remove();
-                    // window.URL.revokeObjectURL(url);
+                success: function (data) {
+                    console.log("Download started:", data);
+                    const blob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${config.chartName}.csv`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    console.log("Download completed");
                 },
                 error: function (error) {
                     console.error("Download failed:", error);

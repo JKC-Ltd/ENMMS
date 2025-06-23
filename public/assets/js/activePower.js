@@ -8,7 +8,7 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
     console.log(data);
 
     let dateToday = new Date();
-    dateToday.setHours(dateToday.getHours() - 9); // Deduct 9 hours
+    dateToday.setHours(dateToday.getHours() - 7); // Deduct 7 hours
     dateToday = formatDate(dateToday);
 
     data.forEach((reading) => {

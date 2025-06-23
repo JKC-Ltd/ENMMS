@@ -13,7 +13,7 @@ class EnergyConsumptionService
         $sensor_logs = DB::table('sensor_logs')
             ->selectRaw("
                 sensor_id,
-                DATE(datetime_created - INTERVAL 9 HOUR) AS reading_date,
+                DATE(datetime_created - INTERVAL 7 HOUR) AS reading_date,
                 MIN(energy) AS start_energy,
                 MAX(energy) AS end_energy,
                 real_power,
@@ -36,6 +36,7 @@ class EnergyConsumptionService
             ");
 
         $query->leftJoin('sensors', 'sensor_id', '=', 'sensors.id')
+            ->leftJoin('locations', 'location_id', '=', 'locations.id')
             ->orderBy('sensor_id')
             ->orderBy('reading_date');
 

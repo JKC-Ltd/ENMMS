@@ -31,7 +31,7 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
                     label: reading[columnName]
                 });
             } else {
-                if (hours === 9 && minutes >= 0 && minutes <= 4) {
+                if (hours === 7 && minutes >= 0 && minutes <= 4) {
                     existingDataOptions.y = 0;
                 } else {
                     existingDataOptions.y = reading.daily_consumption;
@@ -41,7 +41,7 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
     });
 
     let dateToday = new Date();
-    dateToday.setHours(dateToday.getHours() - 9);
+    dateToday.setHours(dateToday.getHours() - 7);
     dateToday = formatDate(dateToday);
 
     // if (chartID === "pandpEnergyConsumption") {
@@ -66,7 +66,7 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
                 totalValuePerArea[sensorData.location_id] = 0;
             }
 
-            if (hours === 9 && minutes >= 0 && minutes <= 4) {
+            if (hours === 7 && minutes >= 0 && minutes <= 4) {
                 totalValuePerArea[sensorData.location_id] = 0;
             } else {
                 totalValuePerArea[sensorData.location_id] += sensorData.daily_consumption;
@@ -86,9 +86,10 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
 
 
 const processPandPEnergyConsumption = () => {
-    const select = `DATE_FORMAT(reading_date, '%M %d, %Y') as reading_date, 
+    const select = `sensors.description as sensor_description,
+                    location_name,
                     ROUND(SUM((end_energy - start_energy)), 2) AS daily_consumption, 
-                    sensor_id`;
+                    DATE_FORMAT(reading_date, '%M %d, %Y') as reading_date`;
     const processUrl = "/getDailyEnergyConsumption";
     const chartName = "pandpEnergyConsumption";
     const column = "reading_date";
@@ -151,17 +152,17 @@ const processPandPEnergyConsumption = () => {
 
 const processDailyEnergyConsumptionPerMeter = () => {
 
-    const select = `description as sensor_description,
-                    location_id,
-                    sensor_id,
+    const select = `location_name,
+                    description as sensor_description,
                     reading_date,
-                    ROUND((end_energy - start_energy), 2) AS daily_consumption`;
+                    ROUND((end_energy - start_energy), 2) AS daily_consumption
+                    `;
     const processUrl = "/getEnergyConsumption";
     const chartName = "dailyEnergyConsumptionPerMeter";
     const column = "sensor_description";
 
     // Get updated dates dynamically
-    const [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
+    const [startDate, endDate] = getStartEndDate(7, 1, 'day', 1);
 
     const dailyEnergyConsumptionPerMeterRequest = {
         select: select,
@@ -335,13 +336,13 @@ const processCurrentMonthEnergyConsumption = () => {
         `;
 
     setIntervalAtFiveMinuteMarks(function () {
-        const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
+        const [startDate, endDate] = getStartEndDate(7, 25, 'month', 1);
         console.log("refetching...");
         fetchDataNoneCharts(select, startDate, endDate, "currentMonthEnergyConsumption");
     });
 
     // Initial fetch
-    const [startDate, endDate] = getStartEndDate(9, 25, 'month', 1);
+    const [startDate, endDate] = getStartEndDate(7, 25, 'month', 1);
     fetchDataNoneCharts(select, startDate, endDate, "currentMonthEnergyConsumption");
 };
 
@@ -351,13 +352,13 @@ const processCurrentDayConsumption = () => {
         `;
 
     setIntervalAtFiveMinuteMarks(function () {
-        const [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
+        const [startDate, endDate] = getStartEndDate(7, 1, 'day', 1);
         console.log("refetching...");
         fetchDataNoneCharts(select, startDate, endDate, "currentCurrentDayConsumption");
     });
 
     // Initial fetch
-    const [startDate, endDate] = getStartEndDate(9, 1, 'day', 1);
+    const [startDate, endDate] = getStartEndDate(7, 1, 'day', 1);
     fetchDataNoneCharts(select, startDate, endDate, "currentCurrentDayConsumption");
 };
 

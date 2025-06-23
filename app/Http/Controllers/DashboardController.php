@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Services\EnergyConsumptionService;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Response;
@@ -42,53 +43,48 @@ class DashboardController extends Controller
         $processUrl = $request->input('processUrl');
         $requestPayload = new Request($request->input('requestPayload'));
 
-        if (method_exists($this, $processUrl)) {
-            $data = $this->$processUrl($requestPayload);
+        $data = $this->$processUrl($requestPayload);
 
-            $dataResponse = $this->$processUrl($requestPayload);
+        $dataResponse = $this->$processUrl($requestPayload);
 
-            if ($dataResponse instanceof \Illuminate\Http\JsonResponse) {
-                $original = $dataResponse->getData(true); // `true` returns associative array
+        if ($dataResponse instanceof JsonResponse) {
+            $original = $dataResponse->getData(true); // `true` returns associative array
 
-                // Assuming your data is inside a `data` key (update if different)
-                $data = $original['data'] ?? $original;
-            } else {
-                $data = $dataResponse;
-            }
-
-            $headers = array_keys($data[0] ?? []);
-
-            return Excel::download(new SensorDataExport($data, $headers), 'sensor_data.csv', 'Csv', [
-                'Content-Type' => 'text/csv',
-            ]);
+            // Assuming your data is inside a `data` key (update if different)
+            $data = $original['data'] ?? $original;
         } else {
-            return response()->json(['error' => 'Invalid processUrl'], 400);
+            $data = $dataResponse;
         }
+
+        $headers = array_keys($data[0] ?? []);
+
+
+        return Excel::download(new SensorDataExport($data, $headers), 'sensor_data.csv');
     }
 
     public function getDailyEnergyConsumption(Request $request)
     {
 
         $now = Carbon::now();
-        $today9AM = $now->copy()->startOfDay()->addHours(9);
-        $tomorrow9AM = $today9AM->copy()->addDay();
+        $today7AM = $now->copy()->startOfDay()->addHours(7);
+        $tomorrow7AM = $today7AM->copy()->addDay();
 
-        if ($now->greaterThanOrEqualTo($today9AM)) {
+        if ($now->greaterThanOrEqualTo($today7AM)) {
             $startDate = Carbon::now()
                 ->subDay()
                 ->startOfDay()
-                ->addHours(9)
+                ->addHours(7)
                 ->toDateTimeString(); // Yesterday's date
 
-            $endDate = $tomorrow9AM->toDateTimeString();
+            $endDate = $tomorrow7AM->toDateTimeString();
         } else {
             $startDate = Carbon::now()
                 ->subDays(2)
                 ->startOfDay()
-                ->addHours(9)
+                ->addHours(7)
                 ->toDateTimeString(); // Yesterday's date
 
-            $endDate = $today9AM->toDateTimeString();
+            $endDate = $today7AM->toDateTimeString();
         }
 
         $request->startDate = $startDate;
