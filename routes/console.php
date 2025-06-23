@@ -10,4 +10,4 @@ Artisan::command('inspire', function () {
 
 Schedule::command('export:sensor-logs')->monthly()->at('07:00');
 
-Schedule::command('app:store-missing-sensor-log')->everyFiveMinutes();
+// Schedule::command('app:store-missing-sensor-log')->everyFiveMinutes();
