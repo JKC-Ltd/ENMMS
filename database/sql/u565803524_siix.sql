@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 20, 2025 at 02:46 PM
--- Server version: 10.11.10-MariaDB
+-- Generation Time: Nov 26, 2025 at 02:12 PM
+-- Server version: 11.8.3-MariaDB-log
 -- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -38,16 +38,52 @@ CREATE TABLE `cache` (
 --
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('admin@smartpowerph.com|119.94.167.83', 'i:1;', 1742467908),
-('admin@smartpowerph.com|119.94.167.83:timer', 'i:1742467908;', 1742467908),
-('daisy_effertz@clientcaf.info|212.102.63.50', 'i:2;', 1742322733),
-('daisy_effertz@clientcaf.info|212.102.63.50:timer', 'i:1742322733;', 1742322733),
-('isobel72@hotmail.com|212.102.63.50', 'i:2;', 1742322742),
-('isobel72@hotmail.com|212.102.63.50:timer', 'i:1742322742;', 1742322742),
-('sstokes81@yahoo.com|212.102.63.50', 'i:1;', 1742322739),
-('sstokes81@yahoo.com|212.102.63.50:timer', 'i:1742322739;', 1742322739),
-('test@example.com|180.190.121.92', 'i:1;', 1742463001),
-('test@example.com|180.190.121.92:timer', 'i:1742463001;', 1742463001);
+('admin@smartpowerph.com|119.94.167.195', 'i:2;', 1747762973),
+('admin@smartpowerph.com|119.94.167.195:timer', 'i:1747762973;', 1747762973),
+('admin@smartpowerph.com|127.0.0.1', 'i:1;', 1747637217),
+('admin@smartpowerph.com|127.0.0.1:timer', 'i:1747637216;', 1747637216),
+('admin@smartpowerph.com|136.158.10.191', 'i:2;', 1750329397),
+('admin@smartpowerph.com|136.158.10.191:timer', 'i:1750329397;', 1750329397),
+('ghowell00@yahoo.com|2a03:b0c0:1:e0::9097:1001', 'i:1;', 1763617955),
+('ghowell00@yahoo.com|2a03:b0c0:1:e0::9097:1001:timer', 'i:1763617955;', 1763617955),
+('hugolehmann92@outlook.com|2a03:b0c0:1:e0::9097:1001', 'i:1;', 1763617958),
+('hugolehmann92@outlook.com|2a03:b0c0:1:e0::9097:1001:timer', 'i:1763617958;', 1763617958),
+('james.zarsuelo@indigo21.com|136.158.10.191', 'i:1;', 1747650159),
+('james.zarsuelo@indigo21.com|136.158.10.191:timer', 'i:1747650159;', 1747650159),
+('katheryn97@twinbash.co|2a03:b0c0:1:e0::9097:1001', 'i:3;', 1763617952),
+('katheryn97@twinbash.co|2a03:b0c0:1:e0::9097:1001:timer', 'i:1763617952;', 1763617952),
+('mrgabthan@smartpowerph.com|112.200.234.10', 'i:1;', 1751866207),
+('mrgabthan@smartpowerph.com|112.200.234.10:timer', 'i:1751866207;', 1751866207),
+('mrgabthan@smartpowerph.com|2001:4451:4160:7300:8926:57a7:cb0e:7ff0', 'i:1;', 1751865631),
+('mrgabthan@smartpowerph.com|2001:4451:4160:7300:8926:57a7:cb0e:7ff0:timer', 'i:1751865631;', 1751865631),
+('mrgbathan@jsmartpowerph.com|2001:4451:4154:2700:bd0e:b269:6d02:7c4f', 'i:2;', 1760060439),
+('mrgbathan@jsmartpowerph.com|2001:4451:4154:2700:bd0e:b269:6d02:7c4f:timer', 'i:1760060439;', 1760060439),
+('mrgbathan@smarpowerph.com|112.200.234.10', 'i:2;', 1748222836),
+('mrgbathan@smarpowerph.com|112.200.234.10:timer', 'i:1748222836;', 1748222836),
+('mrgbathan@smartpowerph.com|111.90.198.84', 'i:2;', 1756424212),
+('mrgbathan@smartpowerph.com|111.90.198.84:timer', 'i:1756424212;', 1756424212),
+('support@indigo21.com|180.190.121.10', 'i:1;', 1744649660),
+('support@indigo21.com|180.190.121.10:timer', 'i:1744649660;', 1744649660),
+('test@gmail.com|180.190.111.22', 'i:1;', 1759853306),
+('test@gmail.com|180.190.111.22:timer', 'i:1759853306;', 1759853306),
+('test@indigo21.com|180.190.212.116', 'i:1;', 1759243848),
+('test@indigo21.com|180.190.212.116:timer', 'i:1759243848;', 1759243848),
+('test@indigo21.com|180.190.73.39', 'i:2;', 1756198055),
+('test@indigo21.com|180.190.73.39:timer', 'i:1756198055;', 1756198055),
+('test@smartpowerph.com|180.190.121.57', 'i:1;', 1745864617),
+('test@smartpowerph.com|180.190.121.57:timer', 'i:1745864617;', 1745864617),
+('user@smartpower.com|149.30.138.176', 'i:1;', 1762343278),
+('user@smartpower.com|149.30.138.176:timer', 'i:1762343278;', 1762343278),
+('user@smartpower.com|210.1.64.194', 'i:1;', 1750397445),
+('user@smartpower.com|210.1.64.194:timer', 'i:1750397445;', 1750397445),
+('user@smartpower.com|2405:8d40:4483:1521:1840:45b9:261c:27ea', 'i:1;', 1747632825),
+('user@smartpower.com|2405:8d40:4483:1521:1840:45b9:261c:27ea:timer', 'i:1747632825;', 1747632825),
+('user@smartpowerp.com|111.90.195.6', 'i:2;', 1750643024),
+('user@smartpowerp.com|111.90.195.6:timer', 'i:1750643024;', 1750643024),
+('user@smartpowerph.com|61.245.23.170', 'i:2;', 1750321434),
+('user@smartpowerph.com|61.245.23.170:timer', 'i:1750321434;', 1750321434),
+('user1@example.com|210.1.64.194', 'i:1;', 1745371018),
+('user1@example.com|210.1.64.194:timer', 'i:1745371018;', 1745371018);
 
 -- --------------------------------------------------------
 
@@ -104,7 +140,9 @@ INSERT INTO `gateways` (`id`, `location_id`, `customer_code`, `gateway`, `gatewa
 (2, 19, 'SIIX', '2', 'GAT-02', 'Gateway on Canteen', '2025-03-20 22:27:47', '2025-03-20 22:27:47', NULL),
 (3, 24, 'SIIX', '3', 'GAT-03', 'Gateway on EOL', '2025-03-20 22:28:08', '2025-03-20 22:28:08', NULL),
 (4, 25, 'SIIX', '4', 'GAT-04', 'Gateway on EE Room', '2025-03-20 22:28:37', '2025-03-20 22:28:37', NULL),
-(5, 21, 'SIIX', '5', 'GAT-05', 'Gateway on SMT Area', '2025-03-20 22:29:02', '2025-03-20 22:29:02', NULL);
+(5, 21, 'SIIX', '5', 'GAT-05', 'Gateway on SMT Area', '2025-03-20 22:29:02', '2025-03-20 22:29:02', NULL),
+(6, 26, 'SIIX', '6', 'GAT-06', 'Gateway on EE Room EMS Building 1', '2025-04-30 13:43:55', '2025-04-30 13:43:55', NULL),
+(7, 8, 'SIIX', '7', 'GAT-07', 'Gateway on EE Room Building 3', '2025-11-26 19:53:32', '2025-11-26 19:53:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -183,10 +221,11 @@ INSERT INTO `locations` (`id`, `location_code`, `location_name`, `pid`, `created
 (19, 'Canteen', 'Canteen', '12', NULL, NULL, NULL),
 (20, 'General Office', 'General Office', '12', NULL, NULL, NULL),
 (21, 'SMT Area', 'SMT Area', '13', NULL, NULL, NULL),
-(22, 'A1 reflow', 'A1 reflow', '21', NULL, NULL, NULL),
-(23, 'B5 reflow', 'B5 reflow', '21', NULL, NULL, NULL),
-(24, 'EOL', 'EOL', '13', NULL, NULL, NULL),
-(25, 'EE Room', 'EE Room', '11', '2025-03-20 21:16:10', '2025-03-20 21:16:10', NULL);
+(22, 'A1 reflow', 'A1 reflow', '25', NULL, '2025-03-23 18:50:54', '2025-03-23 18:50:54'),
+(23, 'B5 reflow', 'B5 reflow', '21', NULL, '2025-03-23 18:51:04', '2025-03-23 18:51:04'),
+(24, 'EOL', 'EOL', '14', NULL, '2025-03-22 10:29:04', NULL),
+(25, 'EE Room', 'EE Room Bldg 2', '13', '2025-03-20 21:16:10', '2025-05-16 19:05:44', NULL),
+(26, 'EE Room B1', 'EE Room B1', '6', '2025-04-30 13:39:16', '2025-04-30 13:39:16', NULL);
 
 -- --------------------------------------------------------
 
@@ -259,15 +298,20 @@ INSERT INTO `sensors` (`id`, `slave_address`, `description`, `location_id`, `gat
 (3, '1', 'IIDA PP-220V', 17, 1, 1, '2025-03-20 22:33:31', '2025-03-20 22:37:32', NULL),
 (4, '6', 'IIDA PP-HDA-AP', 17, 1, 1, '2025-03-20 22:33:52', '2025-03-20 22:37:40', NULL),
 (5, '4', 'PP-CANTEEN', 19, 2, 1, '2025-03-20 22:37:03', '2025-03-20 22:37:03', NULL),
-(6, '5', 'PP-SEP', 19, 2, 1, '2025-03-20 22:38:00', '2025-03-20 22:38:00', NULL),
-(7, '7', 'PP-SLP', 19, 2, 1, '2025-03-20 22:38:20', '2025-03-20 22:38:20', NULL),
-(8, '9', 'EOL MP-100V', 24, 3, 1, '2025-03-20 22:39:35', '2025-03-20 22:39:35', NULL),
-(9, '8', 'EOL MP-2-2', 24, 3, 1, '2025-03-20 22:39:54', '2025-03-20 22:39:54', NULL),
-(10, '10', 'SWS Reflow A4', 25, 4, 1, '2025-03-20 22:40:45', '2025-03-20 22:40:45', NULL),
-(11, '11', 'B1 Reflow', 25, 4, 1, '2025-03-20 22:41:28', '2025-03-20 22:41:28', NULL),
-(12, '12', 'A1 Reflow', 21, 5, 1, '2025-03-20 22:41:48', '2025-03-20 22:41:48', NULL),
-(13, '13', 'A2 Reflow', 21, 5, 1, '2025-03-20 22:42:04', '2025-03-20 22:42:04', NULL),
-(14, '14', 'A3 Reflow', 21, 5, 1, '2025-03-20 22:42:22', '2025-03-20 22:42:22', NULL);
+(6, '5', 'PP-GED/BPO', 19, 2, 1, '2025-03-20 22:38:00', '2025-05-26 11:22:42', NULL),
+(7, '7', 'PP-GenOffice', 19, 2, 1, '2025-03-20 22:38:20', '2025-05-26 11:21:39', NULL),
+(8, '9', 'EOL MP-100V-2-3', 24, 3, 1, '2025-03-20 22:39:35', '2025-03-22 15:21:55', NULL),
+(9, '8', 'EOL MP-2-3', 24, 3, 1, '2025-03-20 22:39:54', '2025-03-22 15:20:43', NULL),
+(10, '10', 'SWS Reflow A4', 25, 4, 2, '2025-03-20 22:40:45', '2025-03-23 21:22:20', NULL),
+(11, '11', 'B2 Reflow', 25, 4, 2, '2025-03-20 22:41:28', '2025-05-18 10:32:57', NULL),
+(12, '12', 'A1 Reflow', 25, 4, 1, '2025-03-20 22:41:48', '2025-03-23 21:22:44', NULL),
+(13, '13', 'A2 Reflow', 21, 5, 1, '2025-03-20 22:42:04', '2025-03-26 18:32:13', NULL),
+(14, '14', 'A3 Reflow', 21, 5, 1, '2025-03-20 22:42:22', '2025-03-26 18:32:40', NULL),
+(15, '20', 'MDP', 26, 6, 1, '2025-04-30 17:12:36', '2025-04-30 17:12:36', NULL),
+(16, '30', 'CB1000 - TX1', 25, 4, 2, '2025-11-26 21:33:11', '2025-11-26 22:10:49', NULL),
+(17, '31', 'CB1000 - TX2', 25, 4, 2, '2025-11-26 21:33:39', '2025-11-26 22:10:57', NULL),
+(18, '32', 'CB2000 - TX3', 25, 4, 2, '2025-11-26 21:34:08', '2025-11-26 22:11:05', NULL),
+(19, '33', 'MDP-2', 8, 7, 1, '2025-11-26 22:09:52', '2025-11-26 22:09:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -304,7 +348,6 @@ CREATE TABLE `sensor_logs` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
 
 --
 -- Table structure for table `sensor_models`
@@ -326,7 +369,8 @@ CREATE TABLE `sensor_models` (
 --
 
 INSERT INTO `sensor_models` (`id`, `sensor_model`, `sensor_brand`, `sensor_type_id`, `sensor_reg_address`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'PM2120', 'Schneider', 1, '3020,3000,3060,3076,2700', '2025-03-19 01:33:52', '2025-03-19 01:33:52', NULL);
+(1, 'PM2120', 'Schneider', 2, '3019,3021,3023,2999,3001,3003,3059,3075,2699', '2025-03-19 01:33:52', '2025-03-22 18:24:13', NULL),
+(2, 'SDM120', 'Eastron', 2, '200,202,204,6,8,10,52,56,342', '2025-03-22 09:17:04', '2025-03-26 12:55:03', NULL);
 
 -- --------------------------------------------------------
 
@@ -342,6 +386,44 @@ CREATE TABLE `sensor_offlines` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `gateway_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sensor_offlines`
+--
+
+INSERT INTO `sensor_offlines` (`id`, `query`, `created_at`, `updated_at`, `deleted_at`, `gateway_id`) VALUES
+(184, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (30, 25, 4, 1, \'CB1000 - TX1\', \'2025-11-26 21:33:11\', \'2025-11-26 21:33:11\')', '2025-11-26 21:33:11', '2025-11-26 21:33:11', NULL, 7),
+(191, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (31, 25, 4, 1, \'CB1000 - TX2: 31\', \'2025-11-26 21:33:39\', \'2025-11-26 21:33:39\')', '2025-11-26 21:33:39', '2025-11-26 21:33:39', NULL, 7),
+(198, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (32, 25, 4, 1, \'CB2000 - TX3\', \'2025-11-26 21:34:08\', \'2025-11-26 21:34:08\')', '2025-11-26 21:34:08', '2025-11-26 21:34:08', NULL, 7),
+(205, 'update `sensors` set `description` = \'CB1000 - TX2\', `sensors`.`updated_at` = \'2025-11-26 21:34:19\' where `id` = 17', '2025-11-26 21:34:19', '2025-11-26 21:34:19', NULL, 7),
+(206, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (33, 8, 7, 1, \'MDP-2\', \'2025-11-26 22:09:52\', \'2025-11-26 22:09:52\')', '2025-11-26 22:09:52', '2025-11-26 22:09:52', NULL, 1),
+(207, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (33, 8, 7, 1, \'MDP-2\', \'2025-11-26 22:09:52\', \'2025-11-26 22:09:52\')', '2025-11-26 22:09:52', '2025-11-26 22:09:52', NULL, 2),
+(208, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (33, 8, 7, 1, \'MDP-2\', \'2025-11-26 22:09:52\', \'2025-11-26 22:09:52\')', '2025-11-26 22:09:52', '2025-11-26 22:09:52', NULL, 3),
+(209, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (33, 8, 7, 1, \'MDP-2\', \'2025-11-26 22:09:52\', \'2025-11-26 22:09:52\')', '2025-11-26 22:09:52', '2025-11-26 22:09:52', NULL, 4),
+(210, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (33, 8, 7, 1, \'MDP-2\', \'2025-11-26 22:09:52\', \'2025-11-26 22:09:52\')', '2025-11-26 22:09:52', '2025-11-26 22:09:52', NULL, 5),
+(211, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (33, 8, 7, 1, \'MDP-2\', \'2025-11-26 22:09:52\', \'2025-11-26 22:09:52\')', '2025-11-26 22:09:52', '2025-11-26 22:09:52', NULL, 6),
+(212, 'insert into `sensors` (`slave_address`, `location_id`, `gateway_id`, `sensor_model_id`, `description`, `updated_at`, `created_at`) values (33, 8, 7, 1, \'MDP-2\', \'2025-11-26 22:09:52\', \'2025-11-26 22:09:52\')', '2025-11-26 22:09:52', '2025-11-26 22:09:52', NULL, 7),
+(213, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:10:49\' where `id` = 16', '2025-11-26 22:10:49', '2025-11-26 22:10:49', NULL, 1),
+(214, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:10:49\' where `id` = 16', '2025-11-26 22:10:49', '2025-11-26 22:10:49', NULL, 2),
+(215, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:10:49\' where `id` = 16', '2025-11-26 22:10:49', '2025-11-26 22:10:49', NULL, 3),
+(216, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:10:49\' where `id` = 16', '2025-11-26 22:10:49', '2025-11-26 22:10:49', NULL, 4),
+(217, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:10:49\' where `id` = 16', '2025-11-26 22:10:49', '2025-11-26 22:10:49', NULL, 5),
+(218, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:10:49\' where `id` = 16', '2025-11-26 22:10:49', '2025-11-26 22:10:49', NULL, 6),
+(219, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:10:49\' where `id` = 16', '2025-11-26 22:10:49', '2025-11-26 22:10:49', NULL, 7),
+(220, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:10:57\' where `id` = 17', '2025-11-26 22:10:57', '2025-11-26 22:10:57', NULL, 1),
+(221, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:10:57\' where `id` = 17', '2025-11-26 22:10:57', '2025-11-26 22:10:57', NULL, 2),
+(222, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:10:57\' where `id` = 17', '2025-11-26 22:10:57', '2025-11-26 22:10:57', NULL, 3),
+(223, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:10:57\' where `id` = 17', '2025-11-26 22:10:57', '2025-11-26 22:10:57', NULL, 4),
+(224, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:10:57\' where `id` = 17', '2025-11-26 22:10:57', '2025-11-26 22:10:57', NULL, 5),
+(225, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:10:57\' where `id` = 17', '2025-11-26 22:10:57', '2025-11-26 22:10:57', NULL, 6),
+(226, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:10:57\' where `id` = 17', '2025-11-26 22:10:57', '2025-11-26 22:10:57', NULL, 7),
+(227, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:11:05\' where `id` = 18', '2025-11-26 22:11:05', '2025-11-26 22:11:05', NULL, 1),
+(228, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:11:05\' where `id` = 18', '2025-11-26 22:11:05', '2025-11-26 22:11:05', NULL, 2),
+(229, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:11:05\' where `id` = 18', '2025-11-26 22:11:05', '2025-11-26 22:11:05', NULL, 3),
+(230, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:11:05\' where `id` = 18', '2025-11-26 22:11:05', '2025-11-26 22:11:05', NULL, 4),
+(231, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:11:05\' where `id` = 18', '2025-11-26 22:11:05', '2025-11-26 22:11:05', NULL, 5),
+(232, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:11:05\' where `id` = 18', '2025-11-26 22:11:05', '2025-11-26 22:11:05', NULL, 6),
+(233, 'update `sensors` set `sensor_model_id` = 2, `sensors`.`updated_at` = \'2025-11-26 22:11:05\' where `id` = 18', '2025-11-26 22:11:05', '2025-11-26 22:11:05', NULL, 7);
 
 -- --------------------------------------------------------
 
@@ -391,8 +473,30 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('6y6giTxd1nB5RsiztdxEYD5W8j0L6QX5EfY8hCiK', 1, '2001:4451:4155:6000:1d68:eb05:680a:ccb1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoicVhYUzA1akVSMWlQZ1dGRDkzYTVMSGRQR29LZjk0SWZiZEtZN202cSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDc6Imh0dHBzOi8vc2lpeC5zbWFydHBvd2VycGguY29tL2xvY2F0aW9uRGFzaGJvYXJkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1742481746),
-('ba7FuVYt705uWAnY6O7eHuilBkreaH2Nyg3SVBwq', NULL, '2001:4451:41e0:5a00:fc3c:dea0:7546:d728', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQk1lcUxEekFvRzdneXNIVEdtZFFuRVk4dXRHNWNscGN1aVFNWmd0QiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHBzOi8vc2lpeC5zbWFydHBvd2VycGguY29tL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1742479687);
+('0061G0QS2t2vB9sM8fZcEBNcYwtcvfC3j1r4wgnN', 9, '61.245.23.170', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiWmoxNGI5amFIcVdJYXpZVzJFV3dickVUa0c1VEFvZ0IyRVBaVnNadyI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6OTtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0NzoiaHR0cHM6Ly9zaWl4LnNtYXJ0cG93ZXJwaC5jb20vbG9jYXRpb25EYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1764151063),
+('3RSLcEIsD2BRAxfhKPeQXUYh6ytGYipJdj6LRVY2', 1, '180.190.111.22', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiUEU2dUc4Sk1sTXhadllYaXFyTW1vS2k5RldtdUdTOU1FOU9Jb3VFUCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDQ6Imh0dHBzOi8vc2lpeC5zbWFydHBvd2VycGguY29tL3NlbnNvcnMvY3JlYXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1764156888),
+('5eGqzeJowhQ9I9ecnlXw7lHd1Uy3mP9EDwAf9hI8', NULL, '2a02:4780:11:c0de::e', 'Go-http-client/2.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiUUw4QlFyS0hYOGdPdjUyS2NrZExVSXYyUnNlVlV3dFVpdE1kaXFveSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHBzOi8vZGV2LXNpaXguc3BwaHBvcnRhbC5zaXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764126706),
+('5qHI6E20hricPFFUiNlBSQyPiOzoDsqjy8XiDNWM', 1, '180.190.111.22', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiVGtZZUtFcEJaRzlucjdEM0ppWlM4dTVNTXNEZ3ppVU4yMFF4SUN1TyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHBzOi8vc2lpeC5zbWFydHBvd2VycGguY29tL3NlbnNvcnMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1764166266),
+('8I9xdEea4vrgLtdTuozU5UihigmGWrA9Shkv6olj', NULL, '103.196.9.133', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZVlqd1FGN2dhU0Z5ZEhWYUNnUnkzZ3ZHdUpITzJ0S1RQZzN5YW4xUiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHBzOi8vZGV2LXNpaXguc3BwaHBvcnRhbC5zaXRlL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764147334),
+('97jKLt525psGOuYDMRrlox5x10cfsscOmE1J9OvM', NULL, '2a02:4780:11:c0de::e', 'Go-http-client/2.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiM3VYMG9kTHJ5OE45bW00dWVqQ0lQakxoNkpPTlkzUzBWSFBEazdFdCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHBzOi8vc2lpeC5zbWFydHBvd2VycGguY29tIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764083037),
+('bPJXpawS0lQGVfnuwzjrDdb6h46TrHIEgywMpTwg', 2, '210.1.64.194', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoidzhjQ0wwRWpESDRtdGtZYTI1eE5TN0haSGhMcUswWTI2bklRS1luNiI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0NzoiaHR0cHM6Ly9zaWl4LnNtYXJ0cG93ZXJwaC5jb20vZW5lcmd5Q29uc3VtcHRpb24iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1764147782),
+('f02dMcG4Dfm7vvlpqTS1lkImAlBu0rsyqMZAALnS', 2, '210.1.64.194', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoieXFKMVA0MXVVNmYzMEhKbTJiVEgwcUJRN2Y2VmVPcjBtNXA5eTlDZCI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjtzOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czozOToiaHR0cHM6Ly9zaWl4LnNtYXJ0cG93ZXJwaC5jb20vZGFzaGJvYXJkIjt9fQ==', 1764166372),
+('fn6QeB1CZbWIsDpWdQxXdgzEi0pLQOTqSse5SF7y', NULL, '136.158.39.229', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiV0JHTGdTNG0wQUZiYzdoYU10cXA3M0F3bzdQUzN1cTBvYWZVVndLMSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHBzOi8vc2lpeC5zbWFydHBvd2VycGguY29tL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764166326),
+('fpR6L1O8Kzm4EGlZ0w5Kx3PGGSC8yC3WbCo123IU', NULL, '136.158.10.12', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiY1hJZEVHazlEWERERHZadTNaUHJ6Z3FRUmdUV3AwYjlydE9xNGl6SiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHBzOi8vc2lpeC5zbWFydHBvd2VycGguY29tIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764154378),
+('GRQwzaLIp1vqvnAU1WbvMO2tYmk8nXOqnou63ksI', NULL, '54.83.134.213', 'okhttp/5.3.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiVmc4WFVtQVR2bUZpdDJ1akMwMDIyUXU0d1RueXZBU2NCWTNnemlMciI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHBzOi8vZGV2LXNpaXguc3BwaHBvcnRhbC5zaXRlL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764107258),
+('IEXfLpj9sFCbeuhMgjfXe6Ex1cV8K5nCjlidVeIX', NULL, '54.83.134.213', 'okhttp/5.3.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoibElYOHdrU2ZoYjlqbFRHUDRDVzlzRDJaUmhiaXBxUml0bE5LWHpsTyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHBzOi8vZGV2LXNpaXguc3BwaHBvcnRhbC5zaXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764107257),
+('ILS19LEQtHommcKc9DYk8frpSrVU4JquVCJaWSzk', NULL, '98.82.125.80', 'okhttp/5.3.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYjVtRUgxQVBuaFhoVjhEVGFtRTJGaGJCSUFia043NUlWNzB2dkJBZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHBzOi8vZGV2LXNpaXguc3BwaHBvcnRhbC5zaXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764108483),
+('IMI7AeXZ8h61jw2K6fZMLIByW5v2NPcTY8bOKzkC', 1, '112.209.79.136', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiajRrMmE5S0JJeEpOVWo4VkpjVFlXYkNodnpocHk4MlhNaHZCaGF0VSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHBzOi8vc2lpeC5zbWFydHBvd2VycGguY29tL2Rhc2hib2FyZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1764100382),
+('LLzKi8GajV05RIKWui6Ooz1YJTWxkiurkMopWXlh', NULL, '137.184.117.51', 'Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiR1BRd2VIMWNiSVNWVzMyR05MNTFFWGdKZ2VNdnB2TmRRcUcwYU5KaCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHBzOi8vZGV2LXNpaXguc3BwaHBvcnRhbC5zaXRlL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764095699),
+('Ob4LY5hunZGRu5iKHFWKS3SzHl1hTCgfzM2ivjGI', NULL, '44.201.255.101', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/138.0.7204.23 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoieUFxM0VKNTRidUMwZm1YVGVWdTJkWTJLbEpTSmtDbDkzckcxNThuTiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHBzOi8vZGV2LXNpaXguc3BwaHBvcnRhbC5zaXRlL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764107305),
+('Q9FmaYW9sHAJJiHvzNuoHgNSpiWEev1IkRCa82jm', NULL, '2a02:4780:11:c0de::e', 'Go-http-client/2.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiOUNwUlR6MEk4WDdwV2xjN1BVYkNlYzlEVFhwQWFCemsxV1habU5oNiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHBzOi8vZGV2LXNpaXguc3BwaHBvcnRhbC5zaXRlL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764126706),
+('TAbnJklv5YK8FqU12kQQSrW7ruhRve1KwdyuRyil', NULL, '2a02:4780:11:c0de::e', 'Go-http-client/2.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYVpqdlZuQXgxYUxtM1lHQWpoZ3R6c1hGYjh5aEZPbDgwQmtneTNHZiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHBzOi8vc2lpeC5zbWFydHBvd2VycGguY29tL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764083037),
+('tFT1s75N0F7Bc4RUltnkcHcUcxiiTPdOAMIHZZnJ', NULL, '2a02:4780:11:c0de::e', 'Go-http-client/2.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiWHhZb2ZpdWFFdjczMWNRNHdqWFN0Y2ZTSng5Z05pUFQwSzNuYWxZVyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHBzOi8vZGV2LXNpaXguc3BwaHBvcnRhbC5zaXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764082113),
+('TtCDAiBMI2Zz6AHmm3jg8GVW94IivzjzySiYwjBp', NULL, '2a02:4780:11:c0de::e', 'Go-http-client/2.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSmlla2czR0tOa0VnRzk4bFBGbEdCMXNaQThZRHJESTVOZVR6VEx2cyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHBzOi8vZGV2LXNpaXguc3BwaHBvcnRhbC5zaXRlL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764082113),
+('uB2BFkq4TEQl4vf7L6ckOJN2xGuIEBZpsxXlvLwJ', NULL, '104.252.191.237', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiRkgyQjVqY01SaDE1NUhHOXJXVlRiRUU0N2xFSVhhRjhjUDhqMEd0aiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHBzOi8vZGV2LXNpaXguc3BwaHBvcnRhbC5zaXRlL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764147338),
+('ucR6qYlYV0h5n5lnYEbHHkJK3f41i9HGkHvCjDWO', NULL, '104.252.191.237', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYkY0TG5nR2VrZ0JLNEFpUEl0aVRjNmNVOFNCREZwbU5aeWtaNkRLdCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHBzOi8vZGV2LXNpaXguc3BwaHBvcnRhbC5zaXRlL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764147334),
+('ZukKv7ryLYN1z6Sh2Xip8qRQvzi8gD1eXYeCsuKA', NULL, '98.82.125.80', 'okhttp/5.3.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiVUg5Qmc4MDFNRWRiTGpUZEowenZaVHFCN2ZmeFNpeHY0ekUzSEg3cCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHBzOi8vZGV2LXNpaXguc3BwaHBvcnRhbC5zaXRlL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764108484),
+('zvZNDZu8dmWsWwmOIee5VZhTQ52XlE2VMkbjBnJc', NULL, '35.85.56.167', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidkVyZkl5Rnp2QThLb3RrVU96dkwzdUJRaUFROEdWOEQ0ZEJFU1AxSiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHBzOi8vZGV2LXNpaXguc3BwaHBvcnRhbC5zaXRlL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764130612);
 
 -- --------------------------------------------------------
 
@@ -419,7 +523,18 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `user_type_id`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'Admin', 1, 'test@example.com', NULL, '$2y$12$F47rUVsa3edWbBRkM3RvxODjDKRgT.TMJiJjCoxoJ3.SA10ize7G.', NULL, '2025-03-18 05:48:11', '2025-03-18 05:48:11', NULL);
+(1, 'Admin', 'Admin', 1, 'test@example.com', NULL, '$2y$12$F47rUVsa3edWbBRkM3RvxODjDKRgT.TMJiJjCoxoJ3.SA10ize7G.', NULL, '2025-03-18 05:48:11', '2025-04-01 00:56:38', NULL),
+(2, 'User', 'SIIX', 2, 'user@smartpowerph.com', NULL, '$2y$12$RiwlX4W.3tXp56cOQQkiVeTV86UW7.97NRcw8aWY3DhsZN0WhsUfG', 'PmfNqObMG1Au9QQRLr3htMwr78F2nNjG5W9e8qccgpCEbOSA5Vri1hAbWEBC', '2025-03-22 11:28:13', '2025-04-01 10:35:03', NULL),
+(3, 'Nicole', 'Carillo', 2, 'healer.moebus@gmail.com', NULL, '$2y$12$IKjPHLHNLlIh8PHwV2lwnOrMjmf0rJgInjW/WwzQZgOkcbHWw/1Xa', NULL, '2025-03-30 19:15:17', '2025-03-30 19:15:17', NULL),
+(4, '', '', 0, '', NULL, '', NULL, '2025-03-30 19:46:52', '2025-03-30 19:46:52', '2025-03-30 19:46:52'),
+(6, 'Gilbert', 'Ollet', 2, 'Gilbert.Ollet@siix-global.com', NULL, '$2y$12$IzaQzXs4OFIladNbQDcoOe8mzbYfvCkdGa7J7XNhfXHH5qN0B4wtC', NULL, '2025-04-09 11:02:27', '2025-04-09 11:02:27', NULL),
+(7, 'Sammantha', 'Penalosa', 2, 'Sammantha.Penalosa@siix-global.com', NULL, '$2y$12$fTgdNf.owDPn7eyUS3rw.ejcV9qJqDx.QmDg398ucmrAEYns1nePu', NULL, '2025-04-09 11:05:27', '2025-06-20 17:02:08', NULL),
+(8, 'Marvin Ryan', 'Bathan', 2, 'mrgbathan@smartpowerph.com', NULL, '$2y$12$sZoqTGmQNH8Ey64hDkutGOtEA131IKSJRtTTOkQBaSx8zYC4MQE0m', NULL, '2025-04-09 11:10:23', '2025-04-09 11:19:47', NULL),
+(9, 'Jessica', 'Beltran', 2, 'Jessica.Beltran@siix-global.com', NULL, '$2y$12$5rhHCwAIUvUCyaPNvMcfdeJPNnBz2jOOxtmA3LiYk9FPEiYlFCGoG', '9FvCmNwNXXAFuL9NWGVD8rZdbVumR1kpX2qxjc8NMZFa1X3LozmI7Gf8x8z6', '2025-04-09 11:24:31', '2025-04-09 11:24:31', NULL),
+(10, 'Roland', 'Abad', 2, 'Roland.Abad@siix-global.com', NULL, '$2y$12$5Rl4GIgBTG4C.pcw/qRp5eJX1itGu/Tn656BdsDjn9nTvYakag9Ae', NULL, '2025-04-09 11:27:52', '2025-04-09 11:27:52', NULL),
+(11, 'Ems', 'Facility', 2, 'Ems.Facility@siix-global.com', NULL, '$2y$12$JkZpyxKFXy3Zve7ZoU6tz.ftLMtIUMQK068H1U4SV1BGGhBeiNvqu', NULL, '2025-04-09 11:28:59', '2025-04-09 11:28:59', NULL),
+(12, 'Kasuyo', 'Matsuo', 2, 'Kasuyo.Matsuo@siix-global.com', NULL, '$2y$12$H5gdQlrak2HKg766npecGe1RdVpkto0OqtjPm7lBgbfetmy89Qje.', NULL, '2025-04-09 11:32:05', '2025-04-09 11:32:05', NULL),
+(13, 'Marcial', 'Maglaqui', 2, 'Marcial.Maglaqui@siix-global.com', NULL, '$2y$12$UZlTeEa0esH4nQQ4WzfhzebE6U6yL59mHb0D4NgK/6E7bfyphXBae', NULL, '2025-04-09 11:33:57', '2025-04-09 11:33:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -583,7 +698,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `gateways`
 --
 ALTER TABLE `gateways`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -595,7 +710,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -607,25 +722,25 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `sensors`
 --
 ALTER TABLE `sensors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `sensor_logs`
 --
 ALTER TABLE `sensor_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1022602;
 
 --
 -- AUTO_INCREMENT for table `sensor_models`
 --
 ALTER TABLE `sensor_models`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sensor_offlines`
 --
 ALTER TABLE `sensor_offlines`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=234;
 
 --
 -- AUTO_INCREMENT for table `sensor_types`
@@ -637,7 +752,7 @@ ALTER TABLE `sensor_types`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `user_types`
