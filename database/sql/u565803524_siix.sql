@@ -1,31 +1,5 @@
--- phpMyAdmin SQL Dump
--- version 5.2.2
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1:3306
--- Generation Time: Nov 26, 2025 at 02:12 PM
--- Server version: 11.8.3-MariaDB-log
--- PHP Version: 7.2.34
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `u565803524_siix`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cache`
---
+DROP TABLE IF EXISTS `cache`;
 
 CREATE TABLE `cache` (
   `key` varchar(255) NOT NULL,
@@ -90,7 +64,7 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 --
 -- Table structure for table `cache_locks`
 --
-
+DROP TABLE IF EXISTS `cache_locks`;
 CREATE TABLE `cache_locks` (
   `key` varchar(255) NOT NULL,
   `owner` varchar(255) NOT NULL,
@@ -102,6 +76,7 @@ CREATE TABLE `cache_locks` (
 --
 -- Table structure for table `failed_jobs`
 --
+DROP TABLE IF EXISTS `failed_jobs`;
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -118,6 +93,7 @@ CREATE TABLE `failed_jobs` (
 --
 -- Table structure for table `gateways`
 --
+DROP TABLE IF EXISTS `gateways`;
 
 CREATE TABLE `gateways` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -149,6 +125,7 @@ INSERT INTO `gateways` (`id`, `location_id`, `customer_code`, `gateway`, `gatewa
 --
 -- Table structure for table `jobs`
 --
+DROP TABLE IF EXISTS `jobs`;
 
 CREATE TABLE `jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -165,6 +142,7 @@ CREATE TABLE `jobs` (
 --
 -- Table structure for table `job_batches`
 --
+DROP TABLE IF EXISTS `job_batches`;
 
 CREATE TABLE `job_batches` (
   `id` varchar(255) NOT NULL,
@@ -184,6 +162,7 @@ CREATE TABLE `job_batches` (
 --
 -- Table structure for table `locations`
 --
+DROP TABLE IF EXISTS `locations`;
 
 CREATE TABLE `locations` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -232,6 +211,7 @@ INSERT INTO `locations` (`id`, `location_code`, `location_name`, `pid`, `created
 --
 -- Table structure for table `migrations`
 --
+DROP TABLE IF EXISTS `migrations`;
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
@@ -263,6 +243,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 -- Table structure for table `password_reset_tokens`
 --
+DROP TABLE IF EXISTS `password_reset_tokens`;
 
 CREATE TABLE `password_reset_tokens` (
   `email` varchar(255) NOT NULL,
@@ -275,6 +256,7 @@ CREATE TABLE `password_reset_tokens` (
 --
 -- Table structure for table `sensors`
 --
+DROP TABLE IF EXISTS `sensors`;
 
 CREATE TABLE `sensors` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -318,6 +300,7 @@ INSERT INTO `sensors` (`id`, `slave_address`, `description`, `location_id`, `gat
 --
 -- Table structure for table `sensor_logs`
 --
+DROP TABLE IF EXISTS `sensor_logs`;
 
 CREATE TABLE `sensor_logs` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -352,6 +335,7 @@ CREATE TABLE `sensor_logs` (
 --
 -- Table structure for table `sensor_models`
 --
+DROP TABLE IF EXISTS `sensor_models`;
 
 CREATE TABLE `sensor_models` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -377,6 +361,7 @@ INSERT INTO `sensor_models` (`id`, `sensor_model`, `sensor_brand`, `sensor_type_
 --
 -- Table structure for table `sensor_offlines`
 --
+DROP TABLE IF EXISTS `sensor_offlines`;
 
 CREATE TABLE `sensor_offlines` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -430,6 +415,7 @@ INSERT INTO `sensor_offlines` (`id`, `query`, `created_at`, `updated_at`, `delet
 --
 -- Table structure for table `sensor_types`
 --
+DROP TABLE IF EXISTS `sensor_types`;
 
 CREATE TABLE `sensor_types` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -458,6 +444,7 @@ INSERT INTO `sensor_types` (`id`, `description`, `sensor_type_code`, `sensor_typ
 --
 -- Table structure for table `sessions`
 --
+DROP TABLE IF EXISTS `sessions`;
 
 CREATE TABLE `sessions` (
   `id` varchar(255) NOT NULL,
@@ -503,6 +490,7 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 --
 -- Table structure for table `users`
 --
+DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -541,6 +529,7 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `user_type_id`, `email`, `em
 --
 -- Table structure for table `user_types`
 --
+DROP TABLE IF EXISTS `user_types`;
 
 CREATE TABLE `user_types` (
   `id` bigint(20) UNSIGNED NOT NULL,
