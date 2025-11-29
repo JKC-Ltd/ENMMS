@@ -18,16 +18,16 @@ class LocationController extends Controller
     {
 
         $locations = Location::all();
-        $parentPaths = [];
-        foreach ($locations as $loc) {
-            $chain = Location::getParentLocation($loc->id);
-            $names = array_map(fn($p) => $p->location_name, $chain);
-            $parentPaths[$loc->id] = implode(' / ', $names);
-        }
+        // $parentPaths = [];
+        // foreach ($locations as $loc) {
+        //     $chain = Location::getParentLocation($loc->id);
+        //     $names = array_map(fn($p) => $p->location_name, $chain);
+        //     $parentPaths[$loc->id] = implode(' / ', $names);
+        // }
 
         return view('pages.configurations.locations.index')
-            ->with('locations', $locations)
-            ->with('listOfLocationsParents', $parentPaths);
+            ->with('locations', $locations);
+            // ->with('listOfLocationsParents', $parentPaths);
 
     }
 
@@ -79,9 +79,9 @@ class LocationController extends Controller
     public function edit(string $id)
     {
         $location = Location::findOrFail($id);
-        $listOfLocationsParents = self::getLocationParent();
+        // $listOfLocationsParents = self::getLocationParent();
 
-        return view('pages.configurations.locations.form', compact('location', 'listOfLocationsParents'));
+        return view('pages.configurations.locations.form', compact('location'));
     }
 
     /**

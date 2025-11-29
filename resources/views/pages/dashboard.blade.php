@@ -54,7 +54,7 @@
                     <div class="card-header ui-sortable-handle" style="cursor: move;">
                         <h3 class="card-title">
                             <i class="fas fa-lightbulb mr-1"></i>
-                            MDP Energy Consumption
+                            Total Facility Energy Consumption
                         </h3>
                     </div>
                     <div class="card-body energy-bg">

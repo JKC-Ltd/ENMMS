@@ -29,7 +29,7 @@
                                     <th>ID</th>
                                     <th>Location Code</th>
                                     <th>Location Name</th>
-                                    <th>Parent Location</th>                                
+                                    {{-- <th>Parent Location</th>                                 --}}
                                     <th>Last Update</th>
                                     <th>Actions</th>
                                 </tr>
@@ -41,7 +41,7 @@
                                         <td>{{ $location->id }}</td>
                                         <td>{{ $location->location_code }}</td>
                                         <td>{{ $location->location_name }}</td>
-                                        <td>{{ $listOfLocationsParents[$location->id] ?? '—' }}</td>
+                                        {{-- <td>{{ $listOfLocationsParents[$location->id] ?? 'ï¿½' }}</td> --}}
                                         <td>{{ $location->updated_at }}</td>
                                         <td>
                                             <div class="btn-group">

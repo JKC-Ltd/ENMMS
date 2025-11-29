@@ -1,11 +1,10 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, exportFn, createOdometer } from "./shared/main.js?v=1.4";
+import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, exportFn, createOdometer } from "./shared/main.js?v=1.5";
 
 colorScheme();
 
 const processData = (data, refetch, chartID, dataOptions, columnName) => {
 
     // let totalEnergyConsumption = 0;
-
     let uniqueDates = [...new Set(data.map(item => item.reading_date))].sort((a, b) => a.localeCompare(b));
 
     data.forEach((reading) => {

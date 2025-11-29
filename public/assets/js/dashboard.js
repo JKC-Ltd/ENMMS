@@ -1,4 +1,4 @@
-import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, createOdometer } from "./shared/main.js?v=1.3";
+import { fetchData, setIntervalAtFiveMinuteMarks, charts, formatDate, renderChart, getStartEndDate, colorScheme, createOdometer } from "./shared/main.js?v=1.4";
 
 colorScheme();
 const processData = (data, refetch, chartID, dataOptions, columnName) => {
@@ -212,7 +212,7 @@ const processDailyEnergyConsumptionPerMeter = () => {
             name: chartName,
             indexLabel: "{y} kWh",
             showInlegend: false,
-            indexLabelFontColor: "#FFF",
+            indexLabelFontColor: "#fff",
             indexLabelFontSize: 13,
             indexLabelPlacement: "inside",
             dataPoints: []
