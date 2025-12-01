@@ -1,6 +1,7 @@
 <x-app-layout>
     <x-slot name="importedLinks">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.5/themes/odometer-theme-default.css"/>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.5/themes/odometer-theme-default.css" />
     </x-slot>
     <x-slot name="pageTitle">
         Energy Consumption
@@ -80,11 +81,22 @@
         </div>
 
 
+
         <div class="row">
             <section class="col-12 connectedSortable">
                 <div class="card">
                     <div class="card-body">
-                        {{-- <button class="btn btn-primary" id="dailyEnergyConsumptionAllMetersBtn">Download CSV</button> --}}
+                        <div id="dailyEnergyConsumptionAllMeters2" style="height: 520px; width: 100%;"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <div class="row">
+            <section class="col-12 connectedSortable">
+                <div class="card">
+                    <div class="card-body">
                         <div id="dailyEnergyConsumptionAllMeters" style="height: 520px; width: 100%;"></div>
                     </div>
                 </div>
@@ -98,5 +110,6 @@
         <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.5/odometer.min.js"></script>
         <script type="module" src="{{ asset('assets/js/energyConsumption.js') }}?v={{ time() }}"></script>
+        <script type="module" src="{{ asset('assets/js/energyConsumption2.js') }}?v={{ time() }}"></script>
     @endsection
 </x-app-layout>

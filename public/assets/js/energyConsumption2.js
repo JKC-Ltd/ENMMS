@@ -10,16 +10,18 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
     data.forEach((reading) => {
         // totalEnergyConsumption += reading.daily_consumption;
 
-        let existingSensor = charts[chartID].options.data.find(sensor => sensor.name === reading.description);
+        // Use the root location name produced by getPerBuilding as the series name
+        const seriesName = reading.root_location_name ?? `Location ${reading.root_location_id}`;
+        let existingSensor = charts[chartID].options.data.find(sensor => sensor.name === seriesName);
 
         if (!existingSensor) {
             let newDataOptions = {
                 ...dataOptions,
-                name: reading.description,
+                name: seriesName,
                 dataPoints: uniqueDates.map(date => {
-                    let dataItem = data.find(d => d.reading_date === date && d.description === reading.description);
+                    let dataItem = data.find(d => d.reading_date === date && (d.root_location_name ?? `Location ${d.root_location_id}`) === seriesName);
                     return {
-                        name: dataItem?.description,
+                        name: dataItem?.root_location_name ?? `Location ${dataItem?.root_location_id}`,
                         label: formatDate(date),
                         y: dataItem ? dataItem.daily_consumption : null
                     };
@@ -44,23 +46,12 @@ const processDailyEnergyConsumptionAllMeters = () => {
 
     let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
     // const [startDate, endDate] = getStartEndDate(9, 24, 'month', 1);
-    const processUrl = "/getEnergyConsumption";
-    const chartName = "dailyEnergyConsumptionAllMeters";
+    const processUrl = "/getEnergyConsumptionPerBuilding";
+    const chartName = "dailyEnergyConsumptionAllMeters2";
     const column = "reading_date";
     const dailyEnergyConsumptionAllMetersRequest = {
         select: select,
-        where: [
-            {
-                field: "sensor_id",
-                operator: "!=",
-                value: 15,
-            },
-            {
-                field: "sensor_id",
-                operator: "!=",
-                value: 19,
-            }
-        ]
+        roots: [6, 7, 8],
         // startDate: startDate,
         // endDate: endDate
 
@@ -80,11 +71,11 @@ const processDailyEnergyConsumptionAllMeters = () => {
                 request: dailyEnergyConsumptionAllMetersRequest,
                 processUrl,
             },
-            colorSet: "DailyEnergyColorSet",
+            // colorSet: "DailyEnergyColorSet",
             exportEnabled: true,
             zoomEnabled: true,
             title: {
-                text: "Daily Energy Consumption - SIIX EMS: All Meters",
+                text: "Daily Energy Consumption - SIIX EMS: Overall Consumption to building",
                 fontSize: 20,
                 margin: 30
             },
@@ -170,88 +161,3 @@ const processDailyEnergyConsumptionAllMeters = () => {
 
 // Process for the Monthly energy consumption calculation
 processDailyEnergyConsumptionAllMeters();
-
-// -----------------------------------------------------------------------------------------------
-
-
-// Separate process for no charts
-
-// Process for the Daily energy consumption per meter calculation
-
-
-const fetchDataNoneCharts = (select, startDate, endDate, divID, divDate) => {
-    $(`#${divDate}`).text(`${formatDate(startDate)} - ${formatDate(endDate)}`);
-    $.ajax({
-        type: "GET",
-        url: "/getEnergyConsumption",
-        data: {
-            select: select,
-            startDate: startDate,
-            endDate: endDate
-        },
-        success: function (data) {
-            let totalValue = {};
-            let totalValueId = document.getElementById(`${divID}`);
-
-            totalValue[divID] = data.reduce((total, item) => total + item.daily_consumption, 0);
-
-            createOdometer(totalValueId, totalValue[divID].toLocaleString());
-            // $(`#${divID}`).html(totalValue[divID].toLocaleString());
-            // console.log(totalValue);
-
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    })
-
-};
-
-const processCurrentWeekEnergyConsumption = () => {
-    let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
-    const [startDate, endDate] = getStartEndDate(7, 7, 'week', 1);
-    let endDateMoment = moment(endDate);
-    let endDateSub = endDateMoment.clone().subtract(1, "day").format('YYYY-MM-DD HH:mm:ss');
-
-    setIntervalAtFiveMinuteMarks(function () {
-        console.log("refetching...");
-        fetchDataNoneCharts(select, startDate, endDateSub, "weeklyEnergyConsumption", "weeklyEnergyConsumptionDate");
-    });
-
-    // Initial fetch
-    fetchDataNoneCharts(select, startDate, endDateSub, "weeklyEnergyConsumption", "weeklyEnergyConsumptionDate");
-};
-
-const processCurrentDayEnergyConsumption = () => {
-    let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
-    const [startDate, endDate] = getStartEndDate(7, 1, 'day', 1);
-
-    setIntervalAtFiveMinuteMarks(function () {
-        console.log("refetching...");
-        fetchDataNoneCharts(select, startDate, endDate, "dailyEnergyConsumption", "dailyEnergyConsumptionDate");
-    });
-
-    fetchDataNoneCharts(select, startDate, endDate, "dailyEnergyConsumption", "dailyEnergyConsumptionDate");
-
-};
-
-const processMonthlyEnergyConsumption = () => {
-    let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
-    const [startDate, endDate] = getStartEndDate(7, 25, 'month', 1);
-    let endDateMoment = moment(endDate);
-    let endDateSub = endDateMoment.clone().subtract(1, "day").format('YYYY-MM-DD HH:mm:ss');
-
-    setIntervalAtFiveMinuteMarks(function () {
-        console.log("refetching...");
-        fetchDataNoneCharts(select, startDate, endDateSub, "monthlyEnergyConsumption", "monthlyEnergyConsumptionDate");
-    });
-
-    fetchDataNoneCharts(select, startDate, endDateSub, "monthlyEnergyConsumption", "monthlyEnergyConsumptionDate");
-
-};
-
-processCurrentWeekEnergyConsumption();
-
-processCurrentDayEnergyConsumption();
-
-processMonthlyEnergyConsumption();

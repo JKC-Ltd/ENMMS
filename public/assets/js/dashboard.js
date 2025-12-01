@@ -60,6 +60,7 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
 
     if (chartID === "dailyEnergyConsumptionPerMeter") {
         let totalValuePerArea = {};
+        console.log(data);
         data.forEach(sensorData => {
             let sensorLocationID = $(`#energyConsumptionPerArea${sensorData.location_id}`);
             if (!totalValuePerArea[sensorData.location_id]) {
@@ -153,6 +154,7 @@ const processPandPEnergyConsumption = () => {
 const processDailyEnergyConsumptionPerMeter = () => {
 
     const select = `location_name,
+                    location_id,
                     description as sensor_description,
                     reading_date,
                     ROUND((end_energy - start_energy), 2) AS daily_consumption
@@ -173,7 +175,7 @@ const processDailyEnergyConsumptionPerMeter = () => {
                 field: "sensor_id",
                 operator: "!=",
                 value: 15,
-            }
+            },
         ]
     };
 
@@ -258,12 +260,11 @@ const fetchDataNoneCharts = (select, startDate, endDate, divID) => {
                 select: select,
                 startDate: startDate,
                 endDate: endDate,
-                where: [
+               whereIn: [
                     {
                         field: "sensor_id",
-                        operator: "=",
-                        value: 15,
-                    }
+                        value: [15, 19],
+                    },
                 ]
             },
             success: function (data) {
@@ -299,12 +300,11 @@ const fetchDataNoneCharts = (select, startDate, endDate, divID) => {
                 select: select,
                 startDate: startDate,
                 endDate: endDate,
-                where: [
+               whereIn: [
                     {
                         field: "sensor_id",
-                        operator: "=",
-                        value: 15,
-                    }
+                        value: [15, 19],
+                    },
                 ]
             },
             success: function (data) {

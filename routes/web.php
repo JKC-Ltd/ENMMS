@@ -40,6 +40,7 @@ function registerCommonRoutes()
     Route::get('/getSensorChart', [SensorController::class, 'getSensorChart']);
     Route::get('/getSensor', [LocationDashboardController::class, 'getSensor']);
     Route::get('/getDailyEnergyConsumption', [DashboardController::class, 'getDailyEnergyConsumption']);
+    Route::get('/getEnergyConsumptionPerBuilding', [DashboardController::class, 'getEnergyConsumptionPerBuilding']);
     Route::get('/getEnergyConsumption', [DashboardController::class, 'getEnergyConsumption']);
     Route::get('/getPower', [DashboardController::class, 'getPower']);
     Route::get('/exportCSV', [DashboardController::class, 'exportCSV']);
