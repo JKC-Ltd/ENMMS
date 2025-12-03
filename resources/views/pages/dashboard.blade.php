@@ -48,6 +48,41 @@
         </div>
         <!-- Main row -->
         <div class="row dashboard-card">
+            <div class="col-12 col-lg-4">
+                <div class="card">
+                    <div class="card-header ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title">
+                            <i class="fas fa-lightbulb mr-1"></i>
+                            Building 1 - Total Energy Consumption
+                        </h3>
+                    </div>
+                    <div class="card-body energy-bg">
+                        <div id="buildingOneTotalEnergyConsumption"
+                            class="card-box d-flex flex-column justify-content-center align-items-center ">
+                            <h1 id="buildingOneTotalEnergyConsumptionValue" class="dashboard-value">0 </h1>
+                            <h6>kWh</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <div class="card">
+                    <div class="card-header ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title">
+                            <i class="fas fa-lightbulb mr-1"></i>
+                            Building 2 - Total Energy Consumption
+                        </h3>
+                    </div>
+                    <div class="card-body energy-bg">
+                        <div id="buildingTwoTotalEnergyConsumption"
+                            class="card-box d-flex flex-column justify-content-center align-items-center ">
+                            <h1 id="buildingTwoTotalEnergyConsumptionValue" class="dashboard-value">0 </h1>
+                            <h6>kWh</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-12 col-lg-4">
                 <div class="card">
@@ -110,6 +145,42 @@
         </div>
 
         <div class="row dashboard-card">
+
+            <div class="col-12 col-lg-4">
+                <div class="card">
+                    <div class="card-header ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title">
+                            <i class="fas fa-lightbulb mr-1"></i>
+                            Building 3 - Total Energy Consumption
+                        </h3>
+                    </div>
+                    <div class="card-body energy-bg">
+                        <div id="buildingThreeTotalEnergyConsumption"
+                            class="card-box d-flex flex-column justify-content-center align-items-center ">
+                            <h1 id="buildingThreeTotalEnergyConsumptionValue" class="dashboard-value">0 </h1>
+                            <h6>kWh</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <div class="card">
+                    <div class="card-header ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title">
+                            <i class="fas fa-lightbulb mr-1"></i>
+                            Total Building Energy Consumption
+                        </h3>
+                    </div>
+                    <div class="card-body energy-bg">
+                        <div id="totalEnergyConsumption"
+                            class="card-box d-flex flex-column justify-content-center align-items-center ">
+                            <h1 id="totalBuildingEnergyConsumptionValue" class="dashboard-value">0 </h1>
+                            <h6>kWh</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-12 col-lg-4">
                 <div class="card">
                     <div class="card-header ui-sortable-handle" style="cursor: move;">
@@ -203,5 +274,6 @@
         <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.5/odometer.min.js"></script>
         <script type="module" src="{{ asset('assets/js/dashboard.js') }}?v={{ time() }}"></script>
+        <script type="module" src="{{ asset('assets/js/dashboardv2.js') }}?v={{ time() }}"></script>
     @endsection
 </x-app-layout>

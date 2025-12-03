@@ -207,20 +207,20 @@ const fetchDataNoneCharts = (select, startDate, endDate, divID, divDate) => {
 
 };
 
-const processCurrentWeekEnergyConsumption = () => {
-    let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
-    const [startDate, endDate] = getStartEndDate(7, 7, 'week', 1);
-    let endDateMoment = moment(endDate);
-    let endDateSub = endDateMoment.clone().subtract(1, "day").format('YYYY-MM-DD HH:mm:ss');
+// const processCurrentWeekEnergyConsumption = () => {
+//     let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
+//     const [startDate, endDate] = getStartEndDate(7, 7, 'week', 1);
+//     let endDateMoment = moment(endDate);
+//     let endDateSub = endDateMoment.clone().subtract(1, "day").format('YYYY-MM-DD HH:mm:ss');
 
-    setIntervalAtFiveMinuteMarks(function () {
-        console.log("refetching...");
-        fetchDataNoneCharts(select, startDate, endDateSub, "weeklyEnergyConsumption", "weeklyEnergyConsumptionDate");
-    });
+//     setIntervalAtFiveMinuteMarks(function () {
+//         console.log("refetching...");
+//         fetchDataNoneCharts(select, startDate, endDateSub, "weeklyEnergyConsumption", "weeklyEnergyConsumptionDate");
+//     });
 
-    // Initial fetch
-    fetchDataNoneCharts(select, startDate, endDateSub, "weeklyEnergyConsumption", "weeklyEnergyConsumptionDate");
-};
+//     // Initial fetch
+//     fetchDataNoneCharts(select, startDate, endDateSub, "weeklyEnergyConsumption", "weeklyEnergyConsumptionDate");
+// };
 
 const processCurrentDayEnergyConsumption = () => {
     let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
@@ -250,7 +250,7 @@ const processMonthlyEnergyConsumption = () => {
 
 };
 
-processCurrentWeekEnergyConsumption();
+// processCurrentWeekEnergyConsumption();
 
 processCurrentDayEnergyConsumption();
 
