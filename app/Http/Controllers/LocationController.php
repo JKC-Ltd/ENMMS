@@ -148,18 +148,42 @@ class LocationController extends Controller
         ];
     }
 
+    // public function getLocationChart()
+    // {
+    //     $locations = Location::select('id', 'pid', 'location_name as name')
+    //         ->get()
+    //         ->map(function ($location) {
+    //             $location->tags = ["Location"];
+    //             return $location;
+    //         });
+
+    //     return Response::json($locations);
+    // }
+
     public function getLocationChart()
     {
+        // Locations to tag as "Building"
+        $buildingNames = ['Building 1', 'Building 2', 'Building 3'];
+    
+        // Locations to exclude by name
+        $excludedNames = ['SEP', 'injection', 'CIP2', 'building 4'];
+    
+        // Locations to exclude by ID
+        $excludedIds = [9, 10];
+    
         $locations = Location::select('id', 'pid', 'location_name as name')
+            ->whereNotIn('location_name', $excludedNames)
+            ->whereNotIn('id', $excludedIds)
             ->get()
-            ->map(function ($location) {
-                $location->tags = ["Location"];
+            ->map(function ($location) use ($buildingNames) {
+                $location->tags = in_array($location->name, $buildingNames)
+                    ? ["Building"]
+                    : ["Location"];
                 return $location;
             });
-
+    
         return Response::json($locations);
     }
-
 
     public function getLocationParent()
     {
