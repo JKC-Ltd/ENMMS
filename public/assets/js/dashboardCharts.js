@@ -189,6 +189,87 @@ function aggregatedProcessFn(rows, refetch, chartId, dataOptions, columnName) {
     processChartData(aggregatedRows, refetch, chartId, dataOptions, 'label');
 }
 
+// Previous & Present Energy Consumption - Per Building (grouped by building on X axis)
+const processPandPEnergyConsumptionPerBuilding = () => {
+    const SELECT = `sensor_id,
+                        ROUND(SUM((end_energy - start_energy)), 2) AS daily_consumption,
+                        DATE_FORMAT(reading_date, '%M %d, %Y') as reading_date`;
+    const PROCESS_URL = '/getDailyEnergyConsumption';
+    const CHART_ID = 'pAndPEnergyConsumptionPerBuilding';
+    const LABEL_FIELD = 'reading_date';
+
+    const requestPayload = {
+           groupBy: ['reading_date', 'sensor_id'],
+        select: SELECT,
+        whereIn: [{ field: 'sensor_id', value: [15, 16, 17, 18, 19] }],
+    };
+
+    const createChartOptions = () => ({
+        exportEnabled: true,
+        chartName: 'Previous and Present Energy Consumption - Per Building',
+        chartProps: { request: requestPayload, processUrl: PROCESS_URL },
+        animationEnabled: true,
+        theme: 'light2',
+        colorSet: 'DailyEnergyColorSet',
+        title: { fontSize: 20, margin: 30 },
+        axisY: { title: 'Energy (kWh)', titlePadding: { top: 1, bottom: 15 }, titleFontSize: 15, labelFontSize: 12 },
+        legend: { cursor: 'pointer', verticalAlign: 'bottom', horizontalAlign: 'bottom' },
+        data: [],
+    });
+
+    const createSeriesTemplate = () => ({ type: 'column', name: '', indexLabel: '{y}', indexLabelFontColor: '#FFF', indexLabelFontSize: 12, indexLabelPlacement: 'inside', dataPoints: [] });
+
+    const processPerBuilding = (rows, refetch) => {
+        // rows: [{ sensor_id, daily_consumption, reading_date }, ...]
+        const byDate = {};
+        (rows || []).forEach(r => {
+            const date = r.reading_date;
+            const sensor = Number(r.sensor_id);
+            const val = Number(r.daily_consumption) || 0;
+            byDate[date] = byDate[date] || {};
+            byDate[date][sensor] = (byDate[date][sensor] || 0) + val;
+        });
+
+        const dates = Object.keys(byDate).sort((a, b) => new Date(a) - new Date(b));
+
+        // For each date create a series where dataPoints are Building 1/2/3
+        const series = dates.map(date => {
+            const sensors = byDate[date] || {};
+            const b2 = [16, 17, 18].reduce((s, id) => s + (sensors[id] || 0), 0);
+            const b3 = sensors[19] || 0;
+            const s15 = sensors[15] || 0;
+            const b1 = s15 - b2;
+
+            return Object.assign({}, createSeriesTemplate(), {
+                name: date,
+                dataPoints: [
+                    { label: 'Building 1', y: Number(b1.toFixed(2)) },
+                    { label: 'Building 2', y: Number(b2.toFixed(2)) },
+                    { label: 'Building 3', y: Number(b3.toFixed(2)) },
+                ],
+            });
+        });
+
+        charts[CHART_ID] = charts[CHART_ID] || { options: createChartOptions() };
+        charts[CHART_ID].options.data = series;
+
+        if (refetch && charts[CHART_ID]) charts[CHART_ID].render();
+        else renderChart(CHART_ID, charts[CHART_ID].options);
+    };
+
+    // periodic refetch
+    setIntervalAtFiveMinuteMarks(() => {
+        fetchData(requestPayload, createSeriesTemplate(), CHART_ID, PROCESS_URL, LABEL_FIELD, processPerBuilding, true);
+        if (charts[CHART_ID]) charts[CHART_ID].render();
+    });
+
+    // initialize and perform first fetch
+    charts[CHART_ID] = { options: createChartOptions() };
+    fetchData(requestPayload, createSeriesTemplate(), CHART_ID, PROCESS_URL, LABEL_FIELD, processPerBuilding);
+};
+
+processPandPEnergyConsumptionPerBuilding();
+
 
 // Process for the Previous and Present energy consumption calculation
 processPandPEnergyConsumption();

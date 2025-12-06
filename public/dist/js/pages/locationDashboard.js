@@ -166,8 +166,8 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error loading data:", error);
         });
 
-    // chart.onNodeClick((args) => {
-    //    return args.node.templateName === 'locationTemplate' ? false : true;
-    // });
+    chart.onNodeClick((args) => {
+        return args.node.templateName === 'sensorTemplate' || args.node.templateName === 'buildingTemplate' ? true : false;
+    });
 
 });

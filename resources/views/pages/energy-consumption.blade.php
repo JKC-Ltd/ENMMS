@@ -86,7 +86,7 @@
             <section class="col-12 connectedSortable">
                 <div class="card">
                     <div class="card-body">
-                        <div id="dailyEnergyConsumptionAllMeters2" style="height: 520px; width: 100%;"></div>
+                        <div id="dailyEnergyConsumptionPerBuilding" style="height: 520px; width: 100%;"></div>
                     </div>
                 </div>
             </section>
@@ -109,7 +109,8 @@
         <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
         <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.5/odometer.min.js"></script>
-        <script type="module" src="{{ asset('assets/js/energyConsumption.js') }}?v={{ time() }}"></script>
-        <script type="module" src="{{ asset('assets/js/energyConsumption2.js') }}?v={{ time() }}"></script>
+        <script type="module" src="{{ asset('assets/js/energyConsumptionNonCharts.js') }}?v={{ time() }}"></script>
+        <script type="module" src="{{ asset('assets/js/energyConsumptionCharts.js') }}?v={{ time() }}"></script>
+        <script type="module" src="{{ asset('assets/js/energyConsumptionChartsPerBuilding.js') }}?v={{ time() }}"></script>
     @endsection
 </x-app-layout>
