@@ -1,4 +1,4 @@
-import { getStartEndDate } from "../../../assets/js/shared/main.js?v=1.3";
+import { getStartEndDate } from "../../../assets/js/dashboardUtils.js?v=1.4";
 
 document.addEventListener("DOMContentLoaded", function () {
 
