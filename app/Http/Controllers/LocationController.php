@@ -166,7 +166,7 @@ class LocationController extends Controller
         $buildingNames = ['Building 1', 'Building 2', 'Building 3'];
     
         // Locations to exclude by name
-        $excludedNames = ['SEP', 'injection', 'CIP2', 'building 4'];
+        $excludedNames = ['SEP', 'injection', 'CIP2', 'Building 4'];
     
         // Locations to exclude by ID
         $excludedIds = [9, 10];
