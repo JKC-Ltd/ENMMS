@@ -18,16 +18,16 @@ class LocationController extends Controller
     {
 
         $locations = Location::all();
-        // $parentPaths = [];
-        // foreach ($locations as $loc) {
-        //     $chain = Location::getParentLocation($loc->id);
-        //     $names = array_map(fn($p) => $p->location_name, $chain);
-        //     $parentPaths[$loc->id] = implode(' / ', $names);
-        // }
+        $parentPaths = [];
+        foreach ($locations as $loc) {
+            $chain = Location::getParentLocation($loc->id);
+            $names = array_map(fn($p) => $p->location_name, $chain);
+            $parentPaths[$loc->id] = implode(' / ', $names);
+        }
 
         return view('pages.configurations.locations.index')
-            ->with('locations', $locations);
-            // ->with('listOfLocationsParents', $parentPaths);
+            ->with('locations', $locations)
+            ->with('listOfLocationsParents', $parentPaths);
 
     }
 
@@ -78,10 +78,15 @@ class LocationController extends Controller
      */  
     public function edit(string $id)
     {
-        $location = Location::findOrFail($id);
+        // $location = Location::findOrFail($id);
         // $listOfLocationsParents = self::getLocationParent();
+        // return view('pages.configurations.locations.form', compact('location'));
 
-        return view('pages.configurations.locations.form', compact('location'));
+        $listOfLocations = Location::findOrFail($id);
+        $listOfLocationsParents = self::getLocationParent();
+        return view('pages.configurations.locations.form')
+            ->with('location', $listOfLocations)
+            ->with('listOfLocationsParents', $listOfLocationsParents);
     }
 
     /**
@@ -169,7 +174,7 @@ class LocationController extends Controller
         $excludedNames = ['SEP', 'injection', 'CIP2', 'Building 4'];
     
         // Locations to exclude by ID
-        $excludedIds = [9, 10, 15, 16, 18, 20];
+        $excludedIds = [9, 10, 15, 16, 19, 18, 20, 25, 26];
     
         $locations = Location::select('id', 'pid', 'location_name as name')
             ->whereNotIn('location_name', $excludedNames)

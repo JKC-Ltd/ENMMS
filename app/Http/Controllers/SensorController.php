@@ -15,6 +15,7 @@ use Auth;
 use Illuminate\Validation\Rule;
 use Response;
 
+
 class SensorController extends Controller
 {
     /**
@@ -23,8 +24,10 @@ class SensorController extends Controller
     public function index()
     {
         $sensor = Sensor::all();
+        $listOfLocationsParents = self::getLocationParent();
         return view('pages.configurations.sensors.index')
-            ->with('sensors', $sensor);
+            ->with('sensors', $sensor)
+            ->with('listOfLocationsParents', $listOfLocationsParents);
     }
 
     /**
@@ -83,9 +86,17 @@ class SensorController extends Controller
         $location = Location::all();
         $gateway = Gateway::all();
         $sensorModels = SensorModel::all();
+         $listOfLocationsParents = self::getLocationParent();
+        $parentPaths = [];
+        foreach ($location as $parentlocation) {
+            $chain = Location::getParentLocation($parentlocation->id);
+            $names = array_map(fn($p) => $p->location_name, $chain);
+            $parentPaths[$parentlocation->id] = implode(' / ', $names);
+        }
 
         return view('pages.configurations.sensors.form')
             ->with('sensor', $sensor)
+            ->with('parentlocations', $parentPaths)
             ->with('locations', $location)
             ->with('gateways', $gateway)
             ->with('sensorModels', $sensorModels);
@@ -168,7 +179,7 @@ class SensorController extends Controller
 
         $getEnergy = (new EnergyConsumptionService)->get($request);
         $energyResult = collect($getEnergy->get());
-
+        $excludedIds = [19];
 
         $sensors = Sensor::select(
             'sensors.location_id as pid',
@@ -178,6 +189,7 @@ class SensorController extends Controller
         )
             ->leftJoin('gateways', 'sensors.gateway_id', '=', 'gateways.id')
             ->leftJoin('sensor_models', 'sensor_model_id', '=', 'sensor_models.id')
+            ->whereNotIn('sensors.id', $excludedIds)
             ->get()
             ->map(function ($sensor) use ($energyResult) {
                 $energy = $energyResult->where('sensor_id', $sensor->id)->first();
@@ -200,5 +212,27 @@ class SensorController extends Controller
             });
 
         return Response::json($sensors);
+    }
+
+    public function getLocationParent()
+    {
+        $allLocations = Location::all();
+
+        $listOfLocationsParents = $allLocations->map(function ($loc) {
+            $parentChain = Location::getParentLocation($loc->id);
+
+            $parentNames = array_map(function ($parent) {
+                return $parent->location_name;
+            }, $parentChain);
+
+            $fullPath = implode(' / ', array_merge($parentNames, [$loc->location_name]));
+
+            return [
+                'fullPath' => $fullPath,
+                'location' => $loc,
+            ];
+        });
+
+        return $listOfLocationsParents->sortBy('fullPath')->values()->all();
     }
 }

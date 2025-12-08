@@ -37,7 +37,7 @@
                                         @enderror
                                     </div>
 
-                                    {{-- <div class="form-group">
+                                    <div class="form-group">
                                         <label>PARENT LOCATION</label>
                                         <select class="form-control select2bs4 @error('pid') input-error @enderror"
                                             name="pid" style="width: 100%;">
@@ -52,7 +52,7 @@
                                         @error('pid')
                                             <div class="error-message">{{ $message }}</div>
                                         @enderror
-                                    </div> --}}
+                                    </div>
                                 </div>
                             </div>
                         </div>

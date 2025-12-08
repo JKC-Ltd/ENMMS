@@ -38,10 +38,11 @@
                             </thead>
                             <tbody>
                                 @foreach ($sensors as $sensor)
+                                 
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $sensor->slave_address }}</td>
-                                        <td>{{ $sensor->location->location_name }}</td>
+                                        <td> {{ $sensor->location->location_name }}</td>
                                         <td>{{ $sensor->gateway->gateway_code }}</td>
                                         <td>{{ $sensor->sensorModel->sensorType->sensor_type_code }}</td>
                                         </td>
