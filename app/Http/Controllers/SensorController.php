@@ -179,7 +179,7 @@ class SensorController extends Controller
 
         $getEnergy = (new EnergyConsumptionService)->get($request);
         $energyResult = collect($getEnergy->get());
-        $excludedIds = [19];
+        $excludedIds = [15];
 
         $sensors = Sensor::select(
             'sensors.location_id as pid',
