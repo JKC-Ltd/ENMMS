@@ -115,7 +115,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isSensor) {
             data.forEach((sensor) => {
                 delete sensor.sensor_brand;
-                sensor.id = sensor.id + (Math.random() * 99).toFixed(2);
+                if (![6, 7, 8].includes(sensor.id)) {
+                    sensor.id = sensor.id + (Math.random() * 99).toFixed(2);
+                }
                 chartLayout.push(sensor);
                 ctr++;
             });
@@ -124,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 chartLayout.push(location);
             });
         }
-        console.log(chartLayout);
     }
 
     function fetchData(url, data = null) {

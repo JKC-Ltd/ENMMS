@@ -211,6 +211,60 @@ class SensorController extends Controller
                 return $sensor;
             });
 
+        // Also append aggregated Building entries (ids 6,7,8) computed from sensors 15..19
+        $mapBySensor = [];
+        $energyResult->each(function ($row) use (&$mapBySensor) {
+            $id = intval($row->sensor_id ?? 0);
+            $mapBySensor[$id] = ($mapBySensor[$id] ?? 0) + floatval($row->daily_consumption ?? 0);
+        });
+
+        $building2 = ($mapBySensor[16] ?? 0) + ($mapBySensor[17] ?? 0) + ($mapBySensor[18] ?? 0);
+        $building3 = $mapBySensor[19] ?? 0;
+        $building1 = ($mapBySensor[15] ?? 0) - $building2;
+
+        $building1 = round($building1, 2);
+        $building2 = round($building2, 2);
+        $building3 = round($building3, 2);
+
+        $buildingEntries = collect();
+
+        // Ensure we assign IDs for synthetic building rows that do not collide
+        // with existing sensor IDs. Use values after the current max sensor id.
+        $maxSensorId = intval($sensors->max('id') ?? 0);
+        $startId = $maxSensorId + 1;
+
+        $b1 = new Sensor();
+        $b1->pid = 2;
+        $b1->name = 'Building 1';
+        $b1->id = 6;
+        $b1->sensor_brand = null;
+        $b1->real_power = null;
+        $b1->daily_consumption = $building1;
+        $b1->tags = ['Building'];
+        $buildingEntries->push($b1);
+
+        $b2 = new Sensor();
+        $b2->pid = 2;
+        $b2->name = 'Building 2';
+        $b2->id = 7;
+        $b2->sensor_brand = null;
+        $b2->real_power = null;
+        $b2->daily_consumption = $building2;
+        $b2->tags = ['Building'];
+        $buildingEntries->push($b2);
+
+        $b3 = new Sensor();
+        $b3->pid = 2;
+        $b3->name = 'Building 3';
+        $b3->id = 8;
+        $b3->sensor_brand = null;
+        $b3->real_power = null;
+        $b3->daily_consumption = $building3;
+        $b3->tags = ['Building'];
+        $buildingEntries->push($b3);
+
+        $sensors = $sensors->merge($buildingEntries);
+
         return Response::json($sensors);
     }
 
