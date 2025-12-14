@@ -55,7 +55,7 @@
                     <div class="card-header ui-sortable-handle" style="cursor: move;">
                         <h3 class="card-title">
                             <i class="fas fa-lightbulb mr-1"></i>
-                            Energy Consumption
+                            Today's Energy Consumption
                         </h3>
                     </div>
                     <div class="card-body energy-bg">
@@ -73,7 +73,7 @@
                     <div class="card-header ui-sortable-handle" style="cursor: move;">
                         <h3 class="card-title">
                             <i class="fas fa-plug mr-1"></i>
-                            Previous & Present Energy Consumption - MDP
+                            Previous & Present Days' Energy Consumption
                         </h3>
                     </div>
                     <div class="card-body">
@@ -87,7 +87,7 @@
                     <div class="card-header ui-sortable-handle" style="cursor: move;">
                         <h3 class="card-title">
                             <i class="fas fa-calendar-alt mr-1"></i>
-                            Current Month Energy Consumption
+                            Current Month's Energy Consumption
                         </h3>
                     </div>
                     <div class="card-body energy-bg">
@@ -113,7 +113,7 @@
                     <div class="card-header ui-sortable-handle" style="cursor: move;">
                         <h3 class="card-title">
                             <i class="fa fa-chart-bar mr-1"></i>
-                            Daily Energy Consumption
+                            Daily Energy Consumption - Per Building
                         </h3>
                     </div>
                     <div class="card-body">
@@ -129,7 +129,7 @@
                     <div class="card-header ui-sortable-handle" style="cursor: move;">
                         <h3 class="card-title">
                             <i class="fa fa-chart-bar mr-1"></i>
-                            Previous and Present Energy Consumption - Per Building
+                            Previous and Present Energy Days' Consumption - Per Building
                         </h3>
                     </div>
                     <div class="card-body">
