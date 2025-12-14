@@ -45,7 +45,6 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
 const processDailyEnergyConsumptionAllMeters = () => {
 
     let select = "*, ROUND((end_energy - start_energy), 2) AS daily_consumption";
-    // const [startDate, endDate] = getStartEndDate(9, 24, 'month', 1);
     const processUrl = "/getEnergyConsumptionPerBuilding";
     const chartName = "dailyEnergyConsumptionAllMeters2";
     const column = "reading_date";
