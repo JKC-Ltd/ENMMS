@@ -181,9 +181,9 @@ function aggregatedProcessFn(rows, refetch, chartId, dataOptions, columnName) {
     const building1 = sensor15 - building2;
 
     const aggregatedRows = [
-        { label: 'Building 1', daily_consumption: Number(building1.toFixed(2)) },
-        { label: 'Building 2', daily_consumption: Number(building2.toFixed(2)) },
         { label: 'Building 3', daily_consumption: Number(building3.toFixed(2)) },
+        { label: 'Building 2', daily_consumption: Number(building2.toFixed(2)) },
+        { label: 'Building 1', daily_consumption: Number(building1.toFixed(2)) },
     ];
 
     processChartData(aggregatedRows, refetch, chartId, dataOptions, 'label');

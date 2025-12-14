@@ -180,7 +180,7 @@ class SensorController extends Controller
         $getEnergy = (new EnergyConsumptionService)->get($request);
         $energyResult = collect($getEnergy->get());
         // Only exclude sensor ID 15 (MDP in Building 1)
-        $excludedIds = [15];
+        $excludedIds = [15,19];
 
         $sensors = Sensor::select(
             'sensors.location_id as pid',
