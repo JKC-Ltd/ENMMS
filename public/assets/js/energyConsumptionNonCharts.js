@@ -15,6 +15,7 @@ const fetchEnergyConsumption = (select, startDate, endDate, whereIn = DEFAULT_WH
             select,
             startDate,
             endDate,
+            whereIn,
         },
     });
 };

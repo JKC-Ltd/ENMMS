@@ -179,6 +179,7 @@ class SensorController extends Controller
 
         $getEnergy = (new EnergyConsumptionService)->get($request);
         $energyResult = collect($getEnergy->get());
+        // Only exclude sensor ID 15 (MDP in Building 1)
         $excludedIds = [15];
 
         $sensors = Sensor::select(
@@ -207,6 +208,11 @@ class SensorController extends Controller
                     $sensor->daily_consumption = null;
                 }
 
+                // Remap sensor IDs 6, 7, 8 to avoid conflict with building IDs
+                if (in_array($sensor->id, [6, 7, 8])) {
+                    $sensor->id = $sensor->id + 100; // Change to 106, 107, 108
+                }
+
                 $sensor->tags = ["Sensor"];
                 return $sensor;
             });
@@ -228,11 +234,7 @@ class SensorController extends Controller
 
         $buildingEntries = collect();
 
-        // Ensure we assign IDs for synthetic building rows that do not collide
-        // with existing sensor IDs. Use values after the current max sensor id.
-        $maxSensorId = intval($sensors->max('id') ?? 0);
-        $startId = $maxSensorId + 1;
-
+        // Use IDs 6, 7, 8 for buildings so child locations (with pid 6, 7, 8) can reference them
         $b1 = new Sensor();
         $b1->pid = 2;
         $b1->name = 'Building 1';

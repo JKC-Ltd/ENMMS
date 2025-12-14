@@ -173,9 +173,8 @@ class LocationController extends Controller
         // Locations to exclude by name
         $excludedNames = ['SEP', 'injection', 'CIP2', 'Building 4'];
     
-        // Locations to exclude by ID
-        $excludedIds = [9, 10, 15, 16, 19, 18, 20, 25, 26];
-        // $excludedIds = [6, 7, 8, 9, 10, 15, 16, 19, 18, 20, 25, 26];
+        // Locations to exclude by ID (6, 7, 8 excluded because they come from sensor chart as buildings)
+        $excludedIds = [6, 7, 8, 9, 10, 15, 16, 19, 18, 20, 25, 26];
     
         $locations = Location::select('id', 'pid', 'location_name as name')
             ->whereNotIn('location_name', $excludedNames)

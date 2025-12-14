@@ -68,7 +68,7 @@ const processDailyEnergyConsumptionPerBuilding = () => {
         chartProps: { request: requestPayload, processUrl: PROCESS_URL },
         colorSet: 'DailyEnergyColorSet',
         title: {
-            text: "Daily Energy Consumption - SIIX EMS: All Meters",
+            text: "Daily Energy Consumption - Total Facility",
             fontSize: 20,
             margin: 30
         },

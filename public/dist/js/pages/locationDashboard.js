@@ -115,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isSensor) {
             data.forEach((sensor) => {
                 delete sensor.sensor_brand;
+                // Don't modify building IDs 6, 7, 8 so child locations can reference them as parents
                 if (![6, 7, 8].includes(sensor.id)) {
                     sensor.id = sensor.id + (Math.random() * 99).toFixed(2);
                 }
@@ -126,6 +127,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 chartLayout.push(location);
             });
         }
+
+        console.log(chartLayout);
     }
 
     function fetchData(url, data = null) {
