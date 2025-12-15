@@ -168,13 +168,13 @@ class LocationController extends Controller
     public function getLocationChart()
     {
         // Locations to tag as "Building"
-        $buildingNames = ['Building 1', 'Building 2', 'Building 3'];
+        $buildingNames = ['EMS','Building 1', 'Building 2', 'Building 3'];
     
         // Locations to exclude by name
         $excludedNames = ['SEP', 'injection', 'CIP2', 'Building 4'];
     
         // Locations to exclude by ID (6, 7, 8 excluded because they come from sensor chart as buildings)
-        $excludedIds = [6, 7, 8, 9, 10, 15, 16, 19, 18, 20, 25, 26];
+        $excludedIds = [2,6, 7, 8, 9, 10, 15, 16, 19, 18, 20, 25, 26];
     
         $locations = Location::select('id', 'pid', 'location_name as name')
             ->whereNotIn('location_name', $excludedNames)
