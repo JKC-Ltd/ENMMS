@@ -235,6 +235,8 @@ class SensorController extends Controller
         $buildingEntries = collect();
 
         // Use IDs 6, 7, 8 for buildings so child locations (with pid 6, 7, 8) can reference them
+
+
         $b1 = new Sensor();
         $b1->pid = 2;
         $b1->name = 'Building 1';
@@ -265,6 +267,16 @@ class SensorController extends Controller
         $b3->tags = ['Building'];
         $buildingEntries->push($b3);
 
+        $ems= new Sensor();
+        $ems->pid = 1;
+        $ems->name = 'EMS';
+        $ems->id = 2;
+        $ems->sensor_brand = null;
+        $ems->real_power = null;
+        $ems->daily_consumption = round($building1 + $building2 + $building3,2);
+        $ems->tags = ['Building'];
+        $buildingEntries->push($ems);   
+        
         $sensors = $sensors->merge($buildingEntries);
 
         return Response::json($sensors);
