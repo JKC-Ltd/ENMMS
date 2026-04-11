@@ -97,26 +97,40 @@ class DashboardController extends Controller
         return Response::json($dailyEnergy);
     }
 
-    // public function getDailyEnergyConsumptionPerMeter(Request $request)
-    // {
-    //     $now = Carbon::now();
-    //     $today9AM = $now->copy()->startOfDay()->addHours(9);
-    //     $tomorrow9AM = $today9AM->copy()->addDay();
+    public function getEnergyConsumptionPerBuilding(Request $request)
+    {
+        // // Align time window with dashboard's 7AM-based day window (same as getDailyEnergyConsumption)
+        // $now = Carbon::now();
+        // $today7AM = $now->copy()->startOfDay()->addHours(7);
+        // $tomorrow7AM = $today7AM->copy()->addDay();
 
-    //     if ($now->greaterThanOrEqualTo($today9AM)) {
-    //         $startDate = $today9AM->toDateTimeString();
-    //         $endDate = $tomorrow9AM->toDateTimeString();
-    //     } else {
-    //         $endDate = $today9AM->toDateTimeString();
-    //         $startDate = $today9AM->subDay()->toDateTimeString();
-    //     }
+        // if ($now->greaterThanOrEqualTo($today7AM)) {
+        //     $startDate = Carbon::now()
+        //         ->subDay()
+        //         ->startOfDay()
+        //         ->addHours(7)
+        //         ->toDateTimeString();
 
-    //     $energyConsumptionService = (new EnergyConsumptionService)->get($request, $startDate, $endDate);
+        //     $endDate = $tomorrow7AM->toDateTimeString();
+        // } else {
+        //     $startDate = Carbon::now()
+        //         ->subDays(2)
+        //         ->startOfDay()
+        //         ->addHours(7)
+        //         ->toDateTimeString();
 
-    //     $dailyEnergy = $energyConsumptionService->get();
+        //     $endDate = $today7AM->toDateTimeString();
+        // }
 
-    //     return Response::json($dailyEnergy);
-    // }
+        // dd($startDate, $endDate);
+
+        // $request->startDate = "2025-11-30 20:00:00";
+        // $request->endDate = "2025-11-30 21:00:00";
+
+        $dailyEnergyPerBuilding = (new EnergyConsumptionService)->getPerBuilding($request);
+
+        return Response::json($dailyEnergyPerBuilding);
+    }
 
     public function getEnergyConsumption(Request $request)
     {

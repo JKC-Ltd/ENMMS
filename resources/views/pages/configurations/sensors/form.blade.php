@@ -35,7 +35,14 @@
                                             @foreach ($locations as $location)
                                                 <option value="{{ $location->id }}"
                                                     {{ old('location_id', isset($sensor) && $sensor->location_id == $location->id ? 'selected' : '') }}>
-                                                    {{ $location->location_name }}
+
+                                                    @php
+                                                        // Check if the location has a parent path and display it with location name
+                                                        $parentPath = isset($parentlocations[$location->id])
+                                                            ? $parentlocations[$location->id] . ' / '
+                                                            : '';
+                                                    @endphp
+                                                    {{ $parentPath }}{{ $location->location_name }}
                                                 </option>
                                             @endforeach
                                         </select>

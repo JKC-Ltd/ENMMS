@@ -46,14 +46,87 @@ class EnergyConsumptionService
             }
         }
 
+        if ($request->whereIn) {
+            foreach ($request->whereIn as $whereIn) {
+                $query->whereIn($whereIn['field'], $whereIn['value']);
+            }
+        }
+
         if ($request->groupBy) {
             $query->groupBy($request->groupBy);
         }
 
-        // dd($query->toRawSql());
-
         return $query;
 
+    }
+
+    public function getPerBuilding($request)
+    {
+        // Expecting an array of root location ids in $request->roots OR
+        // a whereIn clause with field 'location_id' (backwards compatibility).
+        $roots = [];
+        if (!empty($request->roots) && is_array($request->roots)) {
+            $roots = array_map('intval', $request->roots);
+        } elseif (!empty($request->whereIn) && is_array($request->whereIn)) {
+            // look for a location_id whereIn
+            foreach ($request->whereIn as $whereIn) {
+                if (($whereIn['field'] ?? '') === 'location_id' && is_array($whereIn['value'])) {
+                    $roots = array_map('intval', $whereIn['value']);
+                }
+            }
+        }
+
+        if (empty($roots)) {
+            // nothing to aggregate
+            return [];
+        }
+
+        // Bindings for start/end date if provided
+        $bindings = [];
+        $dateFilter = '';
+        if (!empty($request->startDate) && !empty($request->endDate)) {
+            $dateFilter = 'WHERE datetime_created >= ? AND datetime_created <= ?';
+            $bindings[] = $request->startDate;
+            $bindings[] = $request->endDate;
+        }
+
+        // Root ids list for SQL
+        $rootList = implode(',', array_map('intval', $roots));
+
+        // Build recursive CTE to map every location to its root (6/7/8 etc.)
+        $sql = "WITH RECURSIVE locs AS (
+            SELECT id, pid, id AS root_id FROM locations WHERE id IN ($rootList)
+            UNION ALL
+            SELECT l.id, l.pid, locs.root_id
+            FROM locations l
+            JOIN locs ON l.pid = locs.id
+        ), daily AS (
+            SELECT
+                sensor_id,
+                DATE(datetime_created - INTERVAL 7 HOUR) AS reading_date,
+                MIN(energy) AS start_energy,
+                MAX(energy) AS end_energy,
+                MAX(datetime_created) AS datetime_created
+            FROM sensor_logs
+            $dateFilter
+            GROUP BY sensor_id, DATE(datetime_created - INTERVAL 7 HOUR)
+        )
+        SELECT
+            locs.root_id AS root_location_id,
+            root.location_name AS root_location_name,
+            daily.reading_date,
+            ROUND(SUM(daily.end_energy - daily.start_energy), 2) AS daily_consumption
+        FROM daily
+        JOIN sensors s ON daily.sensor_id = s.id
+        JOIN locations loc ON s.location_id = loc.id
+        JOIN locs ON loc.id = locs.id
+        JOIN locations root ON locs.root_id = root.id
+        GROUP BY locs.root_id, root.location_name, daily.reading_date
+        ORDER BY locs.root_id, daily.reading_date";
+
+        $results = DB::select($sql, $bindings);
+
+        return $results;
     }
 
     public function getPower($request)

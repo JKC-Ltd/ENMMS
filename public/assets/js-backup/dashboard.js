@@ -44,22 +44,23 @@ const processData = (data, refetch, chartID, dataOptions, columnName) => {
     dateToday.setHours(dateToday.getHours() - 7);
     dateToday = formatDate(dateToday);
 
-    // if (chartID === "pandpEnergyConsumption") {
-    //     let chartDataPoints = charts[chartID].options.data[0].dataPoints;
+    if (chartID === "pandpEnergyConsumption") {
+        let chartDataPoints = charts[chartID].options.data[0].dataPoints;
 
-    //     let totalEnergyConsumption = chartDataPoints.find(date => formatDate(date.label) === formatDate(dateToday));
-    //     let totalEnergyConsumptionValue = document.getElementById("totalEnergyConsumptionValue");
+        let totalEnergyConsumption = chartDataPoints.find(date => formatDate(date.label) === formatDate(dateToday));
+        let totalEnergyConsumptionValue = document.getElementById("totalEnergyConsumptionValue");
 
-    //     // $("#totalEnergyConsumptionValue").html(totalEnergyConsumption?.y.toLocaleString() ?? 0);
-    //     createOdometer(totalEnergyConsumptionValue, totalEnergyConsumption?.y.toLocaleString() ?? 0);  
+        // $("#totalEnergyConsumptionValue").html(totalEnergyConsumption?.y.toLocaleString() ?? 0);
+        createOdometer(totalEnergyConsumptionValue, totalEnergyConsumption?.y.toLocaleString() ?? 0);  
 
-    //     $("#ghgCurrentDayValue").html(`${Number((totalEnergyConsumption.y * 0.512).toFixed(2)).toLocaleString()} kWh`);
-    //     $("#ghgCurrentDay").css('width', (totalEnergyConsumption.y * 0.512).toFixed(2));
+        $("#ghgCurrentDayValue").html(`${Number((totalEnergyConsumption.y * 0.512).toFixed(2)).toLocaleString()} kWh`);
+        $("#ghgCurrentDay").css('width', (totalEnergyConsumption.y * 0.512).toFixed(2));
 
-    // }
+    }
 
     if (chartID === "dailyEnergyConsumptionPerMeter") {
         let totalValuePerArea = {};
+        // console.log(data);
         data.forEach(sensorData => {
             let sensorLocationID = $(`#energyConsumptionPerArea${sensorData.location_id}`);
             if (!totalValuePerArea[sensorData.location_id]) {
@@ -153,6 +154,7 @@ const processPandPEnergyConsumption = () => {
 const processDailyEnergyConsumptionPerMeter = () => {
 
     const select = `location_name,
+                    location_id,
                     description as sensor_description,
                     reading_date,
                     ROUND((end_energy - start_energy), 2) AS daily_consumption
@@ -173,7 +175,7 @@ const processDailyEnergyConsumptionPerMeter = () => {
                 field: "sensor_id",
                 operator: "!=",
                 value: 15,
-            }
+            },
         ]
     };
 
@@ -258,12 +260,11 @@ const fetchDataNoneCharts = (select, startDate, endDate, divID) => {
                 select: select,
                 startDate: startDate,
                 endDate: endDate,
-                where: [
+                whereIn: [
                     {
                         field: "sensor_id",
-                        operator: "=",
-                        value: 15,
-                    }
+                        value: [15, 19],
+                    },
                 ]
             },
             success: function (data) {
@@ -292,6 +293,8 @@ const fetchDataNoneCharts = (select, startDate, endDate, divID) => {
     }
 
     if (divID === 'currentCurrentDayConsumption') {
+
+
         $.ajax({
             type: "GET",
             url: "/getEnergyConsumption",
@@ -299,23 +302,22 @@ const fetchDataNoneCharts = (select, startDate, endDate, divID) => {
                 select: select,
                 startDate: startDate,
                 endDate: endDate,
-                where: [
+                whereIn: [
                     {
                         field: "sensor_id",
-                        operator: "=",
-                        value: 15,
-                    }
+                        value: [15, 19],
+                    },
                 ]
             },
             success: function (data) {
+                // console.log(data);
                 data = data[0];
 
                 let totalEnergyConsumptionValue = document.getElementById("totalEnergyConsumptionValue");
 
                 // $("#totalEnergyConsumptionValue").html(totalEnergyConsumption?.y.toLocaleString() ?? 0);
                 createOdometer(totalEnergyConsumptionValue, data.daily_consumption.toLocaleString() ?? 0);
-
-                // $("#ghgCurrentMonth").html(`${(data.daily_consumption * 0.512).toLocaleString()} kWh`);
+                $("#ghgCurrentMonth").html(`${(data.daily_consumption * 0.512).toLocaleString()} kWh`);
                 $("#ghgCurrentDayValue").html(`${Number((data.daily_consumption * 0.512).toFixed(2)).toLocaleString()
                     } kWh`);
                 $("#ghgCurrentDay").css('width', (data.daily_consumption * 0.512).toFixed(2));

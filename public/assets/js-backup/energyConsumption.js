@@ -49,13 +49,18 @@ const processDailyEnergyConsumptionAllMeters = () => {
     const column = "reading_date";
     const dailyEnergyConsumptionAllMetersRequest = {
         select: select,
-        // where: [
-        //     {
-        //         field: "sensor_id",
-        //         operator: "!=",
-        //         value: 15,
-        //     }
-        // ]
+        where: [
+            {
+                field: "sensor_id",
+                operator: "!=",
+                value: 15,
+            },
+            {
+                field: "sensor_id",
+                operator: "!=",
+                value: 19,
+            }
+        ]
         // startDate: startDate,
         // endDate: endDate
 
