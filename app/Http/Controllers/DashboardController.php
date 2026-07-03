@@ -21,17 +21,18 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $gateways = Gateway::all();
-        $sensors = Sensor::all();
-        $area = Sensor::groupBy('location_id')->where('id', "!=", 15)->get();
-        $users = User::all();
+        $gateways   = Gateway::all();
+        $sensors    = Sensor::all();
+        $area       = Sensor::groupBy('location_id')->where('id', "!=", 15)->get();
+        $users      = User::all();
+        $gatewayIds = $gateways->pluck('id')->values();
 
         return view('pages.dashboard')
             ->with('gateways', $gateways)
             ->with('sensors', $sensors)
             ->with('area', $area)
-            ->with('users', $users);
-
+            ->with('users', $users)
+            ->with('gatewayIds', $gatewayIds);
     }
 
     /**
