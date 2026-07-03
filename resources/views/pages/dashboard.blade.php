@@ -186,6 +186,10 @@
         <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
         <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.5/odometer.min.js"></script>
+        <script>
+            // Gateway IDs to subscribe to for live Echo updates.
+            window.ENMMS_GATEWAY_IDS = @json($gatewayIds);
+        </script>
         <script type="module" src="{{ asset('assets/js/dashboardNonCharts.js') }}?v={{ time() }}"></script>
         <script type="module" src="{{ asset('assets/js/dashboardCharts.js') }}?v={{ time() }}"></script>
     @endsection

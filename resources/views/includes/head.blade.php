@@ -2,6 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SIIX EnMMS - {{ $pageTitle ?? '' }}</title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
+@vite(['resources/js/echo.js'])
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="preconnect" href="https://fonts.googleapis.com">

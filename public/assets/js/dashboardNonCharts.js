@@ -88,3 +88,33 @@ const processCurrentMonthEnergyConsumption = () => {
 processCurrentDayEnergyConsumption();
 processCurrentMonthEnergyConsumption();
 
+// ── Real-time updates via Laravel Reverb ─────────────────────────────────────
+// When the gateway sends a new reading, refresh the energy counters immediately
+// instead of waiting for the next 5-minute timer tick.
+//
+// window.Echo is set by resources/js/echo.js (loaded via Vite in the page head).
+// The gateway IDs to listen to are collected from the DOM at runtime.
+// ─────────────────────────────────────────────────────────────────────────────
+
+if (window.Echo) {
+    // Debounce: if several sensor readings arrive in quick succession (e.g. after
+    // an offline burst drains the outbox), only refresh once after 1 second of quiet.
+    let _refreshTimer = null;
+    const _scheduleRefresh = () => {
+        clearTimeout(_refreshTimer);
+        _refreshTimer = setTimeout(() => {
+            processCurrentDayEnergyConsumption();
+            processCurrentMonthEnergyConsumption();
+        }, 1000);
+    };
+
+    // Subscribe to a gateway channel for each gateway that feeds this dashboard.
+    // Extend this array when more gateways are added.
+    const DASHBOARD_GATEWAY_IDS = window.ENMMS_GATEWAY_IDS || [];
+
+    DASHBOARD_GATEWAY_IDS.forEach((gatewayId) => {
+        window.Echo.private('gateway.' + gatewayId)
+            .listen('.SensorReadingReceived', _scheduleRefresh);
+    });
+}
+

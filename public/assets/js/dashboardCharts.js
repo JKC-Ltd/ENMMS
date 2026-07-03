@@ -277,3 +277,26 @@ processPandPEnergyConsumption();
 
 // Process for the Daily energy consumption per meter calculation
 processDailyEnergyConsumption();
+
+// ── Real-time chart refresh via Laravel Reverb ───────────────────────────────
+// When a new sensor reading arrives over WebSocket, re-fetch all chart data
+// instead of waiting for the next 5-minute timer tick.
+// ─────────────────────────────────────────────────────────────────────────────
+
+if (window.Echo) {
+    let _chartRefreshTimer = null;
+    const _scheduleChartRefresh = () => {
+        clearTimeout(_chartRefreshTimer);
+        _chartRefreshTimer = setTimeout(() => {
+            processPandPEnergyConsumption();
+            processDailyEnergyConsumption();
+            processPandPEnergyConsumptionPerBuilding();
+        }, 1000);
+    };
+
+    const DASHBOARD_GATEWAY_IDS = window.ENMMS_GATEWAY_IDS || [];
+    DASHBOARD_GATEWAY_IDS.forEach((gatewayId) => {
+        window.Echo.private('gateway.' + gatewayId)
+            .listen('.SensorReadingReceived', _scheduleChartRefresh);
+    });
+}
