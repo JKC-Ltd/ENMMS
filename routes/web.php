@@ -23,8 +23,15 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])->name('dashboard');
 
-function registerCommonRoutes()
-{
+Route::middleware(['auth', 'admin:Admin'])->group(function () {
+    Route::resource('locations', LocationController::class);
+    Route::resource('sensorModels', SensorModelController::class);
+    Route::resource('sensorTypes', SensorTypeController::class);
+    Route::resource('sensorRegisters', SensorRegisterController::class);
+    Route::resource('sensors', SensorController::class);
+    Route::resource('gateways', GatewayController::class);
+    Route::resource('users', UserController::class);
+
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
 
@@ -44,29 +51,28 @@ function registerCommonRoutes()
     Route::get('/getEnergyConsumption', [DashboardController::class, 'getEnergyConsumption']);
     Route::get('/getPower', [DashboardController::class, 'getPower']);
     Route::get('/exportCSV', [DashboardController::class, 'exportCSV']);
-
-    // Route::get('/getEnergyConsumption', [EnergyConsumptionController::class, 'getEnergyConsumption']);
-    // Route::get('/getEnergyConsumptionBasedOnDate', [DashboardController::class, 'getEnergyConsumptionBasedOnDate']);
-    // Route::get('/getEnergyConsumptionBasedOnHours', [DashboardController::class, 'getEnergyConsumptionBasedOnHours']);
-    // Route::get('/getActivePowerProfile', [ActivePowerController::class, 'getActivePowerProfile']);
-    // Route::get('/getVoltageCurrentProfile', [VoltageCurrentController::class, 'getVoltageCurrentProfile']);
-    // Route::get('/getDailyEnergyConsumptionPerMeter', [DashboardController::class, 'getDailyEnergyConsumptionPerMeter']);
-}
-
-Route::middleware(['auth', 'admin:Admin'])->group(function () {
-    Route::resource('locations', LocationController::class);
-    Route::resource('sensorModels', SensorModelController::class);
-    Route::resource('sensorTypes', SensorTypeController::class);
-    Route::resource('sensorRegisters', SensorRegisterController::class);
-    Route::resource('sensors', SensorController::class);
-    Route::resource('gateways', GatewayController::class);
-    Route::resource('users', UserController::class);
-
-    registerCommonRoutes();
 });
 
 Route::middleware(['auth'])->group(function () {
-    registerCommonRoutes();
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::resource('locationDashboard', LocationDashboardController::class);
+    Route::resource('energyConsumption', EnergyConsumptionController::class);
+    Route::resource('activePower', ActivePowerController::class);
+    Route::resource('voltageCurrent', VoltageCurrentController::class);
+
+    Route::get('/getSensorType/{id}', [SensorModelController::class, 'getSensorType']);
+    Route::get('/getSensorModel/{id}', [SensorModelController::class, 'getSensorModel']);
+
+    Route::get('/getLocationChart', [LocationController::class, 'getLocationChart']);
+    Route::get('/getSensorChart', [SensorController::class, 'getSensorChart']);
+    Route::get('/getSensor', [LocationDashboardController::class, 'getSensor']);
+    Route::get('/getDailyEnergyConsumption', [DashboardController::class, 'getDailyEnergyConsumption']);
+    Route::get('/getEnergyConsumptionPerBuilding', [DashboardController::class, 'getEnergyConsumptionPerBuilding']);
+    Route::get('/getEnergyConsumption', [DashboardController::class, 'getEnergyConsumption']);
+    Route::get('/getPower', [DashboardController::class, 'getPower']);
+    Route::get('/exportCSV', [DashboardController::class, 'exportCSV']);
 });
 
 require __DIR__ . '/auth.php';
